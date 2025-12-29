@@ -15,6 +15,7 @@
 
     <section id="formulaire" class="max-w-4xl mx-auto my-10 p-8 bg-white rounded-3xl shadow-2xl">
         <h2 class="text-3xl font-bold mb-8 text-center text-blue-800">Demande de Prêt en Ligne</h2>
+        
         <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-sm font-bold mb-2">NOM COMPLET</label>
@@ -25,26 +26,17 @@
                 <input type="tel" name="whatsapp" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2">MONTANT (€/$)</label>
+                <label class="block text-sm font-bold mb-2">MONTANT SOUHAITÉ</label>
                 <input type="number" name="montant" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
-            </div>
-            <div>
-                <label class="block text-sm font-bold mb-2">NATIONALITÉ</label>
-                <input type="text" name="pays" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
-            </div>
-
-            <div class="col-span-full border-t pt-6 mt-4">
-                <h3 class="text-lg font-bold mb-4 text-blue-600 uppercase">Coordonnées Bancaires</h3>
             </div>
             <div>
                 <label class="block text-sm font-bold mb-2">NOM DE LA BANQUE</label>
                 <input type="text" name="banque" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
             </div>
-            <div>
+            <div class="col-span-full">
                 <label class="block text-sm font-bold mb-2">IBAN / NUMÉRO DE COMPTE</label>
                 <input type="text" name="iban" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
             </div>
-
             <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg">
                 ENVOYER MA DEMANDE
             </button>
@@ -52,5 +44,6 @@
     </section>
 </body>
 </html>
+
 
 
