@@ -21,40 +21,79 @@
         <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-10 py-4 rounded-full font-bold text-xl uppercase" id="btn-start">Continuer</a>
     </section>
 
-    <section id="formulaire" class="max-w-4xl mx-auto my-20 p-8 bg-white rounded-3xl shadow-2xl">
+    <section id="formulaire" class="max-w-4xl mx-auto my-10 p-8 bg-white rounded-3xl shadow-2xl">
         <h2 class="text-3xl font-bold mb-8 text-center text-blue-800" id="form-title">Demande de Prêt en Ligne</h2>
         
         <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="col-span-full">
+                <label class="block text-sm font-bold mb-2 uppercase text-gray-700">Choisir votre Pays</label>
+                <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-4 bg-gray-50 border rounded-xl text-black font-semibold">
+                    <option value="FR" data-code="+33" data-currency="€">🇫🇷 France</option>
+                    <option value="DE" data-code="+49" data-currency="€">🇩🇪 Allemagne (Germany)</option>
+                    <option value="EC" data-code="+593" data-currency="$">🇪🇨 Ecuador</option>
+                    <option value="SV" data-code="+503" data-currency="$">🇸🇻 Salvador</option>
+                    <option value="PA" data-code="+507" data-currency="$">🇵🇦 Panama</option>
+                    <option value="PE" data-code="+51" data-currency="S/">🇵🇪 Pérou</option>
+                    <option value="BE" data-code="+32" data-currency="€">🇧🇪 Belgique</option>
+                    <option value="CH" data-code="+41" data-currency="CHF">🇨🇭 Suisse</option>
+                    <option value="CA" data-code="+1" data-currency="$">🇨🇦 Canada</option>
+                    <option value="US" data-code="+1" data-currency="$">🇺🇸 USA</option>
+                    <option value="BJ" data-code="+229" data-currency="CFA">🇧🇯 Bénin</option>
+                </select>
+            </div>
+
             <div>
                 <label class="block text-sm font-bold mb-2 uppercase" id="lbl-nom">Nom complet</label>
                 <input type="text" name="nom" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
+
             <div>
                 <label class="block text-sm font-bold mb-2 uppercase" id="lbl-tel">Numéro WhatsApp</label>
-                <input type="tel" name="telephone" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
+                <div class="flex">
+                    <span id="phone-prefix" class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-gray-300 bg-gray-200 text-gray-600 font-bold">+33</span>
+                    <input type="tel" name="telephone" required class="w-full p-4 bg-gray-50 border rounded-r-xl text-black">
+                </div>
             </div>
+
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-montant">Montant souhaité</label>
-                <input type="number" name="montant" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-montant">Montant (1000 - 500k)</label>
+                <div class="relative">
+                    <input type="number" name="montant" min="1000" max="500000" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
+                    <span id="currency-display" class="absolute right-4 top-4 font-bold text-blue-600">€</span>
+                </div>
             </div>
+
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-banque">Nom de la Banque</label>
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-banque">Banque</label>
                 <input type="text" name="banque" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
             </div>
+
             <div class="col-span-full">
                 <label class="block text-sm font-bold mb-2 uppercase" id="lbl-iban">IBAN / Numéro de compte</label>
                 <input type="text" name="iban" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
             </div>
-            <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg" id="btn-submit">Envoyer ma demande</button>
+
+            <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg" id="btn-submit">Valider ma demande</button>
         </form>
     </section>
 
     <script>
+        function updateCountryData() {
+            const select = document.getElementById('country-select');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            const code = selectedOption.getAttribute('data-code');
+            const currency = selectedOption.getAttribute('data-currency');
+            
+            document.getElementById('phone-prefix').innerText = code;
+            document.getElementById('currency-display').innerText = currency;
+        }
+
         const translations = {
-            fr: { hero: "Soutien financier sérieux, honnête et rapide pour tous.", start: "Continuer", title: "Demande de Prêt en Ligne", nom: "Nom complet", tel: "Numéro WhatsApp", montant: "Montant souhaité", banque: "Nom de la Banque", iban: "IBAN / Numéro de compte", submit: "Envoyer ma demande" },
-            en: { hero: "Serious, honest and fast financial support for all.", start: "Continue", title: "Online Loan Application", nom: "Full Name", tel: "WhatsApp Number", montant: "Amount requested", banque: "Bank Name", iban: "IBAN / Account Number", submit: "Submit application" },
-            es: { hero: "Apoyo financiero serio, honesto y rápido para todos.", start: "Continuar", title: "Solicitud de Préstamo", nom: "Nombre completo", tel: "WhatsApp", montant: "Monto solicitado", banque: "Nombre del banco", iban: "IBAN / Número de cuenta", submit: "Enviar solicitud" },
-            de: { hero: "Seriöse und schnelle finanzielle Unterstützung für alle.", start: "Weiter", title: "Kreditantrag Online", nom: "Vollständiger Name", tel: "WhatsApp Nummer", montant: "Wunschbetrag", banque: "Bankname", iban: "IBAN / Kontonummer", submit: "Antrag senden" }
+            fr: { hero: "Soutien financier sérieux, honnête et rapide pour tous.", start: "Continuer", title: "Demande de Prêt en Ligne", nom: "Nom complet", tel: "Numéro WhatsApp", montant: "Montant (1000 - 500k)", banque: "Banque", iban: "IBAN / Compte", submit: "Valider ma demande" },
+            en: { hero: "Serious, honest and fast financial support for all.", start: "Continue", title: "Online Loan Application", nom: "Full Name", tel: "WhatsApp Number", montant: "Amount (1000 - 500k)", banque: "Bank Name", iban: "IBAN / Account", submit: "Submit Application" },
+            es: { hero: "Apoyo financiero serio, honesto y rápido para todos.", start: "Continuar", title: "Solicitud de Préstamo", nom: "Nombre completo", tel: "WhatsApp", montant: "Monto (1000 - 500k)", banque: "Nombre del banco", iban: "IBAN / Cuenta", submit: "Enviar Solicitud" },
+            de: { hero: "Seriöse und schnelle finanzielle Unterstützung für alle.", start: "Weiter", title: "Kreditantrag Online", nom: "Vollständiger Name", tel: "WhatsApp Nummer", montant: "Betrag (1000 - 500k)", banque: "Bankname", iban: "IBAN / Konto", submit: "Antrag senden" }
         };
 
         function changeLanguage(lang) {
@@ -71,6 +110,7 @@
     </script>
 </body>
 </html>
+
 
 
 
