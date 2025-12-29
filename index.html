@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Aide | Solutions Financières Honnêtes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hidden { display: none; }
+        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+
+    <section id="step1" class="min-h-screen flex flex-col items-center justify-center text-center p-6 gradient-bg text-white">
+        <div class="bg-white/10 p-10 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
+            <h1 class="text-5xl font-extrabold mb-4">Global Aide</h1>
+            <p class="text-xl mb-8 opacity-90">Soutien financier sérieux, honnête et rapide pour tous.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <button onclick="selectLang('fr')" class="p-3 bg-white/20 rounded-xl hover:bg-white/40 transition">🇫🇷 Français</button>
+                <button onclick="selectLang('en')" class="p-3 bg-white/20 rounded-xl hover:bg-white/40 transition">🇺🇸 English</button>
+                <button onclick="selectLang('es')" class="p-3 bg-white/20 rounded-xl hover:bg-white/40 transition">🇪🇸 Español</button>
+                <button onclick="selectLang('de')" class="p-3 bg-white/20 rounded-xl hover:bg-white/40 transition">🇩🇪 Deutsch</button>
+            </div>
+
+            <div class="mb-10 text-left bg-white/5 p-4 rounded-lg">
+                <p class="text-sm italic"><i class="fas fa-info-circle mr-2"></i> "Nous offrons des prêts sérieux et honnêtes à toute personne ayant le besoin. Nos financements varient de <strong>2 000 à 500 000</strong>."</p>
+            </div>
+
+            <button onclick="goToStep(2)" class="bg-yellow-400 text-blue-900 px-12 py-4 rounded-full font-black text-xl hover:scale-105 transition-transform shadow-xl">
+                CONTINUER / CONTINUE
+            </button>
+        </div>
+    </section>
+
+    <section id="step2" class="hidden min-h-screen py-12 px-4 max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <h2 class="text-3xl font-bold text-blue-800 mb-2">Demande de Financement</h2>
+            <p class="text-gray-500 mb-8">Veuillez remplir honnêtement les informations suivantes.</p>
+
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="col-span-2 md:col-span-1">
+                    <label class="block text-sm font-bold mb-2 uppercase">Nom complet</label>
+                    <input type="text" id="userName" placeholder="Ex: Jean Dupont" class="w-full p-4 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+
+                <div class="col-span-2 md:col-span-1">
+                    <label class="block text-sm font-bold mb-2 uppercase">Nationalité</label>
+                    <select id="countrySelect" onchange="updatePhoneCode()" class="w-full p-4 bg-gray-50 border rounded-xl outline-none">
+                        <option value="">-- Choisir --</option>
+                        <option value="+33">France 🇫🇷</option>
+                        <option value="+507">Panama 🇵🇦</option>
+                        <option value="+593">Ecuador 🇪🇨</option>
+                        <option value="+503">Salvador 🇸🇻</option>
+                    </select>
+                </div>
+
+                <div class="col-span-2 md:col-span-1">
+                    <label class="block text-sm font-bold mb-2 uppercase">Numéro de Téléphone</label>
+                    <div class="flex">
+                        <span id="phoneCodeDisplay" class="bg-gray-200 p-4 rounded-l-xl font-bold border border-r-0">+--</span>
+                        <input type="tel" id="userPhone" class="flex-1 p-4 bg-gray-50 border rounded-r-xl outline-none" placeholder="000 000 000">
+                    </div>
+                </div>
+
+                <div class="col-span-2 md:col-span-1">
+                    <label class="block text-sm font-bold mb-2 uppercase">Montant souhaité (2 000 - 500 000)</label>
+                    <input type="number" id="loanAmount" min="2000" max="500000" class="w-full p-4 bg-gray-50 border rounded-xl outline-none" placeholder="Montant en devises">
+                </div>
+
+                <div class="col-span-2">
+                    <label class="block text-sm font-bold mb-2 uppercase">Type de Pièce d'identité</label>
+                    <select id="idType" class="w-full p-4 bg-gray-50 border rounded-xl outline-none">
+                        <option>Carte Nationale d'Identité</option>
+                        <option>Passeport International</option>
+                        <option>Permis de Conduire</option>
+                    </select>
+                </div>
+
+                <button type="button" onclick="goToStep(3)" class="col-span-2 bg-blue-600 text-white p-5 rounded-xl font-bold text-xl hover:bg-blue-700 transition shadow-lg">
+                    Envoyer ma demande pour vérification
+                </button>
+            </form>
+
+            <div class="mt-16 pt-8 border-t">
+                <h3 class="text-center text-xl font-bold mb-8 italic text-gray-600">Ils nous font confiance</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-xl text-sm">
+                        <p class="mb-2 italic text-gray-700">"Grâce à Global Aide, j'ai pu lancer mon petit commerce au Salvador. Processus honnête."</p>
+                        <p class="font-bold text-blue-800">- Maria L. 🇸🇻</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl text-sm">
+                        <p class="mb-2 italic text-gray-700">"Le virement de 10 000€ est arrivé en 48h. Un vrai soulagement pour ma famille."</p>
+                        <p class="font-bold text-blue-800">- Thomas B. 🇫🇷</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl text-sm">
+                        <p class="mb-2 italic text-gray-700">"Service transparent. J'ai reçu l'aide dont j'avais besoin sans frais cachés."</p>
+                        <p class="font-bold text-blue-800">- Carlos R. 🇵🇦</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="step3" class="hidden min-h-screen p-8">
+        <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-blue-100 overflow-hidden">
+            <div class="bg-blue-900 text-white p-6 flex justify-between items-center">
+                <h2 class="text-2xl font-bold">Panneau d'administration - Global Aide</h2>
+                <span class="bg-yellow-400 text-blue-900 px-3 py-1 rounded text-xs font-black uppercase">Sécurisé</span>
+            </div>
+            <div class="p-6">
+                <table class="w-full">
+                    <thead>
+                        <tr class="text-left text-gray-500 text-sm border-b">
+                            <th class="pb-4">Client</th>
+                            <th class="pb-4">Contact</th>
+                            <th class="pb-4">Montant</th>
+                            <th class="pb-4">Pièce</th>
+                            <th class="pb-4 text-right">Décision</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr>
+                            <td class="py-6 font-bold" id="resName">--</td>
+                            <td class="py-6 italic" id="resPhone">--</td>
+                            <td class="py-6 text-blue-600 font-black text-lg" id="resAmount">--</td>
+                            <td class="py-6 text-gray-600" id="resId">--</td>
+                            <td class="py-6 text-right space-x-2">
+                                <button onclick="alert('Client Approuvé')" class="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-bold hover:bg-green-200">VALIDER</button>
+                                <button onclick="alert('Client Rejeté')" class="bg-red-100 text-red-700 px-4 py-2 rounded-lg font-bold hover:bg-red-200">REJETER</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function goToStep(s) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById('step' + s).classList.remove('hidden');
+            if(s === 3) fillReview();
+        }
+
+        function updatePhoneCode() {
+            const code = document.getElementById('countrySelect').value;
+            document.getElementById('phoneCodeDisplay').innerText = code || "+--";
+        }
+
+        function fillReview() {
+            document.getElementById('resName').innerText = document.getElementById('userName').value || "Inconnu";
+            document.getElementById('resPhone').innerText = document.getElementById('countrySelect').value + " " + document.getElementById('userPhone').value;
+            document.getElementById('resAmount').innerText = document.getElementById('loanAmount').value + " USD";
+            document.getElementById('resId').innerText = document.getElementById('idType').value;
+        }
+
+        function selectLang(l) {
+            alert("Langue " + l + " appliquée.");
+        }
+    </script>
+</body>
+</html>
