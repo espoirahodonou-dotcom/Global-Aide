@@ -17,10 +17,10 @@
         <p class="text-xl mb-10 max-w-2xl opacity-90 leading-relaxed" id="hero-sub">Soutien financier sérieux, honnête et rapide pour tous vos projets.</p>
         
         <div class="flex flex-wrap justify-center gap-3 mb-10">
-            <button onclick="changeLanguage('fr')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all">🇫🇷 FR</button>
-            <button onclick="changeLanguage('en')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all">🇺🇸 EN</button>
-            <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all">🇪🇸 ES</button>
-            <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all">🇩🇪 DE</button>
+            <button onclick="changeLanguage('fr')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all font-medium">Français 🇫🇷</button>
+            <button onclick="changeLanguage('en')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all font-medium">English 🇺🇸</button>
+            <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all font-medium">Español 🇪🇸</button>
+            <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/30 px-5 py-2 rounded-full border border-white/20 transition-all font-medium">Deutsch 🇩🇪</button>
         </div>
         <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-12 py-5 rounded-full font-bold text-xl uppercase shadow-xl hover:bg-yellow-300 transition-transform hover:scale-105" id="btn-start">Commencer mon dossier</a>
     </section>
@@ -34,14 +34,14 @@
         <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
             <div class="col-span-full bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                <label class="block text-sm font-black mb-3 uppercase text-blue-800">1. Sélection de votre pays</label>
+                <label class="block text-sm font-black mb-3 uppercase text-blue-800" id="lbl-select-country">1. Sélection de votre pays</label>
                 <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-4 bg-white border border-slate-200 rounded-xl text-black font-bold outline-none focus:ring-4 focus:ring-blue-100">
-                    <option value="FR" data-code="+33" data-currency="€">🇫🇷 France</option>
-                    <option value="DE" data-code="+49" data-currency="€">🇩🇪 Allemagne</option>
-                    <option value="EC" data-code="+593" data-currency="$">🇪🇨 Ecuador</option>
-                    <option value="SV" data-code="+503" data-currency="$">🇸🇻 Salvador</option>
-                    <option value="PA" data-code="+507" data-currency="$">🇵🇦 Panama</option>
-                    <option value="PE" data-code="+51" data-currency="S/">🇵🇪 Pérou</option>
+                    <option value="France" data-code="+33" data-currency="€" id="opt-fr">🇫🇷 France</option>
+                    <option value="Allemagne" data-code="+49" data-currency="€" id="opt-de">🇩🇪 Allemagne</option>
+                    <option value="Ecuador" data-code="+593" data-currency="$" id="opt-ec">🇪🇨 Équateur</option>
+                    <option value="Salvador" data-code="+503" data-currency="$" id="opt-sv">🇸🇻 Salvador</option>
+                    <option value="Panama" data-code="+507" data-currency="$" id="opt-pa">🇵🇦 Panama</option>
+                    <option value="Peru" data-code="+51" data-currency="S/" id="opt-pe">🇵🇪 Pérou</option>
                 </select>
             </div>
 
@@ -51,14 +51,14 @@
             </div>
             <div>
                 <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-email">E-mail du client</label>
-                <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-xl focus:ring-4 focus:ring-blue-100 outline-none" placeholder="exemple@mail.com">
+                <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-xl focus:ring-4 focus:ring-blue-100 outline-none">
             </div>
 
             <div>
                 <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-tel">WhatsApp</label>
                 <div class="flex">
                     <span id="phone-prefix" class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-slate-200 bg-slate-200 text-slate-700 font-bold">+33</span>
-                    <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 border rounded-r-xl focus:ring-4 focus:ring-blue-100 outline-none">
+                    <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-r-xl focus:ring-4 focus:ring-blue-100 outline-none">
                 </div>
             </div>
 
@@ -94,10 +94,10 @@
         }
 
         const translations = {
-            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", nom: "Nom complet", email: "E-mail du client", tel: "WhatsApp", montant: "Montant souhaité", banque: "Banque", iban: "IBAN / Compte", submit: "Envoyer mon dossier" },
-            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", nom: "Full Name", email: "Client Email", tel: "WhatsApp", montant: "Amount", banque: "Bank Name", iban: "IBAN / Account", submit: "Send file" },
-            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", nom: "Nombre completo", email: "Correo del cliente", tel: "WhatsApp", montant: "Monto", banque: "Banco", iban: "IBAN / Cuenta", submit: "Enviar solicitud" },
-            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", nom: "Name", email: "E-Mail des Kunden", tel: "WhatsApp", montant: "Betrag", banque: "Bank", iban: "IBAN / Konto", submit: "Senden" }
+            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", selCountry: "1. Sélection de votre pays", countries: ["🇫🇷 France", "🇩🇪 Allemagne", "🇪🇨 Équateur", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Pérou"], nom: "Nom complet", email: "E-mail du client", tel: "WhatsApp", montant: "Montant souhaité", banque: "Banque", iban: "IBAN / Compte", submit: "Envoyer mon dossier" },
+            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", selCountry: "1. Select your country", countries: ["🇫🇷 France", "🇩🇪 Germany", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Full Name", email: "Client Email", tel: "WhatsApp", montant: "Amount", banque: "Bank Name", iban: "IBAN / Account", submit: "Send file" },
+            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", selCountry: "1. Selección de su país", countries: ["🇫🇷 Francia", "🇩🇪 Alemania", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panamá", "🇵🇪 Perú"], nom: "Nombre completo", email: "Correo del cliente", tel: "WhatsApp", montant: "Monto", banque: "Banco", iban: "IBAN / Cuenta", submit: "Enviar solicitud" },
+            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", selCountry: "1. Wählen Sie Ihr Land", countries: ["🇫🇷 Frankreich", "🇩🇪 Deutschland", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Name", email: "E-Mail", tel: "WhatsApp", montant: "Betrag", banque: "Bank", iban: "IBAN / Konto", submit: "Senden" }
         };
 
         function changeLanguage(lang) {
@@ -105,6 +105,7 @@
             document.getElementById('hero-sub').innerText = t.hero;
             document.getElementById('btn-start').innerText = t.start;
             document.getElementById('form-title').innerText = t.title;
+            document.getElementById('lbl-select-country').innerText = t.selCountry;
             document.getElementById('lbl-nom').innerText = t.nom;
             document.getElementById('lbl-email').innerText = t.email;
             document.getElementById('lbl-tel').innerText = t.tel;
@@ -112,12 +113,15 @@
             document.getElementById('lbl-banque').innerText = t.banque;
             document.getElementById('lbl-iban').innerText = t.iban;
             document.getElementById('btn-submit').innerHTML = `<i class="fas fa-paper-plane mr-2"></i> ${t.submit}`;
+            
+            document.getElementById('opt-fr').innerText = t.countries[0];
+            document.getElementById('opt-de').innerText = t.countries[1];
+            document.getElementById('opt-ec').innerText = t.countries[2];
+            document.getElementById('opt-sv').innerText = t.countries[3];
+            document.getElementById('opt-pa').innerText = t.countries[4];
+            document.getElementById('opt-pe').innerText = t.countries[5];
         }
     </script>
 </body>
-</html>
-
-
-
-
-
+                        </html>
+                    
