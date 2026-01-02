@@ -3,111 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Aide | Finance Pro</title>
+    <title>Global Aide | Finance 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .step { display: none; animation: fadeIn 0.5s ease-in-out; }
-        .step.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #d1d5db; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 3px solid white; }
+        .step { display: none; animation: fadeIn 0.4s ease-out; }
+        .step.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        .lang-btn.selected { border-color: #fbbf24; background: rgba(255,255,255,0.2); box-shadow: 0 0 15px rgba(251,191,36,0.4); }
+        .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #cbd5e1; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-900">
+<body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
 
-    <section id="step-lang" class="step active min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-700 text-white p-6">
-        <div class="text-center mb-12">
-            <i class="fas fa-globe text-6xl mb-6"></i>
-            <h1 class="text-4xl font-black mb-2 uppercase tracking-tighter">Global Aide</h1>
-            <p class="opacity-80">Choisissez votre langue pour commencer</p>
+    <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white p-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 backdrop-blur-lg border border-white/20">
+                <i class="fas fa-globe-americas text-4xl text-yellow-400"></i>
+            </div>
+            <h1 class="text-4xl font-black tracking-tighter uppercase">Global Aide</h1>
+            <p class="opacity-60 mt-2 font-medium">International Financial Solutions</p>
         </div>
-        <div class="grid grid-cols-2 gap-4 max-w-sm w-full">
-            <button onclick="goToStep(2, 'fr')" class="bg-white/10 hover:bg-white text-white hover:text-blue-900 p-4 rounded-2xl border border-white/20 font-bold transition-all">Français 🇫🇷</button>
-            <button onclick="goToStep(2, 'en')" class="bg-white/10 hover:bg-white text-white hover:text-blue-900 p-4 rounded-2xl border border-white/20 font-bold transition-all">English 🇺🇸</button>
-            <button onclick="goToStep(2, 'es')" class="bg-white/10 hover:bg-white text-white hover:text-blue-900 p-4 rounded-2xl border border-white/20 font-bold transition-all">Español 🇪🇸</button>
-            <button onclick="goToStep(2, 'de')" class="bg-white/10 hover:bg-white text-white hover:text-blue-900 p-4 rounded-2xl border border-white/20 font-bold transition-all">Deutsch 🇩🇪</button>
+
+        <div class="grid grid-cols-2 gap-4 max-w-sm w-full mb-8">
+            <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center" id="btn-fr">Français 🇫🇷</button>
+            <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center" id="btn-en">English 🇺🇸</button>
+            <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center" id="btn-es">Español 🇪🇸</button>
+            <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center" id="btn-de">Deutsch 🇩🇪</button>
         </div>
+
+        <button id="lang-continue" onclick="goToStep(2)" class="hidden w-full max-w-sm bg-yellow-400 text-blue-900 p-5 rounded-2xl font-black text-xl shadow-2xl animate-bounce">
+            CONTINUER <i class="fas fa-arrow-right ml-2"></i>
+        </button>
     </section>
 
-    <section id="step-sim" class="step min-h-screen p-4 md:p-8">
-        <nav class="max-w-5xl mx-auto flex justify-between items-center mb-10">
-            <div class="font-black text-2xl text-blue-700">GLOBAL AIDE</div>
-            <button onclick="goToStep(1)" class="text-sm font-bold text-slate-400 hover:text-blue-600"><i class="fas fa-arrow-left mr-2"></i>Changer langue</button>
-        </nav>
+    <section id="step-sim" class="step min-h-screen flex-col p-4 md:p-8">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="flex justify-between items-center mb-12">
+                <div class="font-black text-2xl text-blue-700 tracking-tighter">GLOBAL AIDE</div>
+                <button onclick="goToStep(1)" class="text-sm font-bold text-slate-400 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all">
+                    <i class="fas fa-language mr-2"></i>Langue / Language
+                </button>
+            </div>
 
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-black text-blue-900 mb-2 text-center" id="sim-title">Votre Simulation</h2>
-            <p class="text-center text-slate-500 mb-10" id="hero-sub">Taux fixe 3% - Premier paiement dans 3 mois</p>
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-black text-blue-900 mb-3" id="sim-title">Simulation de Prêt</h2>
+                <p class="text-slate-500 font-medium" id="hero-sub">Taux fixe 3% • Premier paiement dans 3 mois</p>
+            </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white p-8 rounded-[2.5rem] shadow-2xl border border-blue-50">
-                <div class="space-y-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white p-6 md:p-12 rounded-[3rem] shadow-2xl border border-blue-50">
+                <div class="space-y-12">
                     <div>
-                        <label class="block font-bold mb-4 flex justify-between">
+                        <div class="flex justify-between mb-4 font-black text-slate-700">
                             <span id="lbl-amt">Montant</span>
-                            <span class="text-blue-700 text-2xl font-black"><span id="range-val">5000</span> <span class="curr">€</span></span>
-                        </label>
+                            <span class="text-blue-700 text-3xl"><span id="range-val">5000</span> <span class="curr">€</span></span>
+                        </div>
                         <input type="range" min="1000" max="500000" step="1000" value="5000" class="slider" id="amountRange" oninput="calculateLoan()">
                     </div>
                     <div>
-                        <label class="block font-bold mb-4 flex justify-between">
+                        <div class="flex justify-between mb-4 font-black text-slate-700">
                             <span id="lbl-dur">Durée</span>
-                            <span class="text-blue-700 text-2xl font-black"><span id="year-val">3</span> <span id="lbl-years">Ans</span></span>
-                        </label>
+                            <span class="text-blue-700 text-3xl"><span id="year-val">3</span> <span id="lbl-years">Ans</span></span>
+                        </div>
                         <input type="range" min="2" max="30" step="1" value="3" class="slider" id="yearRange" oninput="calculateLoan()">
                     </div>
                 </div>
 
-                <div class="bg-slate-900 text-white p-8 rounded-[2rem] space-y-4">
-                    <div class="flex justify-between opacity-70"><span id="res-lbl-men">Mensualité :</span> <span id="res-monthly" class="text-green-400 font-black text-2xl">144 €</span></div>
-                    <div class="flex justify-between border-t border-white/10 pt-4"><span id="res-lbl-tot">Total à rembourser :</span> <span id="res-total" class="font-bold">5150 €</span></div>
-                    <button onclick="goToStep(3)" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-black uppercase mt-4 transition-all" id="btn-next">Continuer mon dossier</button>
+                <div class="bg-blue-900 text-white p-8 rounded-[2.5rem] shadow-inner space-y-6 flex flex-col justify-center">
+                    <div class="flex justify-between items-center opacity-80">
+                        <span id="res-lbl-men">Mensualité :</span> 
+                        <span id="res-monthly" class="text-3xl font-black text-green-400">144 €</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-white/10 pt-6">
+                        <span id="res-lbl-tot">Total à rembourser :</span> 
+                        <span id="res-total" class="text-xl font-bold">5150 €</span>
+                    </div>
+                    <button onclick="goToStep(3)" class="w-full bg-yellow-400 text-blue-900 py-5 rounded-2xl font-black uppercase text-lg shadow-xl hover:scale-[1.02] transition-all mt-4" id="btn-next">Suivant</button>
                 </div>
             </div>
 
-            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-blue-50 p-6 rounded-2xl"><p class="italic text-sm mb-4" id="t1-txt">"Génial ! Reçu mon prêt en 48h."</p><p class="font-bold text-blue-800 text-xs">Marc L. 🇫🇷</p></div>
-                <div class="bg-blue-50 p-6 rounded-2xl"><p class="italic text-sm mb-4" id="t2-txt">"Excelente servicio en Puerto Rico."</p><p class="font-bold text-blue-800 text-xs">Carlos R. 🇵🇷</p></div>
-                <div class="bg-blue-50 p-6 rounded-2xl"><p class="italic text-sm mb-4" id="t3-txt">"Muy confiable y honesto."</p><p class="font-bold text-blue-800 text-xs">Elena P. 🇪🇨</p></div>
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
+                    <p class="italic text-slate-600 text-sm mb-4" id="t1-txt">"Reçu mon prêt de 5000€ très rapidement pour mon commerce."</p>
+                    <div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-100 rounded-full"></div><span class="font-bold text-xs">Marc L. 🇫🇷</span></div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
+                    <p class="italic text-slate-600 text-sm mb-4" id="t2-txt">"El proceso fue muy sencillo desde Puerto Rico, gracias."</p>
+                    <div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-100 rounded-full"></div><span class="font-bold text-xs">Carlos R. 🇵🇷</span></div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-slate-100">
+                    <p class="italic text-slate-600 text-sm mb-4" id="t3-txt">"Un service honnête avec un taux vraiment bas."</p>
+                    <div class="flex items-center gap-3"><div class="w-8 h-8 bg-blue-100 rounded-full"></div><span class="font-bold text-xs">Elena P. 🇪🇨</span></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="step-form" class="step min-h-screen p-4 md:p-8 bg-white">
-        <div class="max-w-3xl mx-auto">
-            <button onclick="goToStep(2)" class="mb-8 text-blue-600 font-bold"><i class="fas fa-chevron-left mr-2"></i>Retour au simulateur</button>
-            <h2 class="text-3xl font-black text-blue-900 mb-8" id="form-title">Dernière étape : Vos informations</h2>
+    <section id="step-form" class="step min-h-screen flex-col p-4 md:p-8 bg-slate-100">
+        <div class="max-w-3xl mx-auto w-full">
+            <button onclick="goToStep(2)" class="mb-8 text-blue-700 font-black flex items-center gap-2">
+                <i class="fas fa-chevron-left"></i> <span id="btn-back">Retour</span>
+            </button>
             
-            <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 gap-6" id="loanForm">
-                <input type="hidden" name="Montant_Calcule" id="hidden-montant">
-                <input type="hidden" name="Duree_Ans" id="hidden-annees">
+            <div class="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl">
+                <h2 class="text-3xl font-black text-blue-900 mb-8" id="form-title">Informations de contact</h2>
                 
-                <div>
-                    <label class="block text-xs font-black uppercase text-slate-400 mb-2">Pays</label>
-                    <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-100 border-none rounded-xl font-bold">
-                        <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
-                        <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
-                        <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Équateur</option>
-                        <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
-                        <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
-                    </select>
-                </div>
+                <form action="https://formspree.io/f/xnjqwngo" method="POST" class="space-y-6" id="loanForm">
+                    <input type="hidden" name="Montant_Calcule" id="hidden-montant">
+                    <input type="hidden" name="Duree_Ans" id="hidden-annees">
+                    
+                    <div class="space-y-2">
+                        <label class="text-xs font-black uppercase text-slate-400 ml-2" id="lbl-pays">Pays de résidence</label>
+                        <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-2xl font-bold border-2 border-slate-50 outline-none focus:border-blue-500 transition-all">
+                            <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
+                            <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
+                            <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Équateur</option>
+                            <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
+                            <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
+                        </select>
+                    </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="text" name="Nom" placeholder="Nom Complet" required class="p-4 bg-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                    <input type="text" name="ID" placeholder="N° ID / Passeport" required class="p-4 bg-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" name="Nom" placeholder="Nom Complet" required class="p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                        <input type="text" name="ID" placeholder="N° Pièce d'identité" required class="p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                    </div>
 
-                <div class="flex gap-2">
-                    <span id="phone-prefix" class="p-4 bg-slate-200 rounded-xl font-bold text-slate-600">+33</span>
-                    <input type="tel" name="WhatsApp" placeholder="WhatsApp" required class="w-full p-4 bg-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
+                    <div class="flex gap-2">
+                        <span id="phone-prefix" class="p-4 bg-slate-200 rounded-2xl font-black text-slate-600">+33</span>
+                        <input type="tel" name="WhatsApp" placeholder="WhatsApp Number" required class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                    </div>
 
-                <input type="email" name="Email" placeholder="Votre Email" required class="p-4 bg-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                <textarea name="Banque_IBAN" placeholder="Banque et IBAN / Numéro de compte" required class="p-4 bg-slate-100 rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <input type="email" name="Email" placeholder="Email" required class="w-full p-4 bg-slate-50 rounded-2xl outline-none border-2 border-slate-50 focus:border-blue-500">
+                    
+                    <textarea name="Banque_Infos" placeholder="Nom de votre banque et IBAN / Numéro de compte" required class="w-full p-4 bg-blue-50 rounded-2xl h-32 outline-none border-2 border-blue-50 focus:border-blue-500"></textarea>
 
-                <button type="submit" class="bg-blue-700 text-white p-6 rounded-2xl font-black text-xl shadow-xl hover:bg-blue-800 transition-all" id="btn-submit">ENVOYER MA DEMANDE</button>
-            </form>
+                    <button type="submit" class="w-full bg-blue-700 text-white p-6 rounded-2xl font-black text-2xl shadow-xl hover:bg-blue-800 transition-all" id="btn-submit">ENVOYER LE DOSSIER</button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -115,13 +148,26 @@
         let currentLang = 'fr';
         let currentCurrency = '€';
 
-        function goToStep(stepNumber, lang) {
-            if(lang) {
-                currentLang = lang;
-                updateTranslations(lang);
-            }
+        function selectLang(lang, currency) {
+            currentLang = lang;
+            currentCurrency = currency;
+            
+            // UI Feedback
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected'));
+            document.getElementById('btn-' + lang).classList.add('selected');
+            
+            // Show and translate continue button
+            const contBtn = document.getElementById('lang-continue');
+            contBtn.classList.remove('hidden');
+            contBtn.innerHTML = translations[lang].cont + ' <i class="fas fa-arrow-right ml-2"></i>';
+            
+            updateTranslations(lang);
+        }
+
+        function goToStep(stepNumber) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.getElementById('step-' + (stepNumber === 1 ? 'lang' : stepNumber === 2 ? 'sim' : 'form')).classList.add('active');
+            const stepId = stepNumber === 1 ? 'step-lang' : stepNumber === 2 ? 'step-sim' : 'step-form';
+            document.getElementById(stepId).classList.add('active');
             window.scrollTo(0,0);
         }
 
@@ -131,8 +177,7 @@
             document.getElementById('range-val').innerText = new Intl.NumberFormat().format(amount);
             document.getElementById('year-val').innerText = years;
 
-            const interest = Math.round(amount * 0.03);
-            const total = parseInt(amount) + interest;
+            const total = Math.round(parseInt(amount) + (amount * 0.03));
             const monthly = Math.round(total / (years * 12));
 
             document.getElementById('res-total').innerText = new Intl.NumberFormat().format(total) + " " + currentCurrency;
@@ -140,6 +185,36 @@
             
             document.getElementById('hidden-montant').value = amount + " " + currentCurrency;
             document.getElementById('hidden-annees').value = years + " ans";
+        }
+
+        const translations = {
+            fr: { cont: "CONTINUER", sim: "Simulation de Prêt", sub: "Taux fixe 3% • Premier paiement dans 3 mois", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité :", tot: "Total :", next: "Suivant", fTitle: "Informations de contact", back: "Retour", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp." },
+            en: { cont: "CONTINUE", sim: "Loan Simulation", sub: "3% Fixed Rate • First payment in 3 months", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Contact Information", back: "Back", thanks: "Thank you! You will be contacted within 24h on WhatsApp." },
+            es: { cont: "CONTINUAR", sim: "Simulación de Préstamo", sub: "Tasa fija 3% • Primer pago en 3 meses", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Información de contacto", back: "Atrás", thanks: "¡Gracias! Contacto en 24h por WhatsApp." },
+            de: { cont: "WEITER", sim: "Kreditsimulation", sub: "3% Festzins • Erste Zahlung in 3 Monaten", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Kontaktinformationen", back: "Zurück", thanks: "Vielen Dank! Kontakt in 24h per WhatsApp." }
+        };
+
+        function updateTranslations(lang) {
+            const t = translations[lang];
+            document.getElementById('sim-title').innerText = t.sim;
+            document.getElementById('hero-sub').innerText = t.sub;
+            document.getElementById('lbl-amt').innerText = t.amt;
+            document.getElementById('lbl-dur').innerText = t.dur;
+            document.getElementById('lbl-years').innerText = t.yr;
+            document.getElementById('res-lbl-men').innerText = t.men;
+            document.getElementById('res-lbl-tot').innerText = t.tot;
+            document.getElementById('btn-next').innerText = t.next;
+            document.getElementById('form-title').innerText = t.fTitle;
+            document.getElementById('btn-back').innerText = t.back;
+            document.getElementById('loanForm').onsubmit = () => { alert(t.thanks); return true; };
+            
+            // Ajuster automatiquement le sélecteur de pays
+            const countrySelect = document.getElementById('country-select');
+            if(lang === 'es') countrySelect.value = "Porto Rico";
+            else if(lang === 'en') countrySelect.value = "Ecuador"; // Ou USA si tu avais mis
+            else countrySelect.value = "France";
+            
+            updateCountryData();
         }
 
         function updateCountryData() {
@@ -150,31 +225,10 @@
             document.querySelectorAll('.curr').forEach(el => el.innerText = currentCurrency);
             calculateLoan();
         }
-
-        const texts = {
-            fr: { sim: "Votre Simulation", sub: "Taux fixe 3% - Premier paiement dans 3 mois", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité :", tot: "Total :", btn: "Continuer mon dossier", fTitle: "Dernière étape", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp. Le paiement commence dans 3 mois." },
-            en: { sim: "Your Simulation", sub: "3% Fixed Rate - First payment in 3 months", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", btn: "Continue application", fTitle: "Last step", thanks: "Thank you! Contacted within 24h on WhatsApp. Repayment starts in 3 months." },
-            es: { sim: "Tu Simulación", sub: "Tasa fija 3% - Primer pago en 3 meses", amt: "Monto", dur: "Duración", yr: "Años", men: "Mensualidad:", tot: "Total:", btn: "Continuar solicitud", fTitle: "Último paso", thanks: "¡Gracias! Contacto en 24h por WhatsApp. El pago comienza en 3 meses." },
-            de: { sim: "Ihre Simulation", sub: "3% Festzins - Erste Zahlung in 3 Monaten", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", btn: "Antrag fortsetzen", fTitle: "Letzter Schritt", thanks: "Vielen Dank! Kontakt in 24h per WhatsApp. Rückzahlung beginnt in 3 Monaten." }
-        };
-
-        function updateTranslations(lang) {
-            const t = texts[lang];
-            document.getElementById('sim-title').innerText = t.sim;
-            document.getElementById('hero-sub').innerText = t.sub;
-            document.getElementById('lbl-amt').innerText = t.amt;
-            document.getElementById('lbl-dur').innerText = t.dur;
-            document.getElementById('lbl-years').innerText = t.yr;
-            document.getElementById('res-lbl-men').innerText = t.men;
-            document.getElementById('res-lbl-tot').innerText = t.tot;
-            document.getElementById('btn-next').innerText = t.btn;
-            document.getElementById('form-title').innerText = t.fTitle;
-            document.getElementById('loanForm').onsubmit = () => { alert(t.thanks); return true; };
-            calculateLoan();
-        }
     </script>
 </body>
-    </html>
+            </html>
+
 
     
     
