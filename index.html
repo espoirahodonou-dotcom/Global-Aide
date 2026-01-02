@@ -11,9 +11,8 @@
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Style pour le bouton sélectionné */
         .lang-btn.selected { 
-            border-color: #fbbf24; /* Jaune */
+            border-color: #fbbf24; 
             background-color: rgba(255,255,255,0.2); 
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(251,191,36,0.5);
@@ -21,6 +20,10 @@
         
         .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #cbd5e1; outline: none; }
         .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        /* Pour cacher les flèches du input number */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
@@ -36,18 +39,10 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-24">
-                <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-fr">
-                    <span class="text-2xl">🇫🇷</span> <span>Français</span>
-                </button>
-                <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-en">
-                    <span class="text-2xl">🇺🇸</span> <span>English</span>
-                </button>
-                <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-es">
-                    <span class="text-2xl">🇪🇸</span> <span>Español</span>
-                </button>
-                <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-de">
-                    <span class="text-2xl">🇩🇪</span> <span>Deutsch</span>
-                </button>
+                <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-fr"><span class="text-2xl">🇫🇷</span> <span>Français</span></button>
+                <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-en"><span class="text-2xl">🇺🇸</span> <span>English</span></button>
+                <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-es"><span class="text-2xl">🇪🇸</span> <span>Español</span></button>
+                <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl border-2 border-white/10 bg-white/5 font-bold transition-all text-center flex flex-col items-center gap-2" id="btn-de"><span class="text-2xl">🇩🇪</span> <span>Deutsch</span></button>
             </div>
         </div>
 
@@ -62,9 +57,7 @@
         <div class="max-w-5xl mx-auto w-full">
             <div class="flex justify-between items-center mb-8">
                 <div class="font-black text-xl text-blue-700 tracking-tighter">GLOBAL AIDE</div>
-                <button onclick="goToStep(1)" class="text-sm font-bold text-slate-400 flex items-center">
-                    <i class="fas fa-chevron-left mr-1"></i> Langue
-                </button>
+                <button onclick="goToStep(1)" class="text-sm font-bold text-slate-400 flex items-center"><i class="fas fa-chevron-left mr-1"></i> Langue</button>
             </div>
 
             <div class="text-center mb-8">
@@ -74,12 +67,16 @@
 
             <div class="bg-white p-6 rounded-[2rem] shadow-xl border border-blue-50 mb-8">
                 <div class="mb-8">
-                    <div class="flex justify-between mb-2 font-black text-slate-700">
-                        <span id="lbl-amt">Montant</span>
-                        <span class="text-blue-700 text-2xl"><span id="range-val">5000</span> <span class="curr">€</span></span>
+                    <div class="flex justify-between items-end mb-4 font-black text-slate-700">
+                        <span id="lbl-amt" class="mb-2">Montant</span>
+                        <div class="flex items-center border-b-2 border-blue-200 focus-within:border-blue-700 transition-colors">
+                            <input type="number" id="amountInput" value="5000" min="1000" max="500000" oninput="syncInputs('number')" class="text-3xl font-black text-blue-700 w-32 text-right bg-transparent outline-none">
+                            <span class="curr text-3xl font-black text-blue-700 ml-1">€</span>
+                        </div>
                     </div>
-                    <input type="range" min="1000" max="500000" step="1000" value="5000" class="slider" id="amountRange" oninput="calculateLoan()">
+                    <input type="range" min="1000" max="500000" step="1000" value="5000" class="slider" id="amountRange" oninput="syncInputs('range')">
                 </div>
+
                 <div class="mb-8">
                     <div class="flex justify-between mb-2 font-black text-slate-700">
                         <span id="lbl-dur">Durée</span>
@@ -106,19 +103,13 @@
                     <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">ML</div>
                     <div><p class="italic text-slate-600 text-xs mb-1">"Rapide et sérieux. Fonds reçus en 48h."</p><span class="font-bold text-xs text-blue-800">Marc L. 🇫🇷</span></div>
                 </div>
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-4">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">CR</div>
-                    <div><p class="italic text-slate-600 text-xs mb-1">"Excelente servicio desde Puerto Rico."</p><span class="font-bold text-xs text-blue-800">Carlos R. 🇵🇷</span></div>
-                </div>
             </div>
         </div>
     </section>
 
     <section id="step-form" class="step min-h-screen flex-col p-4 bg-slate-100">
         <div class="max-w-3xl mx-auto w-full">
-            <button onclick="goToStep(2)" class="mb-6 text-blue-700 font-bold flex items-center gap-2">
-                <i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span>
-            </button>
+            <button onclick="goToStep(2)" class="mb-6 text-blue-700 font-bold flex items-center gap-2"><i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span></button>
             
             <div class="bg-white p-6 rounded-[2rem] shadow-xl">
                 <h2 class="text-2xl font-black text-blue-900 mb-6" id="form-title">Contact</h2>
@@ -128,176 +119,151 @@
                     <input type="hidden" name="Duree_Annees" id="hidden-annees">
                     
                     <div>
-                        <label class="text-xs font-bold uppercase text-slate-400 ml-2">Pays / Country</label>
+                        <label class="text-xs font-bold uppercase text-slate-400 ml-2" id="lbl-pays">Pays</label>
                         <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-xl font-bold border border-slate-200">
                             <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
                             <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
+                            <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
                             <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Ecuador</option>
                             <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
                             <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
                         </select>
                     </div>
 
-                    <input type="text" name="Nom" placeholder="Nom Complet / Full Name" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <input type="text" name="ID" placeholder="N° ID / Passport" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <input type="text" id="input-nom" name="Nom" placeholder="Nom Complet" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <input type="text" id="input-id" name="ID" placeholder="N° ID / Passeport" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
                     
                     <div class="flex gap-2">
                         <span id="phone-prefix" class="p-4 bg-slate-200 rounded-xl font-bold text-slate-600">+33</span>
-                        <input type="tel" name="WhatsApp" placeholder="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <input type="tel" id="input-wa" name="WhatsApp" placeholder="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
                     </div>
 
-                    <input type="email" name="Email" placeholder="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <textarea name="Banque" placeholder="Banque & IBAN / Account Number" required class="w-full p-4 bg-slate-50 rounded-xl h-24 border border-slate-200"></textarea>
+                    <input type="email" id="input-email" name="Email" placeholder="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <textarea id="input-bank" name="Banque" placeholder="Banque & IBAN" required class="w-full p-4 bg-slate-50 rounded-xl h-24 border border-slate-200"></textarea>
 
-                    <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-xl font-black text-xl shadow-lg hover:bg-blue-800 transition-all mt-4" id="btn-submit">ENVOYER / SEND</button>
+                    <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-xl font-black text-xl shadow-lg hover:bg-blue-800 transition-all mt-4" id="btn-submit">ENVOYER</button>
+                    
+                    <div class="text-center mt-4 text-xs text-slate-400 flex justify-center items-center gap-2">
+                        <i class="fas fa-lock text-green-500"></i> SSL Secure Connection • 256-bit Encryption
+                    </div>
                 </form>
             </div>
         </div>
     </section>
 
     <script>
-        // Variables globales
         let currentLang = 'fr';
         let currentCurrency = '€';
 
-        // Dictionnaire de traduction sécurisé
+        // Système de synchronisation (Slider <-> Input Number)
+        function syncInputs(source) {
+            const range = document.getElementById('amountRange');
+            const number = document.getElementById('amountInput');
+
+            if (source === 'range') {
+                number.value = range.value;
+            } else {
+                range.value = number.value;
+            }
+            calculateLoan();
+        }
+
         const translations = {
-            fr: { cont: "CONTINUER", sim: "Simulation", sub: "Taux fixe 3% • Différé 3 mois", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité :", tot: "Total :", next: "Suivant", fTitle: "Informations", back: "Retour", submit: "ENVOYER LE DOSSIER", thanks: "Merci ! Contact sous 24h sur WhatsApp." },
-            en: { cont: "CONTINUE", sim: "Loan Check", sub: "3% Fixed Rate • 3 Months Delay", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Information", back: "Back", submit: "SEND REQUEST", thanks: "Thank you! Contact within 24h on WhatsApp." },
-            es: { cont: "CONTINUAR", sim: "Simulación", sub: "Tasa fija 3% • Pago en 3 meses", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Información", back: "Atrás", submit: "ENVIAR SOLICITUD", thanks: "¡Gracias! Contacto en 24h por WhatsApp." },
-            de: { cont: "WEITER", sim: "Kreditrechner", sub: "3% Zins • 3 Monate Aufschub", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Informationen", back: "Zurück", submit: "ANTRAG SENDEN", thanks: "Danke! Kontakt in 24h per WhatsApp." }
+            fr: { 
+                cont: "CONTINUER", sim: "Simulation", sub: "Taux fixe 3% • Différé 3 mois", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité :", tot: "Total :", next: "Suivant", fTitle: "Informations", back: "Retour", submit: "ENVOYER LE DOSSIER", pays: "Pays",
+                pl_nom: "Nom Complet", pl_id: "N° Passeport / CNI", pl_wa: "Numéro WhatsApp", pl_email: "Votre Email", pl_bank: "Nom Banque & IBAN", thanks: "Reçu ! Un agent vous contactera sur WhatsApp."
+            },
+            en: { 
+                cont: "CONTINUE", sim: "Loan Check", sub: "3% Fixed Rate • 3 Months Delay", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly:", tot: "Total:", next: "Next", fTitle: "Information", back: "Back", submit: "SEND REQUEST", pays: "Country",
+                pl_nom: "Full Name", pl_id: "Passport ID", pl_wa: "WhatsApp Number", pl_email: "Your Email", pl_bank: "Bank Name & Account Number", thanks: "Received! Agent will contact you on WhatsApp."
+            },
+            es: { 
+                cont: "CONTINUAR", sim: "Simulación", sub: "Tasa fija 3% • Pago en 3 meses", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad:", tot: "Total:", next: "Siguiente", fTitle: "Información", back: "Atrás", submit: "ENVIAR SOLICITUD", pays: "País",
+                pl_nom: "Nombre Completo", pl_id: "N° Pasaporte / DNI", pl_wa: "Número WhatsApp", pl_email: "Su Correo", pl_bank: "Banco y Número de Cuenta", thanks: "¡Recibido! Le contactaremos por WhatsApp."
+            },
+            de: { 
+                cont: "WEITER", sim: "Kreditrechner", sub: "3% Zins • 3 Monate Aufschub", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich:", tot: "Gesamt:", next: "Weiter", fTitle: "Informationen", back: "Zurück", submit: "ANTRAG SENDEN", pays: "Land",
+                pl_nom: "Vollständiger Name", pl_id: "Reisepass Nr.", pl_wa: "WhatsApp Nummer", pl_email: "Ihr Email", pl_bank: "Bank & IBAN", thanks: "Empfangen! Kontakt über WhatsApp."
+            }
         };
 
-        // Fonction de sélection de langue
         function selectLang(lang, currency) {
-            console.log("Langue sélectionnée : " + lang); // Pour debug
             currentLang = lang;
             currentCurrency = currency;
-
-            // 1. Mise à jour visuelle des boutons (Bordure jaune)
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('selected'));
-            const selectedBtn = document.getElementById('btn-' + lang);
-            if(selectedBtn) selectedBtn.classList.add('selected');
-
-            // 2. Affichage du bouton Continuer
-            const continueBtn = document.getElementById('lang-continue');
+            document.getElementById('btn-' + lang).classList.add('selected');
+            
             const btnText = document.getElementById('btn-text');
+            if(btnText) btnText.innerText = translations[lang].cont;
+            document.getElementById('lang-continue').classList.remove('hidden');
             
-            // On s'assure que la traduction existe, sinon on met "CONTINUER" par défaut
-            const text = translations[lang] ? translations[lang].cont : "CONTINUER";
-            
-            if(btnText) btnText.innerText = text;
-            if(continueBtn) continueBtn.classList.remove('hidden'); // On force l'affichage
-
-            // 3. Appliquer les traductions immédiatement
             updateContent(lang);
         }
 
-        // Fonction de navigation entre les pages
         function goToStep(stepNumber) {
-            // Masquer toutes les étapes
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            
-            // Afficher la bonne étape
-            let stepId = 'step-lang';
-            if(stepNumber === 2) stepId = 'step-sim';
-            if(stepNumber === 3) stepId = 'step-form';
-            
+            const stepId = stepNumber === 1 ? 'step-lang' : stepNumber === 2 ? 'step-sim' : 'step-form';
             document.getElementById(stepId).classList.add('active');
-            
-            // Remonter en haut de page
             window.scrollTo(0,0);
         }
 
-        // Fonction de mise à jour des textes
         function updateContent(lang) {
             const t = translations[lang];
-            if(!t) return; // Sécurité
+            
+            // Textes basiques
+            const safeSetText = (id, text) => { const el = document.getElementById(id); if(el) el.innerText = text; };
+            safeSetText('sim-title', t.sim); safeSetText('hero-sub', t.sub); safeSetText('lbl-amt', t.amt);
+            safeSetText('lbl-dur', t.dur); safeSetText('lbl-years', t.yr); safeSetText('res-lbl-men', t.men);
+            safeSetText('res-lbl-tot', t.tot); safeSetText('btn-next', t.next); safeSetText('form-title', t.fTitle);
+            safeSetText('btn-back', t.back); safeSetText('btn-submit', t.submit); safeSetText('lbl-pays', t.pays);
 
-            // Mise à jour sécurisée (vérifie si l'élément existe avant de changer le texte)
-            const safeSetText = (id, text) => {
-                const el = document.getElementById(id);
-                if(el) el.innerText = text;
-            };
+            // Traduction des placeholders (Textes gris dans les cases)
+            document.getElementById('input-nom').placeholder = t.pl_nom;
+            document.getElementById('input-id').placeholder = t.pl_id;
+            document.getElementById('input-wa').placeholder = t.pl_wa;
+            document.getElementById('input-email').placeholder = t.pl_email;
+            document.getElementById('input-bank').placeholder = t.pl_bank;
 
-            safeSetText('sim-title', t.sim);
-            safeSetText('hero-sub', t.sub);
-            safeSetText('lbl-amt', t.amt);
-            safeSetText('lbl-dur', t.dur);
-            safeSetText('lbl-years', t.yr);
-            safeSetText('res-lbl-men', t.men);
-            safeSetText('res-lbl-tot', t.tot);
-            safeSetText('btn-next', t.next);
-            safeSetText('form-title', t.fTitle);
-            safeSetText('btn-back', t.back);
-            safeSetText('btn-submit', t.submit);
+            document.getElementById('loanForm').onsubmit = function() { alert(t.thanks); return true; };
 
-            // Mise à jour du formulaire et alert
-            const form = document.getElementById('loanForm');
-            if(form) {
-                form.onsubmit = function() { 
-                    alert(t.thanks); 
-                    return true; 
-                };
-            }
-
-            // Pré-sélectionner le pays intelligemment
             const countrySelect = document.getElementById('country-select');
-            if(countrySelect) {
-                if(lang === 'es') countrySelect.value = "Porto Rico";
-                else if(lang === 'en') countrySelect.value = "USA";
-                else countrySelect.value = "France";
-                updateCountryData();
-            }
+            if(lang === 'es') countrySelect.value = "Porto Rico"; 
+            else if(lang === 'en') countrySelect.value = "USA"; 
+            else countrySelect.value = "France";
+            updateCountryData();
         }
 
-        // Fonction de calcul du prêt
         function calculateLoan() {
-            const amountInput = document.getElementById('amountRange');
-            const yearInput = document.getElementById('yearRange');
+            const amount = parseInt(document.getElementById('amountInput').value); // On prend la valeur de l'input numérique
+            const years = parseInt(document.getElementById('yearRange').value);
             
-            if(!amountInput || !yearInput) return;
-
-            const amount = parseInt(amountInput.value);
-            const years = parseInt(yearInput.value);
-
-            document.getElementById('range-val').innerText = new Intl.NumberFormat().format(amount);
             document.getElementById('year-val').innerText = years;
 
-            // Calcul 3%
             const total = Math.round(amount + (amount * 0.03));
             const monthly = Math.round(total / (years * 12));
 
-            // Affichage
             document.getElementById('res-total').innerText = new Intl.NumberFormat().format(total) + " " + currentCurrency;
             document.getElementById('res-monthly').innerText = new Intl.NumberFormat().format(monthly) + " " + currentCurrency;
             
-            // Champs cachés pour l'email
             document.getElementById('hidden-montant').value = amount + " " + currentCurrency;
             document.getElementById('hidden-annees').value = years + " ans";
             
-            // Mise à jour des symboles monétaires
             document.querySelectorAll('.curr').forEach(el => el.innerText = currentCurrency);
         }
 
-        // Mise à jour des infos pays (Téléphone et devise)
         function updateCountryData() {
             const select = document.getElementById('country-select');
-            if(!select) return;
-            
             const opt = select.options[select.selectedIndex];
             document.getElementById('phone-prefix').innerText = opt.getAttribute('data-code');
             currentCurrency = opt.getAttribute('data-curr');
             calculateLoan();
         }
 
-        // Initialisation au chargement
-        window.onload = function() {
-            calculateLoan();
-        };
+        window.onload = function() { calculateLoan(); };
     </script>
 </body>
                             </html>
+                            
     
     
     
