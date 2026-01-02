@@ -3,220 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Aide | Solutions Financières Internationales</title>
+    <title>Global Aide | Finance Internationale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .dark { background-color: #0f172a; color: white; }
         .dark .bg-white { background-color: #1e293b; color: white; border-color: #334155; }
         .dark .text-blue-900, .dark .text-blue-700 { color: #60a5fa; }
-        .dark .bg-slate-50, .dark .bg-blue-50\/30 { background-color: #334155; }
-        .dark .text-slate-500 { color: #94a3b8; }
+        .dark .bg-slate-50 { background-color: #334155; }
         input { color: black !important; }
+        .slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 5px; background: #d1d5db; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body class="bg-slate-100 font-sans text-slate-900 transition-colors duration-300" id="body">
+<body class="bg-slate-50 font-sans text-slate-900 transition-colors duration-300" id="body">
 
     <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
         <div class="font-black text-3xl tracking-tighter text-blue-700 flex items-center gap-2">
             <i class="fas fa-globe"></i> GLOBAL AIDE
         </div>
-        <button onclick="toggleDarkMode()" class="p-3 rounded-xl bg-white shadow-sm dark:bg-slate-800 transition-all hover:scale-110">
+        <button onclick="toggleDarkMode()" class="p-3 rounded-xl bg-white shadow-md dark:bg-slate-800 transition-all hover:scale-110">
             <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:inline text-yellow-400"></i>
         </button>
     </nav>
 
-    <section class="min-h-[50vh] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-blue-900 to-blue-700 text-white text-center shadow-2xl rounded-b-[3rem]">
-        <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight">Global Aide</h1>
-        <p class="text-xl md:text-2xl mb-10 max-w-3xl opacity-90 font-light" id="hero-sub">Soutien financier sérieux, honnête et rapide pour tous vos projets internationaux.</p>
-        
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-            <button onclick="changeLanguage('fr')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Français 🇫🇷</button>
-            <button onclick="changeLanguage('en')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">English 🇺🇸</button>
-            <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Español 🇪🇸</button>
-            <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-2xl border border-white/20 backdrop-blur-md transition-all font-bold">Deutsch 🇩🇪</button>
+    <section class="min-h-[35vh] flex flex-col items-center justify-center p-6 bg-gradient-to-br from-blue-900 to-blue-700 text-white text-center rounded-b-[3rem] shadow-2xl">
+        <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">Prêt Flexible à 3%</h1>
+        <p class="text-xl opacity-90 mb-8 max-w-2xl" id="hero-sub">De 1 000 à 500 000 • Remboursement sur 2 à 30 ans • Différé de 3 mois.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+            <button onclick="changeLanguage('fr')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/20 font-bold transition-all">FR 🇫🇷</button>
+            <button onclick="changeLanguage('en')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/20 font-bold transition-all">EN 🇺🇸</button>
+            <button onclick="changeLanguage('es')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/20 font-bold transition-all">ES 🇪🇸</button>
+            <button onclick="changeLanguage('de')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/20 font-bold transition-all">DE 🇩🇪</button>
         </div>
-        <a href="#formulaire" class="bg-yellow-400 text-blue-900 px-14 py-5 rounded-full font-black text-xl uppercase shadow-xl hover:scale-105 transition-all" id="btn-start">Commencer mon dossier</a>
     </section>
 
-    <section id="formulaire" class="max-w-6xl mx-auto -mt-16 mb-20 p-8 md:p-16 bg-white rounded-[3rem] shadow-2xl border border-gray-100">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-black text-blue-900 mb-4" id="form-title">Demande de Prêt Sécurisée</h2>
-            <p class="text-slate-500 font-medium" id="security-text"><i class="fas fa-shield-alt mr-2"></i>Vos données sont protégées par un cryptage de niveau bancaire.</p>
-        </div>
+    <section class="max-w-5xl mx-auto -mt-12 p-8 md:p-12 bg-white rounded-[2.5rem] shadow-2xl border border-blue-50 relative z-10">
+        <h3 class="text-2xl font-black text-blue-900 mb-8 uppercase text-center tracking-wide" id="sim-title">Simulateur de Prêt Personnalisé</h3>
         
-        <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-10" id="loanForm">
-            <div class="col-span-full bg-slate-50 p-8 rounded-3xl border border-slate-100">
-                <label class="block text-sm font-black mb-4 uppercase text-blue-800" id="lbl-select-country">1. Sélection de votre pays</label>
-                <select id="country-select" name="pays" onchange="updateCountryData()" class="w-full p-5 bg-white border-2 border-slate-100 rounded-2xl text-black font-bold outline-none focus:border-blue-500 transition-all shadow-sm">
-                    <option value="France" data-code="+33" data-currency="€" id="opt-fr">🇫🇷 France</option>
-                    <option value="Allemagne" data-code="+49" data-currency="€" id="opt-de">🇩🇪 Allemagne</option>
-                    <option value="Ecuador" data-code="+593" data-currency="$" id="opt-ec">🇪🇨 Équateur</option>
-                    <option value="Salvador" data-code="+503" data-currency="$" id="opt-sv">🇸🇻 Salvador</option>
-                    <option value="Panama" data-code="+507" data-currency="$" id="opt-pa">🇵🇦 Panama</option>
-                    <option value="Peru" data-code="+51" data-currency="S/" id="opt-pe">🇵🇪 Pérou</option>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-10">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-4 flex justify-between">
+                        <span id="lbl-amt">Montant souhaité</span>
+                        <span class="text-blue-700 text-2xl font-black"><span id="range-val">5000</span> <span class="curr">€</span></span>
+                    </label>
+                    <input type="range" min="1000" max="500000" step="500" value="5000" class="slider" id="amountRange" oninput="calculateLoan()">
+                    <div class="flex justify-between text-xs text-slate-400 mt-2 font-bold"><span>1 000 <span class="curr">€</span></span><span>500 000 <span class="curr">€</span></span></div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-4 flex justify-between">
+                        <span id="lbl-dur">Durée de remboursement</span>
+                        <span class="text-blue-700 text-2xl font-black"><span id="year-val">3</span> <span id="lbl-years">Ans</span></span>
+                    </label>
+                    <input type="range" min="2" max="30" step="1" value="3" class="slider" id="yearRange" oninput="calculateLoan()">
+                    <div class="flex justify-between text-xs text-slate-400 mt-2 font-bold"><span>2 Ans</span><span>30 Ans</span></div>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex items-center gap-4">
+                    <div class="bg-blue-600 text-white p-3 rounded-xl"><i class="fas fa-gift"></i></div>
+                    <p class="text-sm text-blue-800 font-bold leading-tight" id="defer-msg">Différé : Le remboursement ne commence que 3 mois après la réception.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 text-white p-8 rounded-[2rem] shadow-xl space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-calculator text-6xl"></i></div>
+                <div class="flex justify-between items-center">
+                    <span class="opacity-70" id="res-lbl-int">Intérêts (3%):</span> 
+                    <span class="font-bold text-xl text-yellow-400" id="res-interest">150 €</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="opacity-70" id="res-lbl-tot">Total à rembourser:</span> 
+                    <span class="font-bold text-xl text-yellow-400" id="res-total">5150 €</span>
+                </div>
+                <div class="border-t border-white/20 pt-6">
+                    <span class="block text-sm opacity-70 mb-1" id="res-lbl-men">Mensualité estimée:</span>
+                    <span class="text-4xl font-black text-green-400" id="res-monthly">144 €</span>
+                </div>
+                <a href="#formulaire" class="block text-center bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-black transition-all uppercase tracking-widest mt-4">Valider ce montant</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="formulaire" class="max-w-5xl mx-auto my-20 p-8 md:p-16 bg-white rounded-[3rem] shadow-2xl">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-black text-blue-900 mb-4" id="form-title">Dossier de Demande</h2>
+            <p class="text-slate-500 font-medium">Informations strictement confidentielles et sécurisées.</p>
+        </div>
+
+        <form action="https://formspree.io/f/xnjqwngo" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-8" id="loanForm">
+            <input type="hidden" name="Montant_Souhaite" id="hidden-montant">
+            <input type="hidden" name="Duree_Annees" id="hidden-annees">
+            <input type="hidden" name="Mensualite_Calculee" id="hidden-mensualite">
+
+            <div class="col-span-full">
+                <label class="block text-xs font-black uppercase text-slate-400 mb-2">Sélectionnez votre Pays</label>
+                <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold focus:border-blue-500 outline-none">
+                    <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
+                    <option value="Allemagne" data-code="+49" data-curr="€">🇩🇪 Allemagne</option>
+                    <option value="Ecuador" data-code="+593" data-curr="$">🇪🇨 Équateur</option>
+                    <option value="Salvador" data-code="+503" data-curr="$">🇸🇻 Salvador</option>
+                    <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
+                    <option value="Peru" data-code="+51" data-curr="S/">🇵🇪 Pérou</option>
                 </select>
             </div>
 
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-nom">Nom complet</label>
-                <input type="text" name="nom" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none text-black">
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-id">N° de Pièce d'identité / Passeport</label>
-                <input type="text" name="piece_identite" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none text-black">
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-email">E-mail de contact</label>
-                <input type="email" name="email_client" required class="w-full p-4 bg-slate-50 border rounded-2xl focus:bg-white outline-none text-black">
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-tel">Numéro WhatsApp</label>
-                <div class="flex shadow-inner rounded-2xl overflow-hidden">
-                    <span id="phone-prefix" class="inline-flex items-center px-5 bg-slate-200 text-slate-700 font-bold border-r border-slate-300">+33</span>
-                    <input type="tel" name="telephone" required class="w-full p-4 bg-slate-50 outline-none text-black">
-                </div>
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-montant">Montant souhaité</label>
-                <div class="relative shadow-inner rounded-2xl overflow-hidden">
-                    <input type="number" name="montant" min="1000" max="500000" required class="w-full p-4 bg-slate-50 outline-none text-black">
-                    <span id="currency-display" class="absolute right-5 top-4 font-black text-blue-600">€</span>
-                </div>
-            </div>
-            <div>
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-banque">Institution Bancaire</label>
-                <input type="text" name="banque" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none text-black">
-            </div>
-            <div class="col-span-full">
-                <label class="block text-xs font-black mb-2 uppercase text-slate-500" id="lbl-iban">IBAN / Numéro de compte international</label>
-                <input type="text" name="iban" required class="w-full p-4 bg-blue-50/30 border rounded-2xl focus:bg-white outline-none text-black">
-            </div>
-
-            <button type="submit" class="col-span-full bg-blue-700 text-white p-7 rounded-3xl font-black text-2xl hover:bg-blue-800 shadow-2xl transition-all" id="btn-submit">
-                ENVOYER MON DOSSIER
-            </button>
+            <div><label class="block text-xs font-black mb-2 uppercase text-slate-400" id="lbl-nom">Nom Complet</label><input type="text" name="Nom" required class="w-full p-4 bg-slate-50 border rounded-xl"></div>
+            <div><label class="block text-xs font-black mb-2 uppercase text-slate-400" id="lbl-id">N° ID / Passeport</label><input type="text" name="ID_Passeport" required class="w-full p-4 bg-slate-50 border rounded-xl"></div>
+            <div><label class="block text-xs font-black mb-2 uppercase text-slate-400">WhatsApp</label><div class="flex"><span id="phone-prefix" class="p-4 bg-slate-200 rounded-l-xl font-bold">+33</span><input type="tel" name="WhatsApp" required class="w-full p-4 bg-slate-50 border rounded-r-xl"></div></div>
+            <div><label class="block text-xs font-black mb-2 uppercase text-slate-400">Email</label><input type="email" name="Email" required class="w-full p-4 bg-slate-50 border rounded-xl"></div>
+            <div class="col-span-full"><label class="block text-xs font-black mb-2 uppercase text-slate-400">Banque & IBAN</label><input type="text" name="Infos_Bancaires" required class="w-full p-4 bg-blue-50 border-blue-100 border rounded-xl" placeholder="Nom de votre banque et numéro de compte / IBAN"></div>
+            
+            <button type="submit" class="col-span-full bg-blue-700 text-white p-6 rounded-2xl font-black text-2xl hover:bg-blue-800 shadow-xl transition-all transform hover:-translate-y-1" id="btn-submit">ENVOYER MON DOSSIER</button>
         </form>
     </section>
 
-    <section class="max-w-6xl mx-auto mb-24 px-6">
-        <h3 class="text-center text-3xl font-black text-blue-900 mb-16 uppercase tracking-widest" id="test-title">Témoignages Clients</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonial-container">
-            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
-                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
-                <p class="relative z-10 text-slate-600 italic" id="txt-test1">...</p>
-                <div class="mt-8 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold" id="avatar-1">ID</div>
-                    <div><p class="font-bold" id="name-test1">...</p><p class="text-xs text-blue-500" id="flag-test1">...</p></div>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
-                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
-                <p class="relative z-10 text-slate-600 italic" id="txt-test2">...</p>
-                <div class="mt-8 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold" id="avatar-2">ID</div>
-                    <div><p class="font-bold" id="name-test2">...</p><p class="text-xs text-blue-500" id="flag-test2">...</p></div>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-blue-50 relative">
-                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 left-6"></i>
-                <p class="relative z-10 text-slate-600 italic" id="txt-test3">...</p>
-                <div class="mt-8 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold" id="avatar-3">ID</div>
-                    <div><p class="font-bold" id="name-test3">...</p><p class="text-xs text-blue-500" id="flag-test3">...</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-blue-900 text-white py-12 px-6 rounded-t-[3rem] text-center">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-2xl font-black mb-6">GLOBAL AIDE</div>
-            <p class="opacity-60 text-sm mb-8">© 2025 Global Aide Financial Solutions. Tous droits réservés.</p>
-        </div>
+    <footer class="bg-blue-900 text-white py-12 text-center rounded-t-[3rem] font-black tracking-widest uppercase opacity-90">
+        Global Aide &copy; 2025 - Finance Solidaire
     </footer>
 
     <script>
-        function toggleDarkMode() { document.getElementById('body').classList.toggle('dark'); }
+        let currentCurrency = "€";
+
+        function calculateLoan() {
+            const amount = document.getElementById('amountRange').value;
+            const years = document.getElementById('yearRange').value;
+            
+            document.getElementById('range-val').innerText = new Intl.NumberFormat().format(amount);
+            document.getElementById('year-val').innerText = years;
+
+            // Calcul : Intérêt 3% sur le montant total
+            const interest = Math.round(amount * 0.03);
+            const total = parseInt(amount) + interest;
+            const months = years * 12;
+            const monthly = Math.round(total / months);
+
+            document.getElementById('res-interest').innerText = new Intl.NumberFormat().format(interest) + " " + currentCurrency;
+            document.getElementById('res-total').innerText = new Intl.NumberFormat().format(total) + " " + currentCurrency;
+            document.getElementById('res-monthly').innerText = new Intl.NumberFormat().format(monthly) + " " + currentCurrency;
+
+            // Mise à jour des champs cachés pour Formspree
+            document.getElementById('hidden-montant').value = amount + " " + currentCurrency;
+            document.getElementById('hidden-annees').value = years + " Ans";
+            document.getElementById('hidden-mensualite').value = monthly + " " + currentCurrency + " / mois";
+        }
 
         function updateCountryData() {
             const select = document.getElementById('country-select');
             const opt = select.options[select.selectedIndex];
             document.getElementById('phone-prefix').innerText = opt.getAttribute('data-code');
-            document.getElementById('currency-display').innerText = opt.getAttribute('data-currency');
+            currentCurrency = opt.getAttribute('data-curr');
+            const curElems = document.querySelectorAll('.curr');
+            curElems.forEach(el => el.innerText = currentCurrency);
+            calculateLoan();
         }
 
-        const translations = {
-            fr: { hero: "Soutien financier sérieux, honnête et rapide.", start: "Commencer mon dossier", title: "Demande de Prêt Sécurisée", security: "Vos données sont protégées par un cryptage de niveau bancaire.", selCountry: "1. Sélection de votre pays", countries: ["🇫🇷 France", "🇩🇪 Allemagne", "🇪🇨 Équateur", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Pérou"], nom: "Nom complet", id: "N° Pièce d'identité / Passeport", email: "E-mail de contact", tel: "WhatsApp", montant: "Montant souhaité", banque: "Institution Bancaire", iban: "IBAN / Compte", submit: "Envoyer mon dossier", thanks: "Merci ! Vous serez contacté d'ici 24h sur WhatsApp.", testTitle: "Témoignages Clients" },
-            en: { hero: "Serious, honest and fast financial support.", start: "Start application", title: "Secure Loan Request", security: "Your data is protected by bank-level encryption.", selCountry: "1. Select your country", countries: ["🇫🇷 France", "🇩🇪 Germany", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Full Name", id: "ID / Passport Number", email: "Contact Email", tel: "WhatsApp", montant: "Amount", banque: "Banking Institution", iban: "IBAN / Account", submit: "Send file", thanks: "Thank you! You will be contacted within 24h on WhatsApp.", testTitle: "Client Testimonials" },
-            es: { hero: "Apoyo financiero serio, honesto y rápido.", start: "Iniciar solicitud", title: "Solicitud de Préstamo", security: "Sus datos están protegidos con seguridad bancaria.", selCountry: "1. Selección de su país", countries: ["🇫🇷 Francia", "🇩🇪 Alemania", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panamá", "🇵🇪 Perú"], nom: "Nombre completo", id: "N° de Identificación / Pasaporte", email: "Correo de contacto", tel: "WhatsApp", montant: "Monto", banque: "Institución Bancaria", iban: "IBAN / Cuenta", submit: "Enviar solicitud", thanks: "¡Gracias! Se le contactará en 24h por WhatsApp.", testTitle: "Testimonios de Clientes" },
-            de: { hero: "Seriöse und schnelle finanzielle Unterstützung.", start: "Antrag starten", title: "Sicherer Kreditantrag", security: "Bankgeprüfte Datensicherheit.", selCountry: "1. Wählen Sie Ihr Land", countries: ["🇫🇷 Frankreich", "🇩🇪 Deutschland", "🇪🇨 Ecuador", "🇸🇻 Salvador", "🇵🇦 Panama", "🇵🇪 Peru"], nom: "Name", id: "Ausweisnummer / Reisepass", email: "E-Mail", tel: "WhatsApp", montant: "Betrag", banque: "Bankinstitut", iban: "IBAN / Konto", submit: "Senden", thanks: "Vielen Dank! Wir melden uns in 24h per WhatsApp.", testTitle: "Kundenbewertungen" }
-        };
+        function toggleDarkMode() { document.getElementById('body').classList.toggle('dark'); }
 
-        const testimonialData = {
-            fr: [
-                {n: "Jean-Pierre L.", p: "🇫🇷 France", t: "Service exceptionnel. Fonds reçus en 48h."},
-                {n: "Lucie M.", t: "🇨🇦 Canada", p: "Simple, rapide et efficace. Merci Global Aide !"},
-                {n: "Marc O.", t: "🇧🇪 Belgique", p: "Très sérieux, je recommande pour vos projets."}
-            ],
-            en: [
-                {n: "Robert D.", p: "🇺🇸 USA", t: "Exceptional service. Funds received in 48h."},
-                {n: "Sarah J.", p: "🇬🇧 UK", t: "Very reliable. Transparent team and fast process."},
-                {n: "Kevin W.", p: "🇨🇦 Canada", t: "Best rates for my personal loan."}
-            ],
-            es: [
-                {n: "Maria S.", p: "🇪🇨 Ecuador", t: "Muy confiable. El proceso fue transparente."},
-                {n: "Carlos R.", p: "🇵🇦 Panama", t: "Excelente servicio, el dinero llegó a tiempo."},
-                {n: "Ana G.", p: "🇵🇪 Perú", t: "Gracias a Global Aide por financiar mi negocio."}
-            ],
-            de: [
-                {n: "Hans B.", p: "🇩🇪 Deutschland", t: "Außergewöhnlicher Service. Geld in 48h."},
-                {n: "Klaus M.", p: "🇦🇹 Österreich", t: "Sehr professionell und vertrauenswürdig."},
-                {n: "Julia S.", p: "🇨🇭 Schweiz", t: "Beste Zinsen für meinen Kredit."}
-            ]
+        const translations = {
+            fr: { hero: "Prêt de 1 000 à 500 000 • Durée 2 à 30 ans • Taux 3%", sim: "Simulateur de Prêt Personnalisé", amt: "Montant souhaité", dur: "Durée de remboursement", years: "Ans", defer: "Différé : Le remboursement ne commence que 3 mois après la réception.", resInt: "Intérêts (3%):", resTot: "Total à rembourser:", resMen: "Mensualité estimée:", submit: "ENVOYER MON DOSSIER", thanks: "Félicitations ! Votre demande a été envoyée. Un expert vous contactera sur WhatsApp sous 24h. Votre remboursement commencera 3 mois après réception des fonds." },
+            en: { hero: "Loan from 1,000 to 500,000 • Duration 2 to 30 years • Rate 3%", sim: "Personalized Loan Simulator", amt: "Desired Amount", dur: "Repayment Period", years: "Years", defer: "Delay: Repayment only starts 3 months after reception.", resInt: "Interest (3%):", resTot: "Total to repay:", resMen: "Estimated Monthly:", submit: "SEND MY DOSSIER", thanks: "Congratulations! Your request has been sent. An expert will contact you on WhatsApp within 24h. Repayment starts 3 months after receiving funds." },
+            es: { hero: "Préstamo de 1,000 a 500,000 • Duración 2 a 30 años • Tasa 3%", sim: "Simulador de Préstamo Personalizado", amt: "Monto deseado", dur: "Plazo de reembolso", years: "Años", defer: "Cortesía: El pago comienza 3 meses después de la recepción.", resInt: "Interés (3%):", resTot: "Total a devolver:", resMen: "Mensualidad estimada:", submit: "ENVIAR MI SOLICITUD", thanks: "¡Felicidades! Su solicitud ha sido enviada. Un experto le contactará por WhatsApp en 24h. El pago comienza 3 meses después." },
+            de: { hero: "Kredit von 1.000 bis 500.000 • Dauer 2 bis 30 Jahre • 3% Zinsen", sim: "Individueller Kreditrechner", amt: "Wunschbetrag", dur: "Laufzeit", years: "Jahre", defer: "Bonus: Die Rückzahlung beginnt erst 3 Monate nach Erhalt.", resInt: "Zinsen (3%):", resTot: "Gesamtbetrag:", resMen: "Geschätzte Rate:", submit: "ANTRAG SENDEN", thanks: "Herzlichen Glückwunsch! Ihr Antrag wurde gesendet. Ein Experte wird Sie innerhalb von 24 Stunden per WhatsApp kontaktieren. Die Rückzahlung beginnt 3 Monate nach Erhalt." }
         };
 
         function changeLanguage(lang) {
             const t = translations[lang];
             document.getElementById('hero-sub').innerText = t.hero;
-            document.getElementById('btn-start').innerText = t.start;
-            document.getElementById('form-title').innerText = t.title;
-            document.getElementById('security-text').innerHTML = `<i class="fas fa-shield-alt mr-2"></i>${t.security}`;
-            document.getElementById('lbl-select-country').innerText = t.selCountry;
-            document.getElementById('lbl-nom').innerText = t.nom;
-            document.getElementById('lbl-id').innerText = t.id;
-            document.getElementById('lbl-email').innerText = t.email;
-            document.getElementById('lbl-tel').innerText = t.tel;
-            document.getElementById('lbl-montant').innerText = t.montant;
-            document.getElementById('lbl-banque').innerText = t.banque;
-            document.getElementById('lbl-iban').innerText = t.iban;
+            document.getElementById('sim-title').innerText = t.sim;
+            document.getElementById('lbl-amt').innerText = t.amt;
+            document.getElementById('lbl-dur').innerText = t.dur;
+            document.getElementById('lbl-years').innerText = t.years;
+            document.getElementById('defer-msg').innerText = t.defer;
+            document.getElementById('res-lbl-int').innerText = t.resInt;
+            document.getElementById('res-lbl-tot').innerText = t.resTot;
+            document.getElementById('res-lbl-men').innerText = t.resMen;
             document.getElementById('btn-submit').innerText = t.submit;
-            document.getElementById('test-title').innerText = t.testTitle;
-
-            // Update Testimonials Dynamically
-            const tests = testimonialData[lang];
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById(`txt-test${i}`).innerText = `"${tests[i-1].t}"`;
-                document.getElementById(`name-test${i}`).innerText = tests[i-1].n;
-                document.getElementById(`flag-test${i}`).innerText = tests[i-1].p;
-                document.getElementById(`avatar-${i}`).innerText = tests[i-1].n.substring(0,2);
-            }
-
-            document.getElementById('loanForm').onsubmit = function() {
-                alert(t.thanks);
-                return true;
-            };
-
-            const ids = ['opt-fr', 'opt-de', 'opt-ec', 'opt-sv', 'opt-pa', 'opt-pe'];
-            ids.forEach((id, index) => { document.getElementById(id).innerText = t.countries[index]; });
+            document.getElementById('loanForm').onsubmit = () => { alert(t.thanks); return true; };
+            calculateLoan();
         }
 
-        // Initialize with French
-        window.onload = () => { changeLanguage('fr'); };
+        window.onload = () => { calculateLoan(); };
     </script>
 </body>
-</html>
-
+    </html>
+    
     
         
                     
