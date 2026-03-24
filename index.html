@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -85,8 +85,8 @@
                         <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="5000" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
                     <div>
-                        <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase"><span id="lbl-dur">Durée</span><span class="text-blue-700 text-lg"><span id="val-dur">2</span> <span id="lbl-years">Ans</span></span></div>
-                        <input type="range" id="yearRange" min="1" max="30" step="1" value="2" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
+                        <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase"><span id="lbl-dur">Durée</span><span class="text-blue-700 text-lg"><span id="val-dur">1</span> <span id="lbl-years">Ans</span></span></div>
+                        <input type="range" id="yearRange" min="1" max="30" step="1" value="1" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                     <div class="flex justify-between items-center mb-3"><span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-200">Mensualité</span><span id="res-monthly" class="text-2xl font-black">...</span></div>
                     <div class="flex justify-between items-center border-t border-blue-800 pt-3"><span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-200">Total à rembourser</span><span id="res-total" class="font-bold">...</span></div>
                 </div>
-                <button onclick="goToStep(3)" class="btn-elite w-full py-5 rounded-full font-black mt-8 uppercase text-sm">Passer au dossier</button>
+                <button onclick="goToStep(3)" id="btn-next" class="btn-elite w-full py-5 rounded-full font-black mt-8 uppercase text-sm">Passer au dossier</button>
             </div>
         </div>
     </section>
@@ -107,6 +107,7 @@
                     <input type="hidden" name="PRÊT_MONTANT" id="h-m">
                     <input type="hidden" name="PRÊT_DURÉE" id="h-d">
                     <input type="hidden" name="DEVISE" id="h-c">
+                    <input type="hidden" name="BIOMETRIE" id="h-auth" value="Non validé">
                     
                     <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
                     
@@ -127,7 +128,7 @@
                         <p id="status-text" class="text-[10px] font-bold mt-4 text-blue-600 uppercase h-4"></p>
                     </div>
 
-                    <button type="submit" class="btn-elite w-full py-6 rounded-full font-black uppercase text-sm mt-4">Confirmer l'inscription</button>
+                    <button type="submit" id="btn-submit" class="btn-elite w-full py-6 rounded-full font-black uppercase text-sm mt-4">Confirmer l'inscription</button>
                 </form>
             </div>
         </div>
@@ -136,15 +137,17 @@
     <script>
         let cL = 'fr', cC = '€';
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", nav: "AVIS", fTitle: "DOSSIER", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plNom: "Nom complet", plEmail: "Email", plPays: "Votre Pays", plWa: "WhatsApp", plRev: "Revenus", tests: [{n:"Marc L.", t:"Crédit reçu en 48h"}, {n:"Sonia K.", t:"Taux 3% génial"}] },
-            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", nav: "REVIEWS", fTitle: "FILE", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plNom: "Full Name", plEmail: "Email", plPays: "Country", plWa: "WhatsApp", plRev: "Income", tests: [{n:"John D.", t:"Very fast service"}, {n:"Sarah W.", t:"Highly recommend"}] },
-            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total", nav: "AVISOS", fTitle: "EXPEDIENTE", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "CONFIRMADO", plNom: "Nombre", plEmail: "Email", plPays: "País", plWa: "WhatsApp", plRev: "Ingresos", tests: [{n:"Carlos P.", t:"Muy confiable"}, {n:"Lucia R.", t:"Excelente tasa"}] }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", nav: "AVIS", fTitle: "DOSSIER", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plNom: "Nom complet", plEmail: "Email", plPays: "Pays", plWa: "WhatsApp", plRev: "Revenus", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription", tests: [{n:"Marc L.", t:"Crédit reçu en 48h"}, {n:"Sonia K.", t:"Taux 3% génial"}] },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", nav: "REVIEWS", fTitle: "FILE", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plNom: "Full Name", plEmail: "Email", plPays: "Country", plWa: "WhatsApp", plRev: "Income", btnNext: "Go to application", btnSubmit: "Confirm registration", tests: [{n:"John D.", t:"Very fast service"}, {n:"Sarah W.", t:"Highly recommend"}] },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total", nav: "AVISOS", fTitle: "EXPEDIENTE", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "CONFIRMADO", plNom: "Nombre", plEmail: "Email", plPays: "País", plWa: "WhatsApp", plRev: "Ingresos", btnNext: "Pasar al expediente", btnSubmit: "Confirmar inscripción", tests: [{n:"Carlos P.", t:"Muy confiable"}, {n:"Lucia R.", t:"Excelente tasa"}] },
+            de: { cont: "WEITER", sim: "Simulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt", nav: "BEWERTUNGEN", fTitle: "DATEI", scan: "BIOMETRIE", scanWait: "SCANNEN...", scanOk: "BESTÄTIGT", plNom: "Vollständiger Name", plEmail: "E-Mail", plPays: "Land", plWa: "WhatsApp", plRev: "Einkommen", btnNext: "Zur Akte gehen", btnSubmit: "Registrierung bestätigen", tests: [{n:"Hans W.", t:"Sehr schnell"}, {n:"Anna M.", t:"Perfekt"}] }
         };
 
         function selectLang(l, c) {
             cL = l; cC = c;
             document.querySelectorAll('.lang-card').forEach(b => b.classList.remove('selected'));
-            document.getElementById('btn-' + l).classList.add('selected');
+            const activeBtn = document.getElementById('btn-' + l);
+            if(activeBtn) activeBtn.classList.add('selected');
             updateUI();
         }
 
@@ -183,6 +186,10 @@
             document.getElementById('form-title').innerText = t.fTitle;
             document.getElementById('lbl-scan').innerText = t.scan;
             
+            /* Traduction des boutons manquants */
+            document.getElementById('btn-next').innerText = t.btnNext;
+            document.getElementById('btn-submit').innerText = t.btnSubmit;
+            
             document.getElementById('i-nom').placeholder = t.plNom;
             document.getElementById('i-email').placeholder = t.plEmail;
             document.getElementById('i-pais').placeholder = t.plPays;
@@ -205,11 +212,18 @@
             const laser = document.getElementById('laser-line');
             const status = document.getElementById('status-text');
             const icon = document.getElementById('finger-icon');
-            const sound = document.getElementById('scanSound');
             
             laser.classList.remove('hidden');
             status.innerText = tr[cL].scanWait;
             icon.classList.add('text-blue-500', 'animate-pulse');
+
+            // Sécurisation de l'audio pour éviter les plantages sur mobile
+            try {
+                const sound = document.getElementById('scanSound');
+                if(sound) sound.play();
+            } catch(e) {
+                console.log("Audio bloqué par le navigateur");
+            }
 
             setTimeout(() => {
                 laser.classList.add('hidden');
@@ -217,8 +231,12 @@
                 status.classList.add('text-green-600');
                 icon.classList.replace('text-slate-300', 'text-green-500');
                 icon.classList.remove('animate-pulse');
-                if(sound) sound.play();
-                if(navigator.vibrate) navigator.vibrate(50);
+                
+                document.getElementById('h-auth').value = "Validé par Biométrie";
+                
+                try {
+                    if(navigator.vibrate) navigator.vibrate(50);
+                } catch(e) {}
             }, 2500);
         }
 
