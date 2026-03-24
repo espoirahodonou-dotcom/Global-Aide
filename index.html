@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,148 +7,151 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background-color: #1a1d21; color: #ffffff; }
+        :root { --primary: #1d4ed8; }
+        body { background-color: #F8FAFC; color: #1e293b; }
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Cartes de langue style Dark */
-        .lang-btn { background: #24292e; border: 2px solid transparent; transition: all 0.3s; cursor: pointer; }
-        .lang-btn.selected { border-color: #3b82f6; background: #2d333b; transform: scale(1.05); box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+        /* Design Pro Blanc & Ombre */
+        .glass-card { background: white; border-radius: 32px; border: 1px solid #e2e8f0; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        .btn-elite { background: var(--primary); color: white; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3); }
+        .btn-elite:active { transform: scale(0.95); }
         
-        /* Bouton Continuer */
-        .btn-main { background: #1d4ed8; transition: all 0.2s; box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4); }
-        .btn-main:active { transform: scale(0.96); }
+        .lang-card { border: 2px solid transparent; background: white; transition: all 0.2s; cursor: pointer; }
+        .lang-card.selected { border-color: var(--primary); background: #eff6ff; transform: scale(1.02); }
 
         /* Animation Scan */
-        #laser-line { position: absolute; left: 0; width: 100%; height: 3px; background: #3b82f6; box-shadow: 0 0 15px #3b82f6; animation: scanAnimate 2s linear infinite; }
+        #laser-line { position: absolute; left: 0; width: 100%; height: 3px; background: var(--primary); box-shadow: 0 0 15px var(--primary); animation: scanAnimate 2s linear infinite; }
         @keyframes scanAnimate { 0%, 100% { top: 15%; } 50% { top: 85%; } }
 
-        /* Scroll Témoignages */
-        .scroll-parent { width: 100%; overflow: hidden; background: #24292e; padding: 12px 0; border-radius: 20px; }
-        .scroll-child { display: flex; width: max-content; animation: scroll 30s linear infinite; }
+        /* Scroll Avis */
+        .scroll-parent { width: 100%; overflow: hidden; background: #f1f5f9; padding: 12px 0; border-radius: 20px; }
+        .scroll-child { display: flex; width: max-content; animation: scroll 35s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        .slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 10px; background: #374151; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #3b82f6; cursor: pointer; border: 4px solid #1f2937; }
+        input::placeholder { color: #94a3b8; }
     </style>
 </head>
-<body class="font-sans overflow-x-hidden">
+<body class="font-sans">
 
     <audio id="scanSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
 
-    <nav class="p-5 flex justify-between items-center border-b border-gray-800 bg-[#1a1d21]/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">G</div>
-            <div class="font-black text-white uppercase tracking-tighter">Global Aide</div>
+    <nav class="p-4 flex justify-between items-center bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">G</div>
+            <div class="font-black text-blue-900 uppercase tracking-tighter">Global Aide</div>
         </div>
-        <button class="bg-[#24292e] text-[10px] font-bold text-gray-400 px-4 py-2 rounded-lg border border-gray-700">
+        <div class="bg-slate-50 text-[10px] font-bold text-slate-500 px-4 py-2 rounded-lg border border-slate-200">
             <i class="fas fa-certificate text-yellow-500 mr-1"></i> <span id="nav-testi">AVIS</span>
-        </button>
+        </div>
     </nav>
 
-    <section id="step-lang" class="step active min-h-[80vh] flex-col items-center justify-center p-6 text-center">
-        <div class="mb-14">
-            <h1 class="text-5xl font-black text-white mb-3 tracking-tighter italic uppercase">GLOBAL EVOLUTION</h1>
-            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.4em]">Smart Finance Solutions 2026</p>
+    <section id="step-lang" class="step active min-h-[85vh] flex-col items-center justify-center p-6">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black text-blue-900 mb-2 italic uppercase">GLOBAL EVOLUTION</h1>
+            <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">Smart Finance Solutions 2026</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-12">
-            <button onclick="selectLang('fr')" class="lang-btn p-8 rounded-[2rem] flex flex-col items-center gap-3" id="btn-fr">
-                <span class="text-4xl">🇫🇷</span><span class="font-bold text-[10px] text-gray-300">FRANÇAIS</span>
-            </button>
-            <button onclick="selectLang('en')" class="lang-btn p-8 rounded-[2rem] flex flex-col items-center gap-3" id="btn-en">
-                <span class="text-4xl">🇺🇸</span><span class="font-bold text-[10px] text-gray-300">ENGLISH</span>
-            </button>
-            <button onclick="selectLang('es')" class="lang-btn p-8 rounded-[2rem] flex flex-col items-center gap-3" id="btn-es">
-                <span class="text-4xl">🇪🇸</span><span class="font-bold text-[10px] text-gray-300">ESPAÑOL</span>
-            </button>
-            <button onclick="selectLang('de')" class="lang-btn p-8 rounded-[2rem] flex flex-col items-center gap-3" id="btn-de">
-                <span class="text-4xl">🇩🇪</span><span class="font-bold text-[10px] text-gray-300">DEUTSCH</span>
-            </button>
+        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-10">
+            <div onclick="selectLang('fr', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-fr">
+                <span class="text-3xl">🇫🇷</span><span class="font-bold text-[10px] text-slate-600 uppercase">Français</span>
+            </div>
+            <div onclick="selectLang('en', '$')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-en">
+                <span class="text-3xl">🇺🇸</span><span class="font-bold text-[10px] text-slate-600 uppercase">English</span>
+            </div>
+            <div onclick="selectLang('es', '$')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-es">
+                <span class="text-3xl">🇪🇸</span><span class="font-bold text-[10px] text-slate-600 uppercase">Español</span>
+            </div>
+            <div onclick="selectLang('de', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-de">
+                <span class="text-3xl">🇩🇪</span><span class="font-bold text-[10px] text-slate-600 uppercase">Deutsch</span>
+            </div>
         </div>
 
-        <button onclick="goToStep(2)" class="btn-main w-full max-w-sm py-6 rounded-full font-black text-white flex items-center justify-center gap-4">
+        <button onclick="goToStep(2)" class="btn-elite w-full max-w-sm py-6 rounded-full font-black flex items-center justify-center gap-4">
             <span id="btn-cont-text">CONTINUER</span> <i class="fas fa-arrow-right"></i>
         </button>
     </section>
 
-    <section id="step-sim" class="step min-h-screen flex-col p-4 bg-[#1a1d21]">
-        <div class="max-w-xl mx-auto w-full">
+    <section id="step-sim" class="step min-h-screen flex-col p-4">
+        <div class="max-w-xl mx-auto w-full pt-4">
             <div class="scroll-parent mb-8"><div class="scroll-child" id="mini-testi-scroll"></div></div>
 
-            <div class="bg-[#24292e] p-8 rounded-[2.5rem] border border-gray-800 shadow-2xl">
-                <h2 class="text-xl font-black mb-10 text-center uppercase tracking-widest text-blue-400" id="sim-title">Simulateur</h2>
-                
-                <div class="space-y-10">
+            <div class="glass-card p-8">
+                <h2 class="text-xl font-black text-blue-900 mb-8 text-center uppercase tracking-widest" id="sim-title">Simulateur</h2>
+                <div class="space-y-8">
                     <div>
-                        <div class="flex justify-between mb-4"><span id="lbl-amt" class="text-xs font-bold text-gray-500 uppercase">Montant</span><span class="text-blue-400 font-black"><span id="val-amt">5000</span> <span class="curr">€</span></span></div>
-                        <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="5000" oninput="updateSim()" class="slider">
+                        <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase"><span id="lbl-amt">Montant</span><span class="text-blue-700 text-lg"><span id="val-amt">5000</span> <span class="curr">€</span></span></div>
+                        <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="5000" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
                     <div>
-                        <div class="flex justify-between mb-4"><span id="lbl-dur" class="text-xs font-bold text-gray-500 uppercase">Durée</span><span class="text-blue-400 font-black"><span id="val-dur">2</span> <span id="lbl-years">Ans</span></span></div>
-                        <input type="range" id="yearRange" min="1" max="30" step="1" value="2" oninput="updateSim()" class="slider">
+                        <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase"><span id="lbl-dur">Durée</span><span class="text-blue-700 text-lg"><span id="val-dur">2</span> <span id="lbl-years">Ans</span></span></div>
+                        <input type="range" id="yearRange" min="1" max="30" step="1" value="2" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
                 </div>
 
-                <div class="mt-10 bg-[#1a1d21] p-6 rounded-3xl border border-gray-800">
-                    <div class="flex justify-between items-center mb-4"><span id="res-lbl-men" class="text-[10px] text-gray-500 font-bold uppercase">Mensualité</span><span id="res-monthly" class="text-2xl font-black text-white">...</span></div>
-                    <div class="flex justify-between items-center"><span id="res-lbl-tot" class="text-[10px] text-gray-500 font-bold uppercase">Total</span><span id="res-total" class="font-bold text-blue-500">...</span></div>
+                <div class="mt-10 bg-blue-900 p-6 rounded-3xl text-white shadow-xl">
+                    <div class="flex justify-between items-center mb-3"><span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-200">Mensualité</span><span id="res-monthly" class="text-2xl font-black">...</span></div>
+                    <div class="flex justify-between items-center border-t border-blue-800 pt-3"><span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-200">Total à rembourser</span><span id="res-total" class="font-bold">...</span></div>
                 </div>
-                
-                <button onclick="goToStep(3)" class="btn-main w-full py-5 rounded-full font-black mt-8 uppercase tracking-widest text-sm">Suivant</button>
+                <button onclick="goToStep(3)" class="btn-elite w-full py-5 rounded-full font-black mt-8 uppercase text-sm">Passer au dossier</button>
             </div>
         </div>
     </section>
 
     <section id="step-form" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full pb-20">
-            <div class="bg-[#24292e] p-8 rounded-[3rem] border border-gray-800 shadow-2xl">
-                <form action="https://formspree.io/f/0f51a6e2-1eec-4545-9d6a-8cddc84a8f80" method="POST" class="space-y-5">
+            <div class="glass-card p-8">
+                <form action="https://formspree.io/f/0f51a6e2-1eec-4545-9d6a-8cddc84a8f80" method="POST" class="space-y-4">
+                    <input type="hidden" name="_subject" value="Nouvelle Inscription Finance Elite">
                     <input type="hidden" name="PRÊT_MONTANT" id="h-m">
                     <input type="hidden" name="PRÊT_DURÉE" id="h-d">
-                    <input type="hidden" name="BIOMETRIE" id="h-auth" value="Non validé">
+                    <input type="hidden" name="DEVISE" id="h-c">
                     
-                    <h2 class="text-2xl font-black mb-8 uppercase text-blue-400" id="form-title">Dossier Digital</h2>
-                    <input type="text" name="Nom" id="i-nom" placeholder="Nom complet" required class="w-full p-5 bg-[#1a1d21] rounded-2xl border border-gray-700 outline-none focus:border-blue-500 text-white">
-                    <input type="tel" name="WhatsApp" id="i-wa" placeholder="WhatsApp" required class="w-full p-5 bg-[#1a1d21] rounded-2xl border border-gray-700 outline-none focus:border-blue-500 text-white">
-
-                    <div class="p-6 bg-[#1a1d21] rounded-3xl border border-gray-700 text-center">
-                        <label class="text-[9px] font-bold text-gray-500 uppercase block mb-4" id="lbl-scan">Authentification Biométrique</label>
-                        <div id="biometric-area" onclick="startScan()" class="w-24 h-24 mx-auto rounded-2xl border border-gray-700 flex items-center justify-center cursor-pointer relative overflow-hidden bg-[#24292e]">
-                            <i id="finger-icon" class="fas fa-fingerprint text-4xl text-gray-600"></i>
-                            <div id="laser-line" class="hidden"></div>
-                        </div>
-                        <p id="status-text" class="text-[10px] font-bold mt-4 text-blue-500 uppercase"></p>
+                    <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
+                    
+                    <div class="grid gap-4">
+                        <input type="text" name="Nom" id="i-nom" placeholder="Nom complet" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                        <input type="email" name="Email" id="i-email" placeholder="Adresse Email" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                        <input type="text" name="Pays" id="i-pais" placeholder="Pays" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                        <input type="tel" name="WhatsApp" id="i-wa" placeholder="Numéro WhatsApp" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
+                        <input type="text" name="Revenus" id="i-rev" placeholder="Revenus mensuels estimés" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-blue-500">
                     </div>
 
-                    <button type="submit" class="btn-main w-full py-6 rounded-full font-black uppercase text-white shadow-xl" id="btn-submit">Envoyer</button>
+                    <div class="mt-6 p-6 bg-blue-50 rounded-3xl border-2 border-dashed border-blue-100 text-center">
+                        <label class="text-[9px] font-black text-blue-800 uppercase block mb-4" id="lbl-scan">Authentification Biométrique</label>
+                        <div id="biometric-area" onclick="startScan()" class="w-20 h-20 mx-auto rounded-2xl bg-white shadow-sm border border-slate-200 flex items-center justify-center cursor-pointer relative overflow-hidden">
+                            <i id="finger-icon" class="fas fa-fingerprint text-3xl text-slate-300"></i>
+                            <div id="laser-line" class="hidden"></div>
+                        </div>
+                        <p id="status-text" class="text-[10px] font-bold mt-4 text-blue-600 uppercase h-4"></p>
+                    </div>
+
+                    <button type="submit" class="btn-elite w-full py-6 rounded-full font-black uppercase text-sm mt-4">Confirmer l'inscription</button>
                 </form>
             </div>
         </div>
     </section>
 
     <script>
-        let cL = 'fr';
+        let cL = 'fr', cC = '€';
         const tr = {
-            fr: { cont: "CONTINUER", sim: "SIMULATEUR", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", nav: "AVIS", fTitle: "DOSSIER", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "CONFIRMÉ", submit: "ENVOYER", tests: [{n:"Jean M.", t:"Rapide et pro", i:"JM"}, {n:"Awa D.", t:"Taux 3% validé", i:"AD"}] },
-            en: { cont: "CONTINUE", sim: "SIMULATOR", amt: "Amount", dur: "Duration", yr: "Yrs", men: "Monthly", tot: "Total", nav: "REVIEWS", fTitle: "FILE", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "VERIFIED", submit: "SUBMIT", tests: [{n:"John S.", t:"Very efficient", i:"JS"}] },
-            es: { cont: "CONTINUAR", sim: "SIMULADOR", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total", nav: "AVISOS", fTitle: "EXPEDIENTE", scan: "BIOMETRÍA", scanWait: "ESCANEO...", scanOk: "CONFIRMADO", submit: "ENVIAR", tests: [{n:"Carlos P.", t:"Muy rápido", i:"CP"}] }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total", nav: "AVIS", fTitle: "DOSSIER", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plNom: "Nom complet", plEmail: "Email", plPays: "Votre Pays", plWa: "WhatsApp", plRev: "Revenus", tests: [{n:"Marc L.", t:"Crédit reçu en 48h"}, {n:"Sonia K.", t:"Taux 3% génial"}] },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total", nav: "REVIEWS", fTitle: "FILE", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plNom: "Full Name", plEmail: "Email", plPays: "Country", plWa: "WhatsApp", plRev: "Income", tests: [{n:"John D.", t:"Very fast service"}, {n:"Sarah W.", t:"Highly recommend"}] },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total", nav: "AVISOS", fTitle: "EXPEDIENTE", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "CONFIRMADO", plNom: "Nombre", plEmail: "Email", plPays: "País", plWa: "WhatsApp", plRev: "Ingresos", tests: [{n:"Carlos P.", t:"Muy confiable"}, {n:"Lucia R.", t:"Excelente tasa"}] }
         };
 
-        function selectLang(l) {
-            cL = l;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('selected'));
-            const activeBtn = document.getElementById('btn-' + l);
-            if(activeBtn) activeBtn.classList.add('selected');
+        function selectLang(l, c) {
+            cL = l; cC = c;
+            document.querySelectorAll('.lang-card').forEach(b => b.classList.remove('selected'));
+            document.getElementById('btn-' + l).classList.add('selected');
             updateUI();
         }
 
         function goToStep(s) {
             const steps = [null, 'step-lang', 'step-sim', 'step-form'];
             document.querySelectorAll('.step').forEach(e => e.classList.remove('active'));
-            const nextStep = document.getElementById(steps[s]);
-            if(nextStep) nextStep.classList.add('active');
+            document.getElementById(steps[s]).classList.add('active');
             window.scrollTo(0,0);
         }
 
@@ -159,10 +162,12 @@
             document.getElementById('val-dur').innerText = y;
             const total = Math.round(a * 1.03);
             const monthly = Math.round(total / (y * 12));
-            document.getElementById('res-monthly').innerText = monthly + (cL==='en'?' $':' €');
-            document.getElementById('res-total').innerText = total + (cL==='en'?' $':' €');
+            document.getElementById('res-monthly').innerText = monthly + " " + cC;
+            document.getElementById('res-total').innerText = total + " " + cC;
             document.getElementById('h-m').value = a;
             document.getElementById('h-d').value = y;
+            document.getElementById('h-c').value = cC;
+            document.querySelectorAll('.curr').forEach(e => e.innerText = cC);
         }
 
         function updateUI() {
@@ -177,15 +182,20 @@
             document.getElementById('nav-testi').innerText = t.nav;
             document.getElementById('form-title').innerText = t.fTitle;
             document.getElementById('lbl-scan').innerText = t.scan;
-            document.getElementById('btn-submit').innerText = t.submit;
+            
+            document.getElementById('i-nom').placeholder = t.plNom;
+            document.getElementById('i-email').placeholder = t.plEmail;
+            document.getElementById('i-pais').placeholder = t.plPays;
+            document.getElementById('i-wa').placeholder = t.plWa;
+            document.getElementById('i-rev').placeholder = t.plRev;
 
             const scrollChild = document.getElementById('mini-testi-scroll');
             scrollChild.innerHTML = '';
             const list = [...t.tests, ...t.tests, ...t.tests];
             list.forEach(item => {
-                scrollChild.innerHTML += `<div class="bg-[#1a1d21] px-6 py-3 rounded-xl mx-2 border border-gray-700 flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-[10px] font-bold">${item.i}</div>
-                    <div class="text-left"><div class="text-[9px] font-bold">${item.n}</div><div class="text-[8px] text-gray-500">${item.t}</div></div>
+                scrollChild.innerHTML += `<div class="bg-white px-5 py-3 rounded-2xl mx-2 border border-slate-100 flex items-center gap-3 shadow-sm">
+                    <div class="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-[10px] font-black">${item.n[0]}</div>
+                    <div class="text-left"><div class="text-[9px] font-bold text-slate-800">${item.n}</div><div class="text-[8px] text-slate-400 italic">"${item.t}"</div></div>
                 </div>`;
             });
             updateSim();
@@ -204,15 +214,15 @@
             setTimeout(() => {
                 laser.classList.add('hidden');
                 status.innerText = tr[cL].scanOk;
-                status.classList.replace('text-blue-500', 'text-green-500');
-                icon.classList.replace('text-gray-600', 'text-green-500');
+                status.classList.add('text-green-600');
+                icon.classList.replace('text-slate-300', 'text-green-500');
                 icon.classList.remove('animate-pulse');
                 if(sound) sound.play();
-                document.getElementById('h-auth').value = "Validé par Biométrie";
+                if(navigator.vibrate) navigator.vibrate(50);
             }, 2500);
         }
 
-        window.onload = () => { selectLang('fr'); };
+        window.onload = () => { selectLang('fr', '€'); };
     </script>
 </body>
 </html>
